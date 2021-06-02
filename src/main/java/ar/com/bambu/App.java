@@ -1,5 +1,6 @@
 package ar.com.bambu;
 
+import ar.com.bambu.jpos.EpsonPackager;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
 
@@ -17,19 +18,24 @@ public class App {
         ISOMsg m = new ISOMsg();
         m.setPackager(new EpsonPackager());
 
-        m.set(0,"1");
-        m.set(1,"2");
+        m.set(1,new byte[]{1});
+        m.set(2,new byte[]{2});
+        m.set(3,new byte[]{3});
 
         byte[] pack = m.pack();
-
+        System.out.println(ISOUtil.byte2hex(pack));
         ISOMsg reply = new ISOMsg();
-        reply.getString(3)
+
+
         reply.setPackager(new EpsonPackager());
         reply.unpack(pack);
 
 
+        System.out.println(ISOUtil.byte2hex(reply.pack()));
 
-        System.out.println(ISOUtil.byte2hex(pack));
+
+
+
 
     }
 }
