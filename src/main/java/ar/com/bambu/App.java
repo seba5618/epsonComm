@@ -22,24 +22,24 @@ public class App {
 
         m.set(1,new byte[]{0x05,0x02});
         m.set(2,new byte[]{0x00,0x00});
-      //  m.set(3,"HOLA GATO".getBytes());
+
 
         byte[] pack = m.pack();
         System.out.println(ISOUtil.byte2hex(pack));
-        EpsonFrameMsg reply = new EpsonFrameMsg();
-
-
-        reply.setPackager(new EpsonPackager());
-        reply.unpack(pack);
-
-
-        System.out.println(ISOUtil.byte2hex(reply.pack()));
-        System.out.println(reply.getString(3));
-
-        channel.sendMsg(reply.pack(), (byte)0xdc);
 
 
 
+
+
+        byte[] reply = channel.sendMsg(pack);
+
+        EpsonFrameMsg replyMsg = new EpsonFrameMsg();
+
+
+        replyMsg.setPackager(new EpsonPackager());
+        replyMsg.unpack(reply);
+
+        System.out.println("respuesta: "+ ISOUtil.byte2hex(replyMsg.pack()));
 
 
     }
