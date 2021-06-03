@@ -14,6 +14,7 @@ public class IF_TCHARB extends IF_FSTBINARY {
     private byte terminator = -1;
     private static byte STX = 0x02;
     private static byte ETX = 0x03;
+    private static byte ESC = 0x1B;
     private String token;
 
     public IF_TCHARB() {
@@ -47,8 +48,8 @@ public class IF_TCHARB extends IF_FSTBINARY {
             ByteArrayOutputStream result = new ByteArrayOutputStream();
 
             for (int i = 0; i < s.length; i++) {
-                if (s[i] == STX || s[i] == ETX) {
-                    result.write(ETX);
+                if (s[i] == STX || s[i] == ESC || s[i] == ETX) {
+                    result.write(ESC);
                 }
                 result.write(s[i]);
             }
@@ -86,7 +87,7 @@ public class IF_TCHARB extends IF_FSTBINARY {
                 ByteArrayOutputStream result = new ByteArrayOutputStream();
 
                 for (int i = 0; i < value.length; i++) {
-                    if (value[i] == ETX && i<value.length-1) {
+                    if (value[i] == ESC && i<value.length-1) {
                         result.write(value[++i]);
                     }else{
                         result.write(value[i]);

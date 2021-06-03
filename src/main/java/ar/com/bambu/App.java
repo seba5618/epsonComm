@@ -1,6 +1,8 @@
 package ar.com.bambu;
 
+import ar.com.bambu.jpos.EpsonFrameMsg;
 import ar.com.bambu.jpos.EpsonPackager;
+import ar.com.bambu.serial.EpsonSerialChannel;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
 
@@ -9,22 +11,22 @@ import org.jpos.iso.ISOUtil;
  */
 public class App {
 
-    private static byte STX = 0x02;
-    private static byte ETX = 0x03;
+
 
     public static void main(String[] args)  throws Exception{
         System.out.println("Hello World!");
+        EpsonSerialChannel channel = new EpsonSerialChannel();
 
-        ISOMsg m = new ISOMsg();
+        EpsonFrameMsg m = new EpsonFrameMsg();
         m.setPackager(new EpsonPackager());
 
-        m.set(1,new byte[]{1});
-        m.set(2,new byte[]{2});
-        m.set(3,new byte[]{3});
+        m.set(1,new byte[]{0x05,0x02});
+        m.set(2,new byte[]{0x00,0x00});
+      //  m.set(3,"HOLA GATO".getBytes());
 
         byte[] pack = m.pack();
         System.out.println(ISOUtil.byte2hex(pack));
-        ISOMsg reply = new ISOMsg();
+        EpsonFrameMsg reply = new EpsonFrameMsg();
 
 
         reply.setPackager(new EpsonPackager());
@@ -32,6 +34,9 @@ public class App {
 
 
         System.out.println(ISOUtil.byte2hex(reply.pack()));
+        System.out.println(reply.getString(3));
+
+        channel.sendMsg(reply.pack(), (byte)0xdc);
 
 
 

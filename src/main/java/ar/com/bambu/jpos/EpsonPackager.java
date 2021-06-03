@@ -13,6 +13,12 @@ public class EpsonPackager extends ISOBasePackager {
             new IF_TCHARB(2048,"tipo mensaje"),
             new IF_TCHARB(2048,"tipo mensaje"),
             new IF_TCHARB(2048,"tipo mensaje"),
+            new IF_TCHARB(2048,"tipo mensaje"),
+            new IF_TCHARB(2048,"tipo mensaje"),
+            new IF_TCHARB(2048,"tipo mensaje"),
+            new IF_TCHARB(2048,"tipo mensaje"),
+            new IF_TCHARB(2048,"tipo mensaje"),
+            new IF_TCHARB(2048,"tipo mensaje"),
 
             //aca tendria que venir un componente que me devuelva
     };
