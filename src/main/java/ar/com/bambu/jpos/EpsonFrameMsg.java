@@ -21,7 +21,28 @@ public class EpsonFrameMsg extends ISOMsg {
                 return null;
             }
         }
-
         return s;
+    }
+
+    public int getInteger(int fldno){
+        return Integer.parseInt(this.getString(fldno));
+    }
+
+    public long getLong(int fldno){
+        return Long.parseLong(this.getString(fldno));
+    }
+
+    public boolean getBoolean(int fldno){
+        return "S".equalsIgnoreCase(this.getString(fldno));
+    }
+
+    public byte getByte(int fldno) {
+        Object value = null;
+        try {
+            value = this.getValue(fldno);
+        } catch (ISOException e) {
+            e.printStackTrace();
+        }
+        return ((byte[])value)[0];
     }
 }

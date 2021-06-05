@@ -7,18 +7,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
+import static ar.com.bambu.serial.EpsonSerialChannel.*;
 
 public class IF_TCHARB extends IF_FSTBINARY {
 
     private byte terminator = -1;
-    private static byte STX = 0x02;
-    private static byte ETX = 0x03;
-    private static byte ESC = 0x1B;
     private String token;
-
-    public IF_TCHARB() {
-    }
 
     public IF_TCHARB(int len, String description) {
         super(len, description);
@@ -53,10 +47,7 @@ public class IF_TCHARB extends IF_FSTBINARY {
                 }
                 result.write(s[i]);
             }
-
             result.write(this.terminator);
-
-
             return result.toByteArray();
         }
     }
@@ -131,7 +122,6 @@ public class IF_TCHARB extends IF_FSTBINARY {
                     endFound = true;
                     break;
                 }
-
                 buf.put(dataByte);
             }
 
@@ -142,11 +132,8 @@ public class IF_TCHARB extends IF_FSTBINARY {
                 if (in.markSupported()) {
                     in.reset();
                 }
-
                 throw new ISOException("Terminating Backslash does not exist");
             }
         }
     }
-
-
 }

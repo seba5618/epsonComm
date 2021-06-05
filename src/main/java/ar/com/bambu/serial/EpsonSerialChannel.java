@@ -1,6 +1,9 @@
 package ar.com.bambu.serial;
 
+import ar.com.bambu.communicator.EpsonCommunicator;
 import com.fazecast.jSerialComm.SerialPort;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jpos.iso.ISOUtil;
 
 
@@ -8,17 +11,17 @@ import java.io.ByteArrayOutputStream;
 
 
 public class EpsonSerialChannel {
-    private static byte STX = 0x02;
-    private static byte ETX = 0x03;
-    private static byte ESC = 0x1B;
-    private static byte DEL = 0x1C;
-    private byte seq = (byte) 0x81;
-
+    public static final byte STX = 0x02;
+    public static final byte ETX = 0x03;
+    public static final byte ESC = 0x1B;
+    public static final byte DEL = 0x1C;
+    public byte seq = (byte) 0x81;
+    private static final Logger logger = LogManager.getLogger(EpsonSerialChannel.class);
 
     public byte[] sendMsg(byte [] dataFrame, byte seq) throws Exception {
         //creo un nuevo byte[] con el start de package, seq le pongo lo que me mandaron y le chanto el end y el checksum
         byte[] outFrame = this.generateFrame(dataFrame, seq);
-        System.out.println("todo:  "+ISOUtil.byte2hex(outFrame));
+        logger.debug("Por enviar frame por puerto serie:  "+ISOUtil.byte2hex(outFrame));
         this.writeFrame(outFrame);
         return this.readFrame();
     }
@@ -55,7 +58,7 @@ public class EpsonSerialChannel {
     }
 
     private void writeFrame(byte[] data){
-        SerialPort comPort = SerialPort.getCommPort("/dev/pts/3");
+        SerialPort comPort = SerialPort.getCommPort("/dev/pts/1");
         comPort.openPort();
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
         comPort.writeBytes(data, data.length);
@@ -63,7 +66,7 @@ public class EpsonSerialChannel {
     }
 
     private byte[] readFrame() {
-        SerialPort comPort = SerialPort.getCommPort("/dev/pts/4");
+        SerialPort comPort = SerialPort.getCommPort("/dev/pts/3");
 
 
         comPort.openPort();
@@ -73,15 +76,18 @@ public class EpsonSerialChannel {
 
             byte[] readBuffer = new byte[4];
 
-            int numRead = comPort.readBytes(readBuffer, 1);
+            comPort.readBytes(readBuffer, 1);
+
+
             if (readBuffer[0] != STX) {
                 //nos desincronizamos, leer hasta encontrar un 0x02 que no le siga a un ESC
-                while (readBuffer[0] != ETX) {
-                    System.out.println("Desincronizados, descartanto paquetes: ");
+                while (readBuffer[0] != STX) {
+                    logger.info("Desincronizados, descartanto paquetes: "+ISOUtil.byte2hex(readBuffer));
                     if (readBuffer[0] == ESC) {
                         //no puede terminar en ESC una trama
                         comPort.readBytes(readBuffer, 1);
                     }
+
                     comPort.readBytes(readBuffer, 1);
                 }
             }
@@ -90,27 +96,25 @@ public class EpsonSerialChannel {
             //leido ya SEQ
             comPort.readBytes(readBuffer, 1);
             while (readBuffer[0] != ETX) {
-                System.out.println("in the loop: "+ISOUtil.hexString(result.toByteArray()));
+                logger.debug("in the loop: "+ISOUtil.hexString(result.toByteArray()));
                 if (readBuffer[0] == ESC) {
                     //no puede terminar en ESC una trama
                     result.write(ESC);
                     comPort.readBytes(readBuffer, 1);
-                    result.write(readBuffer[0]);
-                } else {
-                    result.write(readBuffer[0]);
                 }
+                result.write(readBuffer[0]);
                 comPort.readBytes(readBuffer, 1);
             }
-            System.out.println("out of the loop: "+ISOUtil.hexString(result.toByteArray()));
+            logger.debug("out of the loop: "+ISOUtil.hexString(result.toByteArray()));
             //leimos hasta ETX, leo 4 bytes mas de checksum que no hago nada con esto por ahora.
             comPort.readBytes(readBuffer, 4);
 
             //y pongo un delimitador porque deberia de tener segun jpos.
             result.write(DEL);
-            System.out.println("final de leer serial: "+ISOUtil.hexString(result.toByteArray()));
+           logger.debug("final de leer serial: "+ISOUtil.hexString(result.toByteArray()));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error serial reading;", e);
         }
         comPort.closePort();
 

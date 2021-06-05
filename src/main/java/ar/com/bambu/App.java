@@ -1,8 +1,12 @@
 package ar.com.bambu;
 
+import ar.com.bambu.communicator.EpsonCommunicator;
+import ar.com.bambu.communicator.reply.ObtenerConfiguracionFechayHora;
 import ar.com.bambu.jpos.EpsonFrameMsg;
 import ar.com.bambu.jpos.EpsonPackager;
 import ar.com.bambu.serial.EpsonSerialChannel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
 
@@ -10,37 +14,16 @@ import org.jpos.iso.ISOUtil;
  * Hello world!
  */
 public class App {
-
+    private static final Logger logger = LogManager.getLogger(App.class);
 
 
     public static void main(String[] args)  throws Exception{
-        System.out.println("Hello World!");
-        EpsonSerialChannel channel = new EpsonSerialChannel();
-
-        EpsonFrameMsg m = new EpsonFrameMsg();
-        m.setPackager(new EpsonPackager());
-
-        m.set(1,new byte[]{0x05,0x02});
-        m.set(2,new byte[]{0x00,0x00});
+        EpsonCommunicator epsonCommunicator = new EpsonCommunicator();
 
 
-        byte[] pack = m.pack();
-        System.out.println(ISOUtil.byte2hex(pack));
+        ObtenerConfiguracionFechayHora fechaHora = epsonCommunicator.getFechaHora();
 
-
-
-
-
-        byte[] reply = channel.sendMsg(pack);
-
-        EpsonFrameMsg replyMsg = new EpsonFrameMsg();
-
-
-        replyMsg.setPackager(new EpsonPackager());
-        replyMsg.unpack(reply);
-
-        System.out.println("respuesta: "+ ISOUtil.byte2hex(replyMsg.pack()));
-
+        logger.info("");
 
     }
 }
