@@ -1,10 +1,15 @@
 package ar.com.bambu.jpos;
 
+import ar.com.bambu.communicator.EpsonCommunicator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
 
 public class EpsonFrameMsg extends ISOMsg {
+
+    private static final Logger logger = LogManager.getLogger(EpsonFrameMsg.class);
 
     @Override
     public String getString(int fldno) {
@@ -18,7 +23,7 @@ public class EpsonFrameMsg extends ISOMsg {
                     s = new String((byte[]) obj, ISOUtil.CHARSET);
                 }
             } catch (ISOException var4) {
-                return null;
+                logger.error(var4);
             }
         }
         return s;
@@ -41,8 +46,18 @@ public class EpsonFrameMsg extends ISOMsg {
         try {
             value = this.getValue(fldno);
         } catch (ISOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return ((byte[])value)[0];
+    }
+
+    public byte[] getBytes(int fldno){
+        byte[] result = null;
+        try {
+            result =  (byte[]) this.getValue(fldno);
+        } catch (Exception e) {
+          logger.error(e);
+        }
+        return result;
     }
 }

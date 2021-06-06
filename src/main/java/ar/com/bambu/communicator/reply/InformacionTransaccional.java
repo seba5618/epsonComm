@@ -2,7 +2,7 @@ package ar.com.bambu.communicator.reply;
 
 import ar.com.bambu.jpos.EpsonFrameMsg;
 
-public class ObtenerInformacionTransaccional implements Reply{
+public class InformacionTransaccional implements Reply{
     private int cintaTestigoDigitalDesde;
 	private int cintaTestigoDigitalHasta;
 	private int duplicadosADesde;
@@ -15,7 +15,7 @@ public class ObtenerInformacionTransaccional implements Reply{
 	private int jornadasBorradasHasta;
 	
 	
-    public ObtenerInformacionTransaccional(EpsonFrameMsg msg) {
+    public InformacionTransaccional(EpsonFrameMsg msg) {
 		cintaTestigoDigitalDesde = msg.getInteger(6);
 		cintaTestigoDigitalHasta = msg.getInteger(7);
 		duplicadosADesde = msg.getInteger(8);

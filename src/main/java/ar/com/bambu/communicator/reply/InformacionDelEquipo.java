@@ -2,7 +2,7 @@ package ar.com.bambu.communicator.reply;
 
 import ar.com.bambu.jpos.EpsonFrameMsg;
 
-public class ObtenerInformacionDelEquipo implements Reply {
+public class InformacionDelEquipo implements Reply {
 
     private String version;
     private int idPais;
@@ -18,7 +18,7 @@ public class ObtenerInformacionDelEquipo implements Reply {
     private byte estadoDipsSwitches;
 
 
-    public ObtenerInformacionDelEquipo(EpsonFrameMsg msg) {
+    public InformacionDelEquipo(EpsonFrameMsg msg) {
         this.version=msg.getString(6);
         this.idPais=msg.getInteger(7);
         this.majorVersion=msg.getInteger(8);

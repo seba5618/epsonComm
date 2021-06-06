@@ -2,11 +2,11 @@ package ar.com.bambu.communicator.reply;
 
 import ar.com.bambu.jpos.EpsonFrameMsg;
 
-public class ObtenerConfiguracionFechayHora implements Reply{
+public class ConfiguracionFechayHora implements Reply{
     private String fecha;
     private String hora;
 
-    public ObtenerConfiguracionFechayHora(EpsonFrameMsg msg) {
+    public ConfiguracionFechayHora(EpsonFrameMsg msg) {
         this.fecha = msg.getString(6);
         this.hora = msg.getString(7);
     }

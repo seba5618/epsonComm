@@ -3,13 +3,8 @@ package ar.com.bambu;
 import ar.com.bambu.communicator.EpsonCommunicator;
 import ar.com.bambu.communicator.reply.*;
 //ObtenerConfiguracionFechayHora;
-import ar.com.bambu.jpos.EpsonFrameMsg;
-import ar.com.bambu.jpos.EpsonPackager;
-import ar.com.bambu.serial.EpsonSerialChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jpos.iso.ISOMsg;
-import org.jpos.iso.ISOUtil;
 
 /**
  * Hello world!
@@ -23,11 +18,11 @@ public class App {
 
 		;
 
-        ObtenerConfiguracionFechayHora fechaHora = epsonCommunicator.getFechaHora();
+        ConfiguracionFechayHora fechaHora = epsonCommunicator.getFechaHora();
 		
         logger.info("Aca va la fecha by Seba " + fechaHora.getFecha() + " hora " + fechaHora.getHora());
 		
-		ObtenerInformacionDelEquipo InformacionEquipo = epsonCommunicator.getInformacionEquipo();
+		InformacionDelEquipo InformacionEquipo = epsonCommunicator.getInformacionEquipo();
 		logger.info("Aca va la fecha No va seba " + InformacionEquipo.getVersion() + " mecanismo " + InformacionEquipo.getNombreMecanismoImpresion()); 
 	
 		logger.info("Aca va la fecha by Seba " + fechaHora.getFecha() + " hora " + fechaHora.getHora());

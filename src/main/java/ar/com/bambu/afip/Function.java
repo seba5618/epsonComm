@@ -1,2 +1,5 @@
-package ar.com.bambu.afip;public interface Function {
+package ar.com.bambu.afip;
+
+public interface Function {
+    public void apply();
 }

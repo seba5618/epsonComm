@@ -8,12 +8,13 @@ import org.apache.logging.log4j.Logger;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class Reporte {
-    private static final Logger logger = LogManager.getLogger(Reporte.class);
+public class ReporteAfip {
+    private static final Logger logger = LogManager.getLogger(ReporteAfip.class);
     private String fileName;
-    private byte[] data;
+    private String dataHex;
     private boolean partialData;
-    public Reporte(EpsonFrameMsg msg) {
+
+    public ReporteAfip(EpsonFrameMsg msg) {
         this.fileName = msg.getString(6);
     }
 
@@ -33,22 +34,19 @@ public class Reporte {
         this.fileName = fileName;
     }
 
-    public byte[] getData() {
-        return data;
+    public String getDataHex() {
+        return dataHex;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setDataHex(String dataHex) {
+        this.dataHex = dataHex;
     }
 
-    public void update(EpsonFrameMsg msg){
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        try {
-            bytes.write(this.data);
-            bytes.write(msg.getBytes(6));
-            this.data = bytes.toByteArray();
-        } catch (IOException e) {
-            logger.error(e);
+    public void update(EpsonFrameMsg msg) {
+        if (this.dataHex == null) {
+            this.dataHex = msg.getString(6);
+        } else {
+            this.dataHex += msg.getString(6);
         }
         this.partialData = msg.getBoolean(7);
     }
