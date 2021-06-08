@@ -5,29 +5,35 @@ import ar.com.bambu.communicator.reply.*;
 //ObtenerConfiguracionFechayHora;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.w3c.dom.Document;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 
 /**
  * Hello world!
  */
 public class App {
+
+
+
     private static final Logger logger = LogManager.getLogger(App.class);
 
 
     public static void main(String[] args)  throws Exception{
-        EpsonCommunicator epsonCommunicator = new EpsonCommunicator();
 
-		;
+        DocumentBuilderFactory builderFactory =
+                DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try {
+            builder = builderFactory.newDocumentBuilder();
+            Document asdf = builder.parse("asdf");
 
-        ConfiguracionFechayHora fechaHora = epsonCommunicator.getFechaHora();
-		
-        logger.info("Aca va la fecha by Seba " + fechaHora.getFecha() + " hora " + fechaHora.getHora());
-		
-		InformacionDelEquipo InformacionEquipo = epsonCommunicator.getInformacionEquipo();
-		logger.info("Aca va la fecha No va seba " + InformacionEquipo.getVersion() + " mecanismo " + InformacionEquipo.getNombreMecanismoImpresion()); 
-	
-		logger.info("Aca va la fecha by Seba " + fechaHora.getFecha() + " hora " + fechaHora.getHora());
-		
-		epsonCommunicator.getInformacionTransaccional();
-		
+
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 }

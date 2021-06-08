@@ -1,10 +1,21 @@
 package ar.com.bambu.afip;
 
 import ar.com.bambu.communicator.EpsonCommunicator;
+import ar.com.bambu.communicator.reply.AuditoriaJornadasFiscales;
+import ar.com.bambu.communicator.reply.InformacionTransaccional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AuditoriaAfipSegunFecha implements Function{
 
     private EpsonCommunicator communicator ;
+
+    private static final Logger logger = LogManager.getLogger(AuditoriaAfipSegunFecha.class);
 
     public AuditoriaAfipSegunFecha(EpsonCommunicator communicator) {
         this.communicator = communicator;
@@ -22,6 +33,65 @@ public class AuditoriaAfipSegunFecha implements Function{
      */
     @Override
     public void apply() {
+        try {
+            InformacionTransaccional informacionTransaccional = this.communicator.getInformacionTransaccional();
+            int jornadasDescargadasHasta = informacionTransaccional.getJornadasDescargadasHasta();
+            AuditoriaJornadasFiscales auditoriaDeJornadasFiscalesPorRangoDeCierreZ =
+                    this.communicator.getAuditoriaDeJornadasFiscalesPorRangoDeCierreZ(jornadasDescargadasHasta + 1, jornadasDescargadasHasta, false);
+            String fechaDesde = this.getFechaDesde(auditoriaDeJornadasFiscalesPorRangoDeCierreZ);
+            this.getFechaHasta(auditoriaDeJornadasFiscalesPorRangoDeCierreZ);
+        //aca no se que hacer si las fechas de los z son distintas, pero suponiendo son iguales obtener el rango de fechas segun esta fecha
+            // 1 al 7 del mes, o 8 al 14 del mes, o 15 al 21 del mes o 22 a fin de mes.
+            String[] rangoFechaAfip = this.getRangoFechaAfip(fechaDesde);
+
+            //todo
+            //falta llamar 3 veces al metodo de reporte afip y guardar los archivos que nos devuelve.
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //horrible, deberia leer el xml entero y pedir por xpath pero bue
+    private String getFechaDesde(AuditoriaJornadasFiscales auditoriaDeJornadasFiscalesPorRangoDeCierreZ) {
+        String xml = auditoriaDeJornadasFiscalesPorRangoDeCierreZ.getXmlData();
+        int i = xml.lastIndexOf("<fechaZDesde>");
+        String result = new String(xml.toCharArray(), i, 10);
+        return result;
+    }
+
+    //horrible, deberia leer el xml entero y pedir por xpath pero bue
+    private String getFechaHasta(AuditoriaJornadasFiscales auditoriaDeJornadasFiscalesPorRangoDeCierreZ) {
+        String xml = auditoriaDeJornadasFiscalesPorRangoDeCierreZ.getXmlData();
+        int i = xml.lastIndexOf("<fechaZHasta>");
+        String result = new String(xml.toCharArray(), i, 10);
+        return result;
+    }
+
+    private String[] getRangoFechaAfip(String fecha) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DDMMYYYY");
+        Date parse = simpleDateFormat.parse(fecha);
+        String[] result = new String[2];
+        String sufijo = fecha.substring(2);
+        Integer dia = Integer.parseInt(fecha.substring(0,2));
+
+        if(dia <= 7){
+            result[0]="01"+sufijo;
+            result[1]="07"+sufijo;
+        }else if ( dia <= 14){
+            result[0]="08"+sufijo;
+            result[1]="14"+sufijo;
+        }else if(dia <= 21){
+            result[0]="15"+sufijo;
+            result[1]="21"+sufijo;
+        }else {
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(parse);
+            result[0]="22"+sufijo;
+            int day = instance.getActualMaximum(Calendar.DAY_OF_MONTH);
+            result[1]=day+sufijo;
+        }
+        return result;
 
     }
 }

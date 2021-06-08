@@ -91,7 +91,7 @@ public class EpsonCommunicatorTest {
                 "531C";
         byte[] bytes = ISOUtil.hex2byte(trama);
         Mockito.when(channel.sendMsg(Mockito.any(byte[].class))).thenReturn(bytes);
-        AuditoriaJornadasFiscales auditoriaJornadasFiscales = this.toTest.ObtenerAuditoriaDeJornadasFiscalesPorRangoDeCierreZ(0,0,false);
+        AuditoriaJornadasFiscales auditoriaJornadasFiscales = this.toTest.getAuditoriaDeJornadasFiscalesPorRangoDeCierreZ(0,0,false);
         Assert.assertTrue("Tiene que estar marcado como incompleto el mensaje.", auditoriaJornadasFiscales.isPartialData());
     }
 
@@ -173,11 +173,12 @@ public class EpsonCommunicatorTest {
                 .thenReturn(ISOUtil.hex2byte(tramaLast));
 
 
-        ReporteAfip reporte = this.toTest.ObtenerReporteAfipPorRangoDeFechas(new byte[]{0x00,0x04}, "050505","050505");
+        ReporteAfip reporte = this.toTest.getReporteAfipPorRangoDeFechas(new byte[]{0x00,0x04}, "050505","050505");
         Assert.assertFalse("Tiene que estar marcado como completo el mensaje", reporte.isPartialData());
         Assert.assertEquals("El nombre del archivo de afip no es el esperado: ", "F8011.23123456785.ABCDEF1234567890.20190513.khyypammwmmlpemsawciszvvctugdbrqiroz.pem", reporte.getFileName());
         Assert.assertTrue("Archivo encriptado debe empezar con encabezado: ", reporte.getDataHex().startsWith("-----BEGIN CMS-----"));
         Assert.assertTrue("Archivo encriptado debe terminar con pie: "+reporte.getDataHex(), reporte.getDataHex().endsWith("-----END CMS-----\n"));
+        logger.info("Archivo encriptado: "+reporte.getDataHex());
     }
 
 }

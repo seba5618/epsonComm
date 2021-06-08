@@ -71,7 +71,7 @@ public class EpsonCommunicator {
      * @return
      * @throws Exception
      */
-    public AuditoriaJornadasFiscales ObtenerAuditoriaDeJornadasFiscalesPorRangoDeCierreZ(int zInicial, int zFinal, boolean completa) throws Exception{
+    public AuditoriaJornadasFiscales getAuditoriaDeJornadasFiscalesPorRangoDeCierreZ(int zInicial, int zFinal, boolean completa) throws Exception{
         logger.info("Sending Comenzar Auditoria de Jornadas Fiscales ");
         String start = String.valueOf(zInicial);
         String end = String.valueOf(zFinal);
@@ -109,7 +109,7 @@ public class EpsonCommunicator {
      * @return
      * @throws Exception
      */
-    public ReporteAfip ObtenerReporteAfipPorRangoDeFechas(byte[] extension, String fechaInicial, String fechaFinal) throws Exception{
+    public ReporteAfip getReporteAfipPorRangoDeFechas(byte[] extension, String fechaInicial, String fechaFinal) throws Exception{
         logger.info("Sending Obtener Reporte por Rango de Fechas ");
         fechaInicial = ISOUtil.padleft(fechaInicial, 6, '0');
         fechaFinal = ISOUtil.padleft(fechaFinal, 6, '0');
