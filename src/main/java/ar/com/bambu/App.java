@@ -1,5 +1,6 @@
 package ar.com.bambu;
 
+import ar.com.bambu.afip.AuditoriaAfipSegunFecha;
 import ar.com.bambu.communicator.EpsonCommunicator;
 import ar.com.bambu.communicator.reply.*;
 //ObtenerConfiguracionFechayHora;
@@ -24,16 +25,7 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
-        DocumentBuilderFactory builderFactory =
-                DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = null;
-        try {
-            builder = builderFactory.newDocumentBuilder();
-            Document asdf = builder.parse("asdf");
-
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
+        AuditoriaAfipSegunFecha auditoriaAfipSegunFecha = new AuditoriaAfipSegunFecha(new EpsonCommunicator());
+        auditoriaAfipSegunFecha.apply();
     }
 }
