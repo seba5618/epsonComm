@@ -48,7 +48,7 @@ public class AuditoriaAfipSegunFecha implements Function{
             //falta llamar 3 veces al metodo de reporte afip y guardar los archivos que nos devuelve.
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("rompio afip", e);
         }
     }
 

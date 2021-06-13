@@ -6,9 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 
-public class ReporteAfip {
+public class ReporteAfip implements Reply {
     private static final Logger logger = LogManager.getLogger(ReporteAfip.class);
     private String fileName;
     private String dataHex;
@@ -49,5 +51,16 @@ public class ReporteAfip {
             this.dataHex += msg.getString(6);
         }
         this.partialData = msg.getBoolean(7);
+    }
+
+    public void saveFile() throws IOException{
+        if(partialData){
+            throw new IOException("File not ready yet to be saved");
+        }
+        File file = new File(fileName);
+        file.delete();
+        PrintWriter output = new PrintWriter(fileName);
+        output.write(dataHex);
+        output.close();
     }
 }
