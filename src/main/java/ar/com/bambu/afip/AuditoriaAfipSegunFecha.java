@@ -3,6 +3,7 @@ package ar.com.bambu.afip;
 import ar.com.bambu.communicator.EpsonCommunicator;
 import ar.com.bambu.communicator.reply.AuditoriaJornadasFiscales;
 import ar.com.bambu.communicator.reply.InformacionTransaccional;
+import ar.com.bambu.communicator.reply.ReporteAfip;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,7 +38,7 @@ public class AuditoriaAfipSegunFecha implements Function{
             InformacionTransaccional informacionTransaccional = this.communicator.getInformacionTransaccional();
             int jornadasDescargadasHasta = informacionTransaccional.getJornadasDescargadasHasta();
             AuditoriaJornadasFiscales auditoriaDeJornadasFiscalesPorRangoDeCierreZ =
-                    this.communicator.getAuditoriaDeJornadasFiscalesPorRangoDeCierreZ(jornadasDescargadasHasta + 1, jornadasDescargadasHasta, false);
+                    this.communicator.getAuditoriaDeJornadasFiscalesPorRangoDeCierreZ(jornadasDescargadasHasta + 1, jornadasDescargadasHasta+1, false);
             String fechaDesde = this.getFechaDesde(auditoriaDeJornadasFiscalesPorRangoDeCierreZ);
             this.getFechaHasta(auditoriaDeJornadasFiscalesPorRangoDeCierreZ);
         //aca no se que hacer si las fechas de los z son distintas, pero suponiendo son iguales obtener el rango de fechas segun esta fecha
@@ -46,6 +47,16 @@ public class AuditoriaAfipSegunFecha implements Function{
 
             //todo
             //falta llamar 3 veces al metodo de reporte afip y guardar los archivos que nos devuelve.
+
+            ReporteAfip reporteAfipPorRangoDeFechas = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x04}, rangoFechaAfip[0], rangoFechaAfip[1]);
+            reporteAfipPorRangoDeFechas.saveFile();
+
+            reporteAfipPorRangoDeFechas = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x00}, rangoFechaAfip[0], rangoFechaAfip[1]);
+            reporteAfipPorRangoDeFechas.saveFile();
+
+            reporteAfipPorRangoDeFechas = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x02}, rangoFechaAfip[0], rangoFechaAfip[1]);
+            reporteAfipPorRangoDeFechas.saveFile();
+
 
         } catch (Exception e) {
             logger.error("rompio afip", e);
