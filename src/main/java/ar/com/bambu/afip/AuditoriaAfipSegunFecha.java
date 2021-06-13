@@ -48,14 +48,14 @@ public class AuditoriaAfipSegunFecha implements Function{
             //todo
             //falta llamar 3 veces al metodo de reporte afip y guardar los archivos que nos devuelve.
 
-            ReporteAfip reporteAfipPorRangoDeFechas = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x04}, rangoFechaAfip[0], rangoFechaAfip[1]);
-            reporteAfipPorRangoDeFechas.saveFile();
+            ReporteAfip reporteAfipPorRangoDeFechas1 = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x04}, rangoFechaAfip[0], rangoFechaAfip[1]);
+            reporteAfipPorRangoDeFechas1.saveFile();
 
-            reporteAfipPorRangoDeFechas = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x00}, rangoFechaAfip[0], rangoFechaAfip[1]);
-            reporteAfipPorRangoDeFechas.saveFile();
+            ReporteAfip reporteAfipPorRangoDeFechas2 = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x00}, rangoFechaAfip[0], rangoFechaAfip[1]);
+            reporteAfipPorRangoDeFechas2.saveFile();
 
-            reporteAfipPorRangoDeFechas = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x02}, rangoFechaAfip[0], rangoFechaAfip[1]);
-            reporteAfipPorRangoDeFechas.saveFile();
+            ReporteAfip reporteAfipPorRangoDeFechas3 = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x02}, rangoFechaAfip[0], rangoFechaAfip[1]);
+            reporteAfipPorRangoDeFechas3.saveFile();
 
 
         } catch (Exception e) {
@@ -67,7 +67,7 @@ public class AuditoriaAfipSegunFecha implements Function{
     private String getFechaDesde(AuditoriaJornadasFiscales auditoriaDeJornadasFiscalesPorRangoDeCierreZ) {
         String xml = auditoriaDeJornadasFiscalesPorRangoDeCierreZ.getXmlData();
         int i = xml.lastIndexOf("<fechaZDesde>");
-        String result = new String(xml.toCharArray(), i, 10);
+        String result = new String(xml.toCharArray(), i+13, 10);
         return result;
     }
 
@@ -75,33 +75,37 @@ public class AuditoriaAfipSegunFecha implements Function{
     private String getFechaHasta(AuditoriaJornadasFiscales auditoriaDeJornadasFiscalesPorRangoDeCierreZ) {
         String xml = auditoriaDeJornadasFiscalesPorRangoDeCierreZ.getXmlData();
         int i = xml.lastIndexOf("<fechaZHasta>");
-        String result = new String(xml.toCharArray(), i, 10);
+        String result = new String(xml.toCharArray(), i+13, 10);
         return result;
     }
 
     private String[] getRangoFechaAfip(String fecha) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DDMMYYYY");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-DD");
+        SimpleDateFormat salida = new SimpleDateFormat("DDMMYY");
+        logger.debug("fecha recibida en rango fecha afip: "+fecha);
         Date parse = simpleDateFormat.parse(fecha);
         String[] result = new String[2];
-        String sufijo = fecha.substring(2);
-        Integer dia = Integer.parseInt(fecha.substring(0,2));
-
+        Integer dia = Integer.parseInt(fecha.substring(8,2));
+        Calendar start = Calendar.getInstance();
+        start.setTime(parse);
+        Calendar end = Calendar.getInstance();
+        start.setTime(parse);
         if(dia <= 7){
-            result[0]="01"+sufijo;
-            result[1]="07"+sufijo;
+            start.set(Calendar.DAY_OF_MONTH,1);
+            end.set(Calendar.DAY_OF_MONTH,7);
+
         }else if ( dia <= 14){
-            result[0]="08"+sufijo;
-            result[1]="14"+sufijo;
+            start.set(Calendar.DAY_OF_MONTH,8);
+            end.set(Calendar.DAY_OF_MONTH,14);
         }else if(dia <= 21){
-            result[0]="15"+sufijo;
-            result[1]="21"+sufijo;
+            start.set(Calendar.DAY_OF_MONTH,15);
+            end.set(Calendar.DAY_OF_MONTH,21);
         }else {
-            Calendar instance = Calendar.getInstance();
-            instance.setTime(parse);
-            result[0]="22"+sufijo;
-            int day = instance.getActualMaximum(Calendar.DAY_OF_MONTH);
-            result[1]=day+sufijo;
+            start.set(Calendar.DAY_OF_MONTH,22);
+            end.set(Calendar.DAY_OF_MONTH,end.getActualMaximum(Calendar.DAY_OF_MONTH));
         }
+        result[0]=salida.format(start.getTime());
+        result[1]=salida.format(end.getTime());;
         return result;
 
     }

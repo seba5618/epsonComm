@@ -108,6 +108,7 @@ public class EpsonSerialChannel {
             logger.debug("out of the loop: "+ISOUtil.hexString(result.toByteArray()));
             //leimos hasta ETX, leo 4 bytes mas de checksum que no hago nada con esto por ahora.
             comPort.readBytes(readBuffer, 4);
+            comPort.writeBytes(new byte[]{0x06},1);
 
             //y pongo un delimitador porque deberia de tener segun jpos.
             result.write(DEL);

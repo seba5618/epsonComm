@@ -111,8 +111,10 @@ public class EpsonCommunicator {
      */
     public ReporteAfip getReporteAfipPorRangoDeFechas(byte[] extension, String fechaInicial, String fechaFinal) throws Exception{
         logger.info("Sending Obtener Reporte por Rango de Fechas ");
+        logger.debug("Fechas recibidas: "+fechaFinal+" y "+fechaFinal);
         fechaInicial = ISOUtil.padleft(fechaInicial, 6, '0');
         fechaFinal = ISOUtil.padleft(fechaFinal, 6, '0');
+
         EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{0x09,0x51}, extension, fechaInicial.getBytes(ISOUtil.CHARSET), fechaFinal.getBytes(ISOUtil.CHARSET));
         ReporteAfip result = new ReporteAfip(reply);
         reply = this.sendGenericMsg(new byte[]{0x09, 0x70}, new byte[]{0x00,0x00});
