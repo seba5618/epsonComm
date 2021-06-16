@@ -80,12 +80,12 @@ public class AuditoriaAfipSegunFecha implements Function{
     }
 
     private String[] getRangoFechaAfip(String fecha) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-DD");
-        SimpleDateFormat salida = new SimpleDateFormat("DDMMYY");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        SimpleDateFormat salida = new SimpleDateFormat("ddMMYY");
         logger.debug("fecha recibida en rango fecha afip: "+fecha);
         Date parse = simpleDateFormat.parse(fecha);
         String[] result = new String[2];
-        Integer dia = Integer.parseInt(fecha.substring(8,2));
+        Integer dia = Integer.parseInt(fecha.substring(8,10));
         Calendar start = Calendar.getInstance();
         start.setTime(parse);
         Calendar end = Calendar.getInstance();
@@ -105,7 +105,7 @@ public class AuditoriaAfipSegunFecha implements Function{
             end.set(Calendar.DAY_OF_MONTH,end.getActualMaximum(Calendar.DAY_OF_MONTH));
         }
         result[0]=salida.format(start.getTime());
-        result[1]=salida.format(end.getTime());;
+        result[1]=salida.format(end.getTime());
         return result;
 
     }
