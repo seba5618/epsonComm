@@ -79,9 +79,9 @@ public class AuditoriaAfipSegunFecha implements Function{
         return result;
     }
 
-    private String[] getRangoFechaAfip(String fecha) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
-        SimpleDateFormat salida = new SimpleDateFormat("ddMMYY");
+    protected String[] getRangoFechaAfip(String fecha) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat salida = new SimpleDateFormat("ddMMyy");
         logger.debug("fecha recibida en rango fecha afip: "+fecha);
         Date parse = simpleDateFormat.parse(fecha);
         String[] result = new String[2];
@@ -89,7 +89,7 @@ public class AuditoriaAfipSegunFecha implements Function{
         Calendar start = Calendar.getInstance();
         start.setTime(parse);
         Calendar end = Calendar.getInstance();
-        start.setTime(parse);
+        end.setTime(parse);
         if(dia <= 7){
             start.set(Calendar.DAY_OF_MONTH,1);
             end.set(Calendar.DAY_OF_MONTH,7);

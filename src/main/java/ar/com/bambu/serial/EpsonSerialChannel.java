@@ -108,7 +108,7 @@ public class EpsonSerialChannel {
             //leido ya SEQ
             comPort.readBytes(readBuffer, 1);
             while (readBuffer[0] != ETX) {
-                logger.debug("in the loop: " + ISOUtil.hexString(result.toByteArray()));
+               // logger.debug("in the loop: " + ISOUtil.hexString(result.toByteArray()));
                 if (readBuffer[0] == ESC) {
                     //no puede terminar en ESC una trama
                     result.write(ESC);

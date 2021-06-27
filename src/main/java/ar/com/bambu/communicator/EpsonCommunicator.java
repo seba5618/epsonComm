@@ -111,7 +111,7 @@ public class EpsonCommunicator {
      */
     public ReporteAfip getReporteAfipPorRangoDeFechas(byte[] extension, String fechaInicial, String fechaFinal) throws Exception{
         logger.info("Sending Obtener Reporte por Rango de Fechas ");
-        logger.debug("Fechas recibidas: "+fechaFinal+" y "+fechaFinal);
+        logger.debug("Fechas recibidas: "+fechaInicial+" y "+fechaFinal);
         fechaInicial = ISOUtil.padleft(fechaInicial, 6, '0');
         fechaFinal = ISOUtil.padleft(fechaFinal, 6, '0');
 
