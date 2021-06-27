@@ -5,10 +5,7 @@ import ar.com.bambu.jpos.EpsonFrameMsg;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class ReporteAfip implements Reply {
     private static final Logger logger = LogManager.getLogger(ReporteAfip.class);
@@ -59,7 +56,8 @@ public class ReporteAfip implements Reply {
         }
         File file = new File(fileName);
         file.delete();
-        PrintWriter output = new PrintWriter(fileName);
+        OutputStream os = new FileOutputStream(fileName);
+        PrintWriter output = new PrintWriter(new OutputStreamWriter(os, "US-ASCII"));
         output.write(dataHex);
         output.close();
     }

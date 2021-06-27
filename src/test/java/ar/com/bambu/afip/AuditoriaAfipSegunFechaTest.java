@@ -30,7 +30,6 @@ public class AuditoriaAfipSegunFechaTest {
     @Test
     public void calculoRangoFechaAfip() throws ParseException {
         String[] rangoFechaAfip = toTest.getRangoFechaAfip("2019-06-28");
-
     }
 
 
