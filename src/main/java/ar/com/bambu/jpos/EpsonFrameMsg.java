@@ -7,6 +7,9 @@ import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
 import org.jpos.iso.ISOUtil;
 
+import java.nio.charset.Charset;
+
+
 public class EpsonFrameMsg extends ISOMsg {
 
     private static final Logger logger = LogManager.getLogger(EpsonFrameMsg.class);
@@ -20,7 +23,7 @@ public class EpsonFrameMsg extends ISOMsg {
                 if (obj instanceof String) {
                     s = (String)obj;
                 } else if (obj instanceof byte[]) {
-                    s = new String((byte[]) obj, ISOUtil.CHARSET);
+                    s = new String((byte[]) obj, Charset.forName("US-ASCII"));
                 }
             } catch (ISOException var4) {
                 logger.error(var4);

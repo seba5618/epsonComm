@@ -57,7 +57,7 @@ public class ReporteAfip implements Reply {
         File file = new File(fileName);
         file.delete();
         OutputStream os = new FileOutputStream(fileName);
-        PrintWriter output = new PrintWriter(new OutputStreamWriter(os, "US-ASCII"));
+        Writer output = new OutputStreamWriter(os, "US-ASCII");
         output.write(dataHex);
         output.close();
     }
