@@ -1,6 +1,7 @@
 package ar.com.bambu.communicator;
 
 import ar.com.bambu.communicator.reply.hassar.ConsultarCapacidadZetas;
+import ar.com.bambu.communicator.reply.hassar.ObtenerRangoFechasPorZetas;
 import ar.com.bambu.jpos.EpsonFrameMsg;
 import ar.com.bambu.jpos.EpsonPackager;
 
@@ -44,19 +45,12 @@ public class HassarCommunicator {
         return result;
     }
 
-    public ConsultarCapacidadZetas getObtenerRangoFechasPorZetas() throws Exception{
-        logger.info("Sending getConsultarCapacidadZetas (Hassar)");
-        EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{0x37});
-        ConsultarCapacidadZetas result = new ConsultarCapacidadZetas(reply);
+    public ObtenerRangoFechasPorZetas getObtenerRangoFechasPorZetas() throws Exception{
+        logger.info("Sending getObtenerRangoFechasPorZetas (Hassar)");
+        EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{(byte)0xBA});
+        ObtenerRangoFechasPorZetas result = new ObtenerRangoFechasPorZetas(reply);
         logger.debug(result.toString());
         return result;
     }
 
-/*    public ConsultarCapacidadZetas getConsultarCapacidadZetas() throws Exception{
-        logger.info("Sending getConsultarCapacidadZetas (Hassar)");
-        EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{0x37});
-        ConsultarCapacidadZetas result = new ConsultarCapacidadZetas(reply);
-        logger.debug(result.toString());
-        return result;
-    }*/
 }
