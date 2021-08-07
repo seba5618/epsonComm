@@ -44,6 +44,14 @@ public class HassarCommunicator {
         return result;
     }
 
+    public ConsultarCapacidadZetas getObtenerRangoFechasPorZetas() throws Exception{
+        logger.info("Sending getConsultarCapacidadZetas (Hassar)");
+        EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{0x37});
+        ConsultarCapacidadZetas result = new ConsultarCapacidadZetas(reply);
+        logger.debug(result.toString());
+        return result;
+    }
+
 /*    public ConsultarCapacidadZetas getConsultarCapacidadZetas() throws Exception{
         logger.info("Sending getConsultarCapacidadZetas (Hassar)");
         EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{0x37});
