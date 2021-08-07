@@ -2,6 +2,7 @@ package ar.com.bambu;
 
 import ar.com.bambu.afip.AuditoriaAfipSegunFecha;
 import ar.com.bambu.communicator.EpsonCommunicator;
+import ar.com.bambu.communicator.HassarCommunicator;
 import ar.com.bambu.communicator.reply.*;
 //ObtenerConfiguracionFechayHora;
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +26,7 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
-        AuditoriaAfipSegunFecha auditoriaAfipSegunFecha = new AuditoriaAfipSegunFecha(new EpsonCommunicator());
-        auditoriaAfipSegunFecha.apply();
+        HassarCommunicator hassarCommunicator = new HassarCommunicator();
+        hassarCommunicator.getConsultarCapacidadZetas();
     }
 }

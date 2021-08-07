@@ -129,7 +129,7 @@ public class EpsonCommunicator {
 
 
 
-    public void setChannel(EpsonSerialChannel channel) {
+    protected void setChannel(EpsonSerialChannel channel) {
         this.channel = channel;
     }
 }

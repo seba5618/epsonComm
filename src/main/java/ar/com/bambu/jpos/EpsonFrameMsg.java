@@ -33,11 +33,11 @@ public class EpsonFrameMsg extends ISOMsg {
     }
 
     public int getInteger(int fldno){
-        return Integer.parseInt(this.getString(fldno));
+        return this.getString(fldno) == null ? 0:Integer.parseInt(this.getString(fldno));
     }
 
     public long getLong(int fldno){
-        return Long.parseLong(this.getString(fldno));
+        return this.getString(fldno) == null ? 0:Long.parseLong(this.getString(fldno));
     }
 
     public boolean getBoolean(int fldno){
@@ -51,7 +51,7 @@ public class EpsonFrameMsg extends ISOMsg {
         } catch (ISOException e) {
             logger.error(e);
         }
-        return ((byte[])value)[0];
+        return value == null ? 0:((byte[])value)[0];
     }
 
     public byte[] getBytes(int fldno){
