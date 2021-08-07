@@ -32,7 +32,7 @@ public class App {
         ConsultarCapacidadZetas consultarCapacidadZetas = hassarCommunicator.getConsultarCapacidadZetas();
         logger.info(consultarCapacidadZetas.toString());
 
-        ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = hassarCommunicator.getObtenerRangoFechasPorZetas();
+        ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = hassarCommunicator.getObtenerRangoFechasPorZetas(17,18);
         logger.info(obtenerRangoFechasPorZetas.toString());
 
     }

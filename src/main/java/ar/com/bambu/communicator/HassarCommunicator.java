@@ -45,9 +45,11 @@ public class HassarCommunicator {
         return result;
     }
 
-    public ObtenerRangoFechasPorZetas getObtenerRangoFechasPorZetas() throws Exception{
+    public ObtenerRangoFechasPorZetas getObtenerRangoFechasPorZetas(int zInicial, int zFinal) throws Exception{
         logger.info("Sending getObtenerRangoFechasPorZetas (Hassar)");
-        EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{(byte)0xBA});
+        String start = String.valueOf(zInicial);
+        String end = String.valueOf(zFinal);
+        EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{(byte)0xBA}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET));
         ObtenerRangoFechasPorZetas result = new ObtenerRangoFechasPorZetas(reply);
         logger.debug(result.toString());
         return result;
