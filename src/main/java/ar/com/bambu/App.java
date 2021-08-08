@@ -30,13 +30,15 @@ public class App {
     public static void main(String[] args)  throws Exception{
 
         HassarCommunicator hassarCommunicator = new HassarCommunicator();
-        ConsultarCapacidadZetas consultarCapacidadZetas = hassarCommunicator.getConsultarCapacidadZetas();
+
+        logger.info(hassarCommunicator.ConsultarNroPuntoVenta());
+       ConsultarCapacidadZetas consultarCapacidadZetas = hassarCommunicator.getConsultarCapacidadZetas();
         logger.info(consultarCapacidadZetas.toString());
         ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = hassarCommunicator.getObtenerRangoFechasPorZetas(17,18);
         logger.info(obtenerRangoFechasPorZetas.toString());
-        ReporteElectronico reporteElectronico = hassarCommunicator.getObtenerReporteElectronico(210722, 210731, "P");
+       ReporteElectronico reporteElectronico = hassarCommunicator.getObtenerReporteElectronico(210801, 210807, "P");
 
-        reporteElectronico.saveFile();
+        reporteElectronico.saveFile(hassarCommunicator.NroPtoVta, "210801", "210807");
 
     }
 }

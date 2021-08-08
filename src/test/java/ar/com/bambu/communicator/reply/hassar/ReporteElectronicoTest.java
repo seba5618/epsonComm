@@ -15,7 +15,7 @@ public class ReporteElectronicoTest {
     @Test
     public void testAsci85() throws IOException {
         toTest.setData(ASCI85);
-        toTest.saveFile();
+        toTest.saveFile(1,"210801","210807");
     }
 
 }

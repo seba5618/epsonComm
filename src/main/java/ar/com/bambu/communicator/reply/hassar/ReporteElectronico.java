@@ -10,7 +10,7 @@ public class ReporteElectronico {
     private String data;
     private boolean partialData;
 
-    private final static String FILE_NAME="hassar.zip";
+    private final static String FILE_NAME="hassarAfip";
 
     public ReporteElectronico(HassarFrameMsg msg) {
         this.partialData = msg.getBoolean(4);
@@ -50,18 +50,18 @@ public class ReporteElectronico {
         return sb.toString();
     }
 
-    public void saveFile() throws IOException {
+    public void saveFile( int nroPuntoVta, String rangoI, String rangoF) throws IOException {
         if(partialData){
             throw new IOException("File not ready yet to be saved");
         }
-        File file = new File(FILE_NAME);
+        File file = new File(FILE_NAME + "_"+nroPuntoVta + "_"+rangoI +"_a_"+ rangoF);
         file.delete();
         File debug = new File("debug.txt");
         debug.delete();
 
         String asci85 = this.data.replace("<~","");
         asci85 = asci85.replace("~>","");
-        OutputStream os = new FileOutputStream(FILE_NAME);
+        OutputStream os = new FileOutputStream(FILE_NAME + "_"+nroPuntoVta + "_"+rangoI +"_a_"+ rangoF+ ".zip");
         os.write(Ascii85.decode(asci85));
         os.close();
     }
