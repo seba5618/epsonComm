@@ -1,9 +1,7 @@
 package ar.com.bambu.communicator.reply.hassar;
 
 import ar.com.bambu.jpos.HassarFrameMsg;
-import ar.com.bambu.utils.ASCII85Decode;
 import ar.com.bambu.utils.Ascii85;
-import ar.com.bambu.utils.Base64;
 
 import java.io.*;
 
@@ -61,13 +59,10 @@ public class ReporteElectronico {
         File debug = new File("debug.txt");
         debug.delete();
 
-        OutputStream debugW = new FileOutputStream("debug.txt");
-        Writer debugWW = new OutputStreamWriter(debugW, "US-ASCII");
-        debugWW.write(data);
-        debugWW.close();
-
+        String asci85 = this.data.replace("<~","");
+        asci85 = asci85.replace("~>","");
         OutputStream os = new FileOutputStream(FILE_NAME);
-        os.write(Base64.decodeLegacy85(this.data));
+        os.write(Ascii85.decode(asci85));
         os.close();
     }
 }
