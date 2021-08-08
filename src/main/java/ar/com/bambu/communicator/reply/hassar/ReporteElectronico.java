@@ -1,6 +1,7 @@
 package ar.com.bambu.communicator.reply.hassar;
 
 import ar.com.bambu.jpos.HassarFrameMsg;
+import ar.com.bambu.utils.ASCII85Decode;
 import ar.com.bambu.utils.Ascii85;
 
 import java.io.*;
@@ -65,7 +66,7 @@ public class ReporteElectronico {
         debugWW.close();
 
         OutputStream os = new FileOutputStream(FILE_NAME);
-        os.write(Ascii85.decode(this.data));
+        os.write(ASCII85Decode.decode(this.data));
         os.close();
     }
 }
