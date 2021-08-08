@@ -23,6 +23,7 @@ package ar.com.bambu.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Base64;
 
 
 /**
@@ -72,6 +73,8 @@ public class ASCII85Decode {
             throws IOException {
         // stream ends in ~>
         int[] five = new int[5];
+
+
         int i;
         for (i = 0; i < 5; i++) {
             five[i] = nextChar();
