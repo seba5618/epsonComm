@@ -7,6 +7,7 @@ import ar.com.bambu.communicator.reply.*;
 //ObtenerConfiguracionFechayHora;
 import ar.com.bambu.communicator.reply.hassar.ConsultarCapacidadZetas;
 import ar.com.bambu.communicator.reply.hassar.ObtenerRangoFechasPorZetas;
+import ar.com.bambu.communicator.reply.hassar.ReporteElectronico;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -31,9 +32,11 @@ public class App {
         HassarCommunicator hassarCommunicator = new HassarCommunicator();
         ConsultarCapacidadZetas consultarCapacidadZetas = hassarCommunicator.getConsultarCapacidadZetas();
         logger.info(consultarCapacidadZetas.toString());
-
         ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = hassarCommunicator.getObtenerRangoFechasPorZetas(17,18);
         logger.info(obtenerRangoFechasPorZetas.toString());
+        ReporteElectronico reporteElectronico = hassarCommunicator.getObtenerReporteElectronico(210722, 210731, "P");
+
+        reporteElectronico.saveFile();
 
     }
 }

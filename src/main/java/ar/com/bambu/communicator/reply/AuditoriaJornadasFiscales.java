@@ -20,7 +20,7 @@ public class AuditoriaJornadasFiscales implements Reply{
     }
 
     public void update(EpsonFrameMsg msg){
-        this.xmlData += xmlData;
+        this.xmlData += msg.getBoolean(6);
         this.partialData = msg.getBoolean(7);
     }
 

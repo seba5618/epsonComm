@@ -1,11 +1,11 @@
 package ar.com.bambu.jpos;
 
-import ar.com.bambu.communicator.EpsonCommunicator;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
-import org.jpos.iso.ISOUtil;
+
 
 import java.nio.charset.Charset;
 

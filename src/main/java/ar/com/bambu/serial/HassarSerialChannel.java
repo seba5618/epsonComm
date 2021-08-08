@@ -102,6 +102,8 @@ public class HassarSerialChannel {
                     } else if (readBuffer[0] == NACK) {
                         logger.error("NACK leido de impresora, cortando lectura.");
                         throw new IOException("Nack leido de impresora.");
+                    } else{
+                        logger.debug("Llego un: "+readBuffer[0]+ "esperamos un STX");
                     }
                     comPort.readBytes(readBuffer, 1);
                 }
