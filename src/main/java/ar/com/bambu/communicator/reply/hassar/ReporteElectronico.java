@@ -56,6 +56,14 @@ public class ReporteElectronico {
         }
         File file = new File(FILE_NAME);
         file.delete();
+        File debug = new File("debug.txt");
+        debug.delete();
+
+        OutputStream debugW = new FileOutputStream("debug.txt");
+        Writer debugWW = new OutputStreamWriter(debugW, "US-ASCII");
+        debugWW.write(data);
+        debugWW.close();
+
         OutputStream os = new FileOutputStream(FILE_NAME);
         os.write(Ascii85.decode(this.data));
         os.close();
