@@ -3,11 +3,12 @@ package ar.com.bambu.communicator.reply.hassar;
 import ar.com.bambu.jpos.EpsonFrameMsg;
 import ar.com.bambu.jpos.HassarFrameMsg;
 
-public class ObtenerRangoFechasPorZetas {
+public class ObtenerRangoFechasPorZetas extends AbstractReply {
     private int fechaZInicial;
     private int fechaZFinal;
 
-    public ObtenerRangoFechasPorZetas(HassarFrameMsg msg) {
+    public ObtenerRangoFechasPorZetas(HassarFrameMsg msg)  {
+        super(msg);
         this.fechaZInicial = msg.getInteger(4);
         this.fechaZFinal = msg.getInteger(5);
     }

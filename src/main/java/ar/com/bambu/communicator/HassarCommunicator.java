@@ -1,9 +1,10 @@
 package ar.com.bambu.communicator;
 
 import ar.com.bambu.communicator.reply.hassar.ConsultarCapacidadZetas;
+import ar.com.bambu.communicator.reply.hassar.ConsultarUltimoError;
 import ar.com.bambu.communicator.reply.hassar.ObtenerRangoFechasPorZetas;
 import ar.com.bambu.communicator.reply.hassar.ReporteElectronico;
-import ar.com.bambu.jpos.EpsonFrameMsg;
+
 import ar.com.bambu.jpos.EpsonPackager;
 
 import ar.com.bambu.jpos.HassarFrameMsg;
@@ -15,27 +16,27 @@ import org.jpos.iso.ISOUtil;
 public class HassarCommunicator {
     private static final Logger logger = LogManager.getLogger(HassarCommunicator.class);
     HassarSerialChannel channel = new HassarSerialChannel();
-    public int NroPtoVta =0;
-    public int statusFiscal =0;
-    public int statusIMpresora =0;
+    public int NroPtoVta = 0;
+    public int statusFiscal = 0;
+    public int statusIMpresora = 0;
 
     //estado fiscales impresora
-    public static int ErrorMemoriaFiscal  = 1; // Error memoria fiscal.
-    public static int ErrorMemoriaTrabajo  = 2; // Error memoria de trabajo.
-    public static int ErrorMemoriaAuditoria = 3 ;//Error memoria de auditoría, o cinta testigo digital (CTD).
+    public static int ErrorMemoriaFiscal = 1; // Error memoria fiscal.
+    public static int ErrorMemoriaTrabajo = 2; // Error memoria de trabajo.
+    public static int ErrorMemoriaAuditoria = 3;//Error memoria de auditorï·¿a, o cinta testigo digital (CTD).
     public static int ErrorGeneral = 4;// Error general.
-    public static int ErrorParametro =5; //Error en parámetro.
-    public static int  ErrorEstado =6;// Error en estado actual.
-    public static int ErrorAritmetico =7 ;//Error aritmético.
-    public static int MemoriaFiscalLlena =8 ;//Memoria fiscal llena.
-    public static int MemoriaFiscalCasiLlena =9 ;//Memoria fiscal casi llena.
-    public static int MemoriaFiscalInicializada =10 ;// Memoria fiscal inicializada.
-    public static int DocumentoFiscalAbierto = 13 ;//Hay un documento fiscal (DF) abierto.
-    public static int DocumentoAbierto = 14 ;//Hay un documento abierto.
-    public static int ErrorEjecucion =16 ;// Error de ejecución.
+    public static int ErrorParametro = 5; //Error en parï·¿metro.
+    public static int ErrorEstado = 6;// Error en estado actual.
+    public static int ErrorAritmetico = 7;//Error aritmï·¿tico.
+    public static int MemoriaFiscalLlena = 8;//Memoria fiscal llena.
+    public static int MemoriaFiscalCasiLlena = 9;//Memoria fiscal casi llena.
+    public static int MemoriaFiscalInicializada = 10;// Memoria fiscal inicializada.
+    public static int DocumentoFiscalAbierto = 13;//Hay un documento fiscal (DF) abierto.
+    public static int DocumentoAbierto = 14;//Hay un documento abierto.
+    public static int ErrorEjecucion = 16;// Error de ejecuciï·¿n.
 
     // CMD_DATA_NOT_FOUND cuando tiro una z que aun no se hizo Dato no encontrado
-    //POS_REPORT_GAP  cuando pido un rango de una Z posterior a el rango que debo bajar Jornadas fiscal no consecutiva a la última bajada
+    //POS_REPORT_GAP  cuando pido un rango de una Z posterior a el rango que debo bajar Jornadas fiscal no consecutiva a la ï·¿ltima bajada
 
 
     public HassarFrameMsg sendGenericMsg(byte[] type, byte[]... params) throws Exception {
@@ -48,14 +49,14 @@ public class HassarCommunicator {
         for (byte[] param : params) {
             m.set(index++, param);
         }
-        logger.debug("Sending Msg Hassar: "+ ISOUtil.hexString(m.pack()));
+        logger.debug("Sending Msg Hassar: " + ISOUtil.hexString(m.pack()));
         byte[] reply = channel.sendMsg(m.pack());
-        logger.debug("Got Msg: "+ ISOUtil.hexString(reply));
+        logger.debug("Got Msg: " + ISOUtil.hexString(reply));
         HassarFrameMsg replyMsg = new HassarFrameMsg();
         replyMsg.setPackager(new EpsonPackager());
         replyMsg.unpack(reply);
         statusFiscal = replyMsg.getInteger(3);
-        statusIMpresora  = replyMsg.getInteger(2);
+        statusIMpresora = replyMsg.getInteger(2);
 
         logger.debug(" estado fiscal " + statusFiscal);
 
@@ -66,7 +67,7 @@ public class HassarCommunicator {
         this.channel = channel;
     }
 
-    public Boolean HayErrorFiscal(){
+    public Boolean HayErrorFiscal() {
         int m = statusFiscal & 1; // m: 00000000000000000000000010000000
         m += statusFiscal & 2;
         m += statusFiscal & 3;
@@ -75,7 +76,7 @@ public class HassarCommunicator {
         m += statusFiscal & 7;
         m += statusFiscal & 16;
 
-        if( m> 0)
+        if (m > 0)
             return true;
         else
             return false;
@@ -92,37 +93,22 @@ public class HassarCommunicator {
             HayErrorFiscal();
 
 
-
             return NroPtoVta;
-        } catch(Exception excepcion)
-        {
-            System.out.println( excepcion.getMessage());
+        } catch (Exception excepcion) {
+            System.out.println(excepcion.getMessage());
         }
-        return  0;
+        return 0;
     }
 
-    public void ConsultarUltimoError() {
-        logger.info("Sending ConsultarUltimoError()");
-        String idUltimoError;
-        String descripcion;
-        try {
-            HassarFrameMsg reply = this.sendGenericMsg(new byte[]{0x2C});
-            idUltimoError= reply.getString(4);
-            descripcion= reply.getString(5);
-
-            logger.debug(idUltimoError + " descripcion error " + descripcion);
-
-
-
-
-        } catch(Exception excepcion)
-        {
-            System.out.println( excepcion.getMessage());
-        }
-
+    public ConsultarUltimoError getConsultarUltimoError() throws Exception {
+        logger.info("Sending ConsultarUltimoError(Hassar)");
+        HassarFrameMsg reply = this.sendGenericMsg(new byte[]{0x2C});
+        ConsultarUltimoError consultarUltimoError = new ConsultarUltimoError(reply);
+        logger.debug(consultarUltimoError.toString());
+        return consultarUltimoError;
     }
 
-    public ConsultarCapacidadZetas getConsultarCapacidadZetas() throws Exception{
+    public ConsultarCapacidadZetas getConsultarCapacidadZetas() throws Exception {
         logger.info("Sending getConsultarCapacidadZetas (Hassar)");
         HassarFrameMsg reply = this.sendGenericMsg(new byte[]{0x37});
         ConsultarCapacidadZetas result = new ConsultarCapacidadZetas(reply);
@@ -130,25 +116,25 @@ public class HassarCommunicator {
         return result;
     }
 
-    public ObtenerRangoFechasPorZetas getObtenerRangoFechasPorZetas(int zInicial, int zFinal) throws Exception{
+    public ObtenerRangoFechasPorZetas getObtenerRangoFechasPorZetas(int zInicial, int zFinal) throws Exception {
         logger.info("Sending getObtenerRangoFechasPorZetas (Hassar)");
         String start = String.valueOf(zInicial);
         String end = String.valueOf(zFinal);
-        HassarFrameMsg reply = this.sendGenericMsg(new byte[]{(byte)0xBA}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET));
+        HassarFrameMsg reply = this.sendGenericMsg(new byte[]{(byte) 0xBA}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET));
         ObtenerRangoFechasPorZetas result = new ObtenerRangoFechasPorZetas(reply);
-        if(HayErrorFiscal()) {
+        if (HayErrorFiscal()) {
             //pidamos el ultimo error de prueba porque aca mucho no sirve salvo para co
-            ConsultarUltimoError();
+            getConsultarUltimoError();
         }
         logger.debug(result.toString());
         return result;
     }
 
-    public ReporteElectronico getObtenerReporteElectronico(int fechaInicial, int fechaFinal, String tipoReporte) throws Exception{
+    public ReporteElectronico getObtenerReporteElectronico(int fechaInicial, int fechaFinal, String tipoReporte) throws Exception {
         logger.info("Sending getObtenerReporteElectronico (Hassar)");
-        logger.debug("fechaInicial: "+fechaInicial);
-        logger.debug("fechaFinal: "+fechaFinal);
-        logger.debug("tipReporte: "+tipoReporte);
+        logger.debug("fechaInicial: " + fechaInicial);
+        logger.debug("fechaFinal: " + fechaFinal);
+        logger.debug("tipReporte: " + tipoReporte);
         String start = String.valueOf(fechaInicial);
         String end = String.valueOf(fechaFinal);
         HassarFrameMsg reply = this.sendGenericMsg(new byte[]{0x76}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
@@ -156,7 +142,7 @@ public class HassarCommunicator {
         HayErrorFiscal();
         ReporteElectronico result = new ReporteElectronico(reply);
 
-        while (result.isPartialData()){
+        while (result.isPartialData()) {
             logger.info("Respuesta parcial de Hassar, llamando comando obtener siguiente bloque");
             reply = this.sendGenericMsg(new byte[]{0x77}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
             result.update(reply);

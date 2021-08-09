@@ -5,14 +5,15 @@ import ar.com.bambu.utils.Ascii85;
 
 import java.io.*;
 
-public class ReporteElectronico {
+public class ReporteElectronico extends AbstractReply {
 
     private String data;
     private boolean partialData;
 
-    private final static String FILE_NAME="hassarAfip";
+    private final static String FILE_NAME = "hassarAfip";
 
     public ReporteElectronico(HassarFrameMsg msg) {
+        super(msg);
         this.partialData = msg.getBoolean(4);
         this.data = msg.getString(5);
     }
@@ -42,27 +43,29 @@ public class ReporteElectronico {
         }
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("ReporteElectronico{");
-        sb.append(", partialData=").append(partialData);
-        sb.append('}');
-        return sb.toString();
-    }
 
-    public void saveFile( int nroPuntoVta, String rangoI, String rangoF) throws IOException {
-        if(partialData){
+    public void saveFile(int nroPuntoVta, String rangoI, String rangoF) throws IOException {
+        if (partialData) {
             throw new IOException("File not ready yet to be saved");
         }
-        File file = new File(FILE_NAME + "_"+nroPuntoVta + "_"+rangoI +"_a_"+ rangoF);
+        File file = new File(FILE_NAME + "_" + nroPuntoVta + "_" + rangoI + "_a_" + rangoF);
         file.delete();
         File debug = new File("debug.txt");
         debug.delete();
 
-        String asci85 = this.data.replace("<~","");
-        asci85 = asci85.replace("~>","");
-        OutputStream os = new FileOutputStream(FILE_NAME + "_"+nroPuntoVta + "_"+rangoI +"_a_"+ rangoF+ ".zip");
+        String asci85 = this.data.replace("<~", "");
+        asci85 = asci85.replace("~>", "");
+        OutputStream os = new FileOutputStream(FILE_NAME + "_" + nroPuntoVta + "_" + rangoI + "_a_" + rangoF + ".zip");
         os.write(Ascii85.decode(asci85));
         os.close();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ReporteElectronico{");
+        sb.append("data='").append(data).append('\'');
+        sb.append(", partialData=").append(partialData);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -1,15 +1,16 @@
 package ar.com.bambu.communicator.reply.hassar;
 
-import ar.com.bambu.jpos.EpsonFrameMsg;
+
 import ar.com.bambu.jpos.HassarFrameMsg;
 
-public class ConsultarCapacidadZetas {
+public class ConsultarCapacidadZetas extends AbstractReply{
     private int cantidadDeZetasRemanentes;
     private int ultimaZ;
     private int ultimaZBajada;
     private int ultimaZetaBorrable;
 
     public ConsultarCapacidadZetas(HassarFrameMsg msg) {
+        super(msg);
         this.cantidadDeZetasRemanentes = msg.getInteger(4);
         this.ultimaZ = msg.getInteger(5);
         this.ultimaZBajada = msg.getInteger(6);
