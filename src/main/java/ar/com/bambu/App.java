@@ -6,6 +6,7 @@ import ar.com.bambu.communicator.HassarCommunicator;
 import ar.com.bambu.communicator.reply.*;
 //ObtenerConfiguracionFechayHora;
 import ar.com.bambu.communicator.reply.hassar.ConsultarCapacidadZetas;
+import ar.com.bambu.communicator.reply.hassar.ConsultarDatosInicializacion;
 import ar.com.bambu.communicator.reply.hassar.ObtenerRangoFechasPorZetas;
 import ar.com.bambu.communicator.reply.hassar.ReporteElectronico;
 import org.apache.logging.log4j.LogManager;
@@ -30,15 +31,15 @@ public class App {
     public static void main(String[] args)  throws Exception{
 
         HassarCommunicator hassarCommunicator = new HassarCommunicator();
-
-        logger.info(hassarCommunicator.ConsultarNroPuntoVenta());
+        ConsultarDatosInicializacion consultarDatosInicializacion = hassarCommunicator.getConsultarDatosInicializacion();
+        logger.info(consultarDatosInicializacion);
        ConsultarCapacidadZetas consultarCapacidadZetas = hassarCommunicator.getConsultarCapacidadZetas();
         logger.info(consultarCapacidadZetas.toString());
         ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = hassarCommunicator.getObtenerRangoFechasPorZetas(17,18);
         logger.info(obtenerRangoFechasPorZetas.toString());
        ReporteElectronico reporteElectronico = hassarCommunicator.getObtenerReporteElectronico(210801, 210807, "P");
 
-        reporteElectronico.saveFile(hassarCommunicator.NroPtoVta, "210801", "210807");
+        reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), "210801", "210807");
 
     }
 }
