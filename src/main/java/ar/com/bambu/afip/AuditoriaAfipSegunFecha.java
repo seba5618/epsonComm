@@ -7,16 +7,24 @@ import ar.com.bambu.communicator.reply.ReporteAfip;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class AuditoriaAfipSegunFecha implements Function{
 
     private EpsonCommunicator communicator ;
 
     private static final Logger logger = LogManager.getLogger(AuditoriaAfipSegunFecha.class);
+    private final static String FILE_NAME="EpsonAfip";
 
     public AuditoriaAfipSegunFecha(EpsonCommunicator communicator) {
         this.communicator = communicator;
@@ -34,6 +42,7 @@ public class AuditoriaAfipSegunFecha implements Function{
      */
     @Override
     public void apply() {
+
         try {
             InformacionTransaccional informacionTransaccional = this.communicator.getInformacionTransaccional();
             int jornadasDescargadasHasta = informacionTransaccional.getJornadasDescargadasHasta();
@@ -49,6 +58,7 @@ public class AuditoriaAfipSegunFecha implements Function{
             //falta llamar 3 veces al metodo de reporte afip y guardar los archivos que nos devuelve.
 
             ReporteAfip reporteAfipPorRangoDeFechas1 = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x04}, rangoFechaAfip[0], rangoFechaAfip[1]);
+
             reporteAfipPorRangoDeFechas1.saveFile();
 
             ReporteAfip reporteAfipPorRangoDeFechas2 = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x00}, rangoFechaAfip[0], rangoFechaAfip[1]);
@@ -56,7 +66,31 @@ public class AuditoriaAfipSegunFecha implements Function{
 
             ReporteAfip reporteAfipPorRangoDeFechas3 = communicator.getReporteAfipPorRangoDeFechas(new byte[]{0x00, 0x02}, rangoFechaAfip[0], rangoFechaAfip[1]);
             reporteAfipPorRangoDeFechas3.saveFile();
+// OutputStream os = new FileOutputStream(FILE_NAME + "_"+nroPuntoVta + "_"+rangoI +"_a_"+ rangoF+ ".zip");
 
+            int nroPuntoVta = this.communicator.ConsultarNroPuntoVenta();
+            logger.info("Nombre del Zip "  );
+            logger.info("Nombre del Zip " + FILE_NAME + "_"+nroPuntoVta +rangoFechaAfip[0] +"_a_"+ rangoFechaAfip[1]+ ".zip" );
+
+            List<String> srcFiles = Arrays.asList(reporteAfipPorRangoDeFechas1.getFileName(), reporteAfipPorRangoDeFechas2.getFileName(),reporteAfipPorRangoDeFechas3.getFileName());
+            FileOutputStream fos = new FileOutputStream(FILE_NAME + "_"+nroPuntoVta  + "_"+ rangoFechaAfip[0] +"_a_"+ rangoFechaAfip[1]+ ".zip");
+            ZipOutputStream zipOut = new ZipOutputStream(fos);
+
+            for (String srcFile : srcFiles) {
+                File fileToZip = new File(srcFile);
+                FileInputStream fis = new FileInputStream(fileToZip);
+                ZipEntry zipEntry = new ZipEntry(fileToZip.getName());
+                zipOut.putNextEntry(zipEntry);
+
+                byte[] bytes = new byte[1024];
+                int length;
+                while((length = fis.read(bytes)) >= 0) {
+                    zipOut.write(bytes, 0, length);
+                }
+                fis.close();
+            }
+            zipOut.close();
+            fos.close();
 
         } catch (Exception e) {
             logger.error("rompio afip", e);

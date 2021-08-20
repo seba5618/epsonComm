@@ -8,10 +8,37 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jpos.iso.ISOUtil;
 
+import java.util.Properties;
+
 
 public class EpsonCommunicator {
     private static final Logger logger = LogManager.getLogger(EpsonCommunicator.class);
     EpsonSerialChannel channel = new EpsonSerialChannel();
+    Properties p;
+    private String port;
+
+    public EpsonCommunicator(Properties p) {
+        this.p = p;
+
+        logger.debug("Puerto configurado: "+  p.getProperty("printer.port", " "));
+        port=  p.getProperty("printer.port", " ");
+        channel.setPortserial(port);
+
+
+    }
+
+    public EpsonCommunicator() {
+
+    }
+
+    public int ConsultarNroPuntoVenta() throws Exception{
+        logger.info("Sending ConsultarNroPuntoVenta()");
+
+        EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{0x05,0x07}, new byte[]{0x00,0x00});
+        int result =reply.getInteger(8);
+        logger.info("Nro Punto de Venta: "+ result);
+        return result;
+    }
 
     public EpsonFrameMsg sendGenericMsg(byte[] type, byte[]... params) throws Exception {
 

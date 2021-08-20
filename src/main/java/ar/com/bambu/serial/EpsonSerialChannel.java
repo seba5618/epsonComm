@@ -21,6 +21,14 @@ public class EpsonSerialChannel {
     public static final byte INTER = (byte) 0x80;
     private byte seq = (byte) 0x81;
     private static final Logger logger = LogManager.getLogger(EpsonSerialChannel.class);
+    private String portserial;
+
+    public void setPortserial(String portserial) {
+        this.portserial = portserial;
+    }
+
+
+
 
     public byte[] sendMsg(byte[] dataFrame, byte seq) throws Exception {
         //creo un nuevo byte[] con el start de package, seq le pongo lo que me mandaron y le chanto el end y el checksum
@@ -62,7 +70,7 @@ public class EpsonSerialChannel {
     }
 
     private void writeFrame(byte[] data) {
-        SerialPort comPort = SerialPort.getCommPort("/dev/pts/1");
+        SerialPort comPort = SerialPort.getCommPort(this.portserial);
         comPort.openPort();
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
         comPort.writeBytes(data, data.length);
@@ -70,7 +78,7 @@ public class EpsonSerialChannel {
     }
 
     private byte[] readFrame() throws IOException {
-        SerialPort comPort = SerialPort.getCommPort("/dev/pts/3");
+        SerialPort comPort = SerialPort.getCommPort(this.portserial);
 
 
         comPort.openPort();

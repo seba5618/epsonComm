@@ -11,6 +11,8 @@ import org.w3c.dom.Document;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileReader;
+import java.util.Properties;
 
 
 /**
@@ -25,7 +27,11 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
-        AuditoriaAfipSegunFecha auditoriaAfipSegunFecha = new AuditoriaAfipSegunFecha(new EpsonCommunicator());
+        String fichero = System.getProperty("user.dir") + "\\application.properties";
+        Properties p = new Properties();
+        p.load(new FileReader(fichero));
+
+        AuditoriaAfipSegunFecha auditoriaAfipSegunFecha = new AuditoriaAfipSegunFecha(new EpsonCommunicator(p));
         auditoriaAfipSegunFecha.apply();
     }
 }
