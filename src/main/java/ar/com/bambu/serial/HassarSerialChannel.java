@@ -69,7 +69,7 @@ public class HassarSerialChannel {
     }
 
     private void writeFrame(byte[] data) {
-        SerialPort comPort = SerialPort.getCommPort("/dev/pts/1");
+        SerialPort comPort = SerialPort.getCommPort("COM31");
         comPort.openPort();
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
         comPort.writeBytes(data, data.length);
@@ -77,7 +77,7 @@ public class HassarSerialChannel {
     }
 
     private byte[] readFrame()  {
-        SerialPort comPort = SerialPort.getCommPort("/dev/pts/3");
+        SerialPort comPort = SerialPort.getCommPort("COM31");
 
 
         comPort.openPort();

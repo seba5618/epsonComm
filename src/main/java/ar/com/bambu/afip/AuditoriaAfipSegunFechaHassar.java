@@ -10,6 +10,7 @@ import org.joda.time.DateTime;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha implements Function{
@@ -57,47 +58,56 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                 obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZBajada+1, ultimaZBajada+1);
                 fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
                 rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal);
+                logger.info("Primera iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0],rangoFechaAfip[1]);
                 rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
                 reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
+                reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0],rangoFechaAfipString[1] );
+                while(rangoFechaAfip[1].after(new Date())){
+
+                    DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
+                    ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
+                    SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+                    rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()));
+                    logger.info("Nueva iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0],rangoFechaAfip[1]);
+                    rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
+                    reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
+                    reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0],rangoFechaAfipString[1] );
+                }
             }
         }else{
-            logger.warn("Revisar, se logro descargar reporte de la Z actual: "+ultimaZ);
+            logger.info("Reporte generado ok sin GAPs para Z: "+ultimaZ);
+            reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0],rangoFechaAfipString[1] );
         }
-        reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0],rangoFechaAfipString[1] );
-    }
 
-    protected String[] getRangoFechaAfipAnterior(String fecha) throws ParseException {
+    }
+    @Override
+    protected Date[] getRangoFechaAfip(String fecha) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
 
-        DateTime fechaDateTime = new DateTime( simpleDateFormat.parse(fecha));
         logger.debug("fecha recibida en rango fecha afip: " + fecha);
-
-        String[] result = new String[2];
-        Integer dia = fechaDateTime.getDayOfMonth();
-        DateTime start = new DateTime(fechaDateTime);
-        DateTime end = new DateTime(fechaDateTime);
-
+        Date parse = simpleDateFormat.parse(fecha);
+        Date[] result = new Date[2];
+        Integer dia = Integer.parseInt(fecha.substring(4, 6));
+        Calendar start = Calendar.getInstance();
+        start.setTime(parse);
+        Calendar end = Calendar.getInstance();
+        end.setTime(parse);
         if (dia <= 7) {
-            start.minusDays(8);
-            end.minusDays(8);
-            start.withDayOfMonth(22);
-            end.dayOfMonth().withMaximumValue();
-
+            start.set(Calendar.DAY_OF_MONTH, 1);
+            end.set(Calendar.DAY_OF_MONTH, 7);
 
         } else if (dia <= 14) {
-            start.withDayOfMonth(1);
-            end.withDayOfMonth(7);
-
+            start.set(Calendar.DAY_OF_MONTH, 8);
+            end.set(Calendar.DAY_OF_MONTH, 14);
         } else if (dia <= 21) {
-            start.withDayOfMonth(8);
-            end.withDayOfMonth(14);
-
+            start.set(Calendar.DAY_OF_MONTH, 15);
+            end.set(Calendar.DAY_OF_MONTH, 21);
         } else {
-            start.withDayOfMonth(15);
-            end.withDayOfMonth(21);
+            start.set(Calendar.DAY_OF_MONTH, 22);
+            end.set(Calendar.DAY_OF_MONTH, end.getActualMaximum(Calendar.DAY_OF_MONTH));
         }
-        result[0] = simpleDateFormat.format(start.toDate());
-        result[1] = simpleDateFormat.format(end.toDate());
+        result[0] = start.getTime();
+        result[1] = end.getTime();
         return result;
 
     }
