@@ -2,7 +2,11 @@ package ar.com.bambu.communicator.reply.hassar;
 
 import ar.com.bambu.jpos.HassarFrameMsg;
 
-public class ConsultarUltimoError extends AbstractReply{
+public class ConsultarUltimoError extends AbstractReply {
+
+    private static final String POS_REPORT_GAP = "POS_REPORT_GAP";
+    private static final String AUDIT_EMPTY_FISCAL_DAY_RANGE = "AUDIT_EMPTY_FISCAL_DAY_RANGE";
+
     private String ultimoError;
     private int parametroError;
     private String descripcion;
@@ -17,6 +21,29 @@ public class ConsultarUltimoError extends AbstractReply{
         this.descripcion = msg.getString(6);
         this.contexto = msg.getString(7);
         this.nombreParametro = msg.getString(8);
+    }
+
+    public boolean isReportGapError() {
+        return POS_REPORT_GAP.equals(this.ultimoError);
+    }
+
+    public boolean isEmptyRange() {
+        return AUDIT_EMPTY_FISCAL_DAY_RANGE.equals(this.ultimoError);
+    }
+
+    public int getUltimaZBajada() {
+        int result = -1;
+        if (this.getContexto() == null || !this.isReportGapError()) {
+            return result;
+        }
+        int indexBegin = this.getContexto().indexOf(':');
+        int indexEnd = this.getContexto().indexOf('(');
+
+        if (indexBegin > 0 && indexEnd > 0) {
+            String z = this.getContexto().substring(indexBegin+1, indexEnd).trim();
+            result = Integer.parseInt(z);
+        }
+        return result;
     }
 
     public String getUltimoError() {

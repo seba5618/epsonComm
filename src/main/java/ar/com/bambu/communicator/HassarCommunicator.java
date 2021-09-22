@@ -81,21 +81,20 @@ public class HassarCommunicator {
         return result;
     }
 
-    public ReporteElectronico getObtenerReporteElectronico(int fechaInicial, int fechaFinal, String tipoReporte) throws Exception {
+    public ReporteElectronico getObtenerReporteElectronico(String fechaInicial, String fechaFinal, String tipoReporte) throws Exception {
         logger.info("Sending getObtenerReporteElectronico (Hassar)");
         logger.debug("fechaInicial: " + fechaInicial);
         logger.debug("fechaFinal: " + fechaFinal);
         logger.debug("tipReporte: " + tipoReporte);
-        String start = String.valueOf(fechaInicial);
-        String end = String.valueOf(fechaFinal);
-        HassarFrameMsg reply = this.sendGenericMsg(new byte[]{0x76}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
+
+        HassarFrameMsg reply = this.sendGenericMsg(new byte[]{0x76}, fechaInicial.getBytes(ISOUtil.CHARSET), fechaFinal.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
 
 
         ReporteElectronico result = new ReporteElectronico(reply);
 
         while (result.isPartialData()) {
             logger.info("Respuesta parcial de Hassar, llamando comando obtener siguiente bloque");
-            reply = this.sendGenericMsg(new byte[]{0x77}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
+            reply = this.sendGenericMsg(new byte[]{0x77}, fechaInicial.getBytes(ISOUtil.CHARSET), fechaFinal.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
             result.update(reply);
         }
         return result;

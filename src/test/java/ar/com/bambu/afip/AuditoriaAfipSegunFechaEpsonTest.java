@@ -1,7 +1,6 @@
 package ar.com.bambu.afip;
 
 import ar.com.bambu.communicator.EpsonCommunicator;
-import ar.com.bambu.serial.EpsonSerialChannel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,13 +8,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.text.ParseException;
-
-import static org.junit.Assert.*;
+import java.util.Date;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AuditoriaAfipSegunFechaTest {
+public class AuditoriaAfipSegunFechaEpsonTest {
 
-    AuditoriaAfipSegunFecha toTest ;
+    AuditoriaAfipSegunFechaEpson toTest ;
 
     @Mock
     private EpsonCommunicator communicator;
@@ -23,13 +21,13 @@ public class AuditoriaAfipSegunFechaTest {
 
     @Before
     public void initialize(){
-        this.toTest = new AuditoriaAfipSegunFecha(communicator);
+        this.toTest = new AuditoriaAfipSegunFechaEpson(communicator);
 
     }
 
     @Test
     public void calculoRangoFechaAfip() throws ParseException {
-        String[] rangoFechaAfip = toTest.getRangoFechaAfip("2019-06-28");
+        Date[] rangoFechaAfip = toTest.getRangoFechaAfip("2019-06-28");
     }
 
 

@@ -2,31 +2,47 @@ package ar.com.bambu.communicator.reply.hassar;
 
 import ar.com.bambu.jpos.EpsonFrameMsg;
 import ar.com.bambu.jpos.HassarFrameMsg;
+import org.joda.time.DateTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ObtenerRangoFechasPorZetas extends AbstractReply {
-    private int fechaZInicial;
-    private int fechaZFinal;
+    private String fechaZInicial;
+    private String fechaZFinal;
 
     public ObtenerRangoFechasPorZetas(HassarFrameMsg msg)  {
         super(msg);
-        this.fechaZInicial = msg.getInteger(4);
-        this.fechaZFinal = msg.getInteger(5);
+        this.fechaZInicial = msg.getString(4);
+        this.fechaZFinal = msg.getString(5);
     }
 
-    public int getFechaZInicial() {
+    public String getFechaZInicial() {
         return fechaZInicial;
     }
 
-    public void setFechaZInicial(int fechaZInicial) {
+    public void setFechaZInicial(String fechaZInicial) {
         this.fechaZInicial = fechaZInicial;
     }
 
-    public int getFechaZFinal() {
+    public String getFechaZFinal() {
         return fechaZFinal;
     }
 
-    public void setFechaZFinal(int fechaZFinal) {
+    public void setFechaZFinal(String fechaZFinal) {
         this.fechaZFinal = fechaZFinal;
+    }
+
+    public boolean areBothDatesInThePast() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+
+        DateTime end = new DateTime(simpleDateFormat.parse(this.fechaZFinal));
+
+        if(end.hourOfDay().withMaximumValue().minuteOfHour().withMaximumValue().secondOfMinute().withMaximumValue().millisOfSecond().withMaximumValue().isAfterNow()){
+            return false;
+        }
+        return true;
     }
 
     @Override
