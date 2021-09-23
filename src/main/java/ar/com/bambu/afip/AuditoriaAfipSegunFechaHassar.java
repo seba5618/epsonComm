@@ -35,6 +35,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
      */
     @Override
     public void apply() throws Exception{
+        Boolean continuarReporte = true;
         ConsultarCapacidadZetas consultarCapacidadZetas = this.communicator.getConsultarCapacidadZetas();
         ConsultarDatosInicializacion consultarDatosInicializacion = this.communicator.getConsultarDatosInicializacion();
         int ultimaZ = consultarCapacidadZetas.getUltimaZ();
@@ -42,41 +43,54 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
 
         ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZ, ultimaZ);
         String fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
+        Date dateZFinal=simpleDateFormat.parse(fechaZFinal);
+
         Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal);
         String[] rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
 
-        ReporteElectronico reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
+        if( rangoFechaAfip[1].after(new Date())) {
+            logger.warn("Ojo fecha final en el futuro "+rangoFechaAfipString[1] +  " vs Hoy " +  simpleDateFormat.format(new Date()));
+            continuarReporte = false;
+        }
+        if( continuarReporte == true) {
 
-        if(reporteElectronico.hayErrorFiscal()){
-            ConsultarUltimoError consultarUltimoError = this.communicator.getConsultarUltimoError();
-            if(consultarUltimoError.isEmptyRange()){
-                logger.error("Error no hay Z en el rango solicitado: "+consultarUltimoError);
-                //consultarUltimoError.saveEmptyFile(pos, rango fecha)
-            }else if (consultarUltimoError.isReportGapError()){
-                logger.warn("Gaps de z detectados, buscando la ultima z bajada: "+consultarUltimoError);
-                int ultimaZBajada = consultarUltimoError.getUltimaZBajada();
-                obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZBajada+1, ultimaZBajada+1);
-                fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
-                rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal);
-                logger.info("Primera iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0],rangoFechaAfip[1]);
-                rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
-                reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
-                reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0],rangoFechaAfipString[1] );
-                while(rangoFechaAfip[1].after(new Date())){
+            ReporteElectronico reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
 
-                    DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
-                    ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
-                    SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-                    rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()));
-                    logger.info("Nueva iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0],rangoFechaAfip[1]);
+            if (reporteElectronico.hayErrorFiscal()) {
+                ConsultarUltimoError consultarUltimoError = this.communicator.getConsultarUltimoError();
+                if (consultarUltimoError.isEmptyRange()) {
+                    logger.error("Error no hay Z en el rango solicitado: " + consultarUltimoError);
+                    //consultarUltimoError.saveEmptyFile(pos, rango fecha)
+                } else if (consultarUltimoError.isReportGapError()) {
+                    logger.warn("Gaps de z detectados, buscando la ultima z bajada: " + consultarUltimoError);
+                    int ultimaZBajada = consultarUltimoError.getUltimaZBajada();
+                    obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZBajada + 1, ultimaZBajada + 1);
+                    fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
+                    rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal);
+                    logger.info("Primera iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0], rangoFechaAfip[1]);
                     rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
                     reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
-                    reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0],rangoFechaAfipString[1] );
+                    reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                    while(rangoFechaAfip[1].before(new Date())){
+               //     while (rangoFechaAfip[1].before(dateZFinal)) {
+
+                        logger.info("Entro al while con {} ", rangoFechaAfip[1]);
+                        DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
+                        ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
+                        SimpleDateFormat formater = new SimpleDateFormat("yyMMdd");
+                        logger.info("Voy a formatear la fecha {}", formater.format(ultimaFechaReporte.toDate()));
+                        rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()));
+                        logger.info("Nueva iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0], rangoFechaAfip[1]);
+                        rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
+                        reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
+                        reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+
+                    }
                 }
+            } else {
+                logger.info("Reporte generado ok sin GAPs para Z: " + ultimaZ);
+                reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
             }
-        }else{
-            logger.info("Reporte generado ok sin GAPs para Z: "+ultimaZ);
-            reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0],rangoFechaAfipString[1] );
         }
 
     }

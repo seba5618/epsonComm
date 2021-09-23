@@ -7,6 +7,7 @@ import ar.com.bambu.communicator.reply.hassar.ConsultarCapacidadZetas;
 import ar.com.bambu.communicator.reply.hassar.ConsultarDatosInicializacion;
 import ar.com.bambu.communicator.reply.hassar.ObtenerRangoFechasPorZetas;
 import ar.com.bambu.communicator.reply.hassar.ReporteElectronico;
+import ar.com.bambu.serial.Fiscal;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +24,12 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
+        logger.debug("VERSION APP EXTRACCION 1.4");
+        Fiscal fiscalPrinter = new Fiscal();
+        fiscalPrinter.PuertoSerial();
+        /*logger.exit();
+        System.out.println("Sali violentamente");
+        System.exit(0);*/
         AuditoriaAfipSegunFechaHassar auditoriaAfipSegunFechaHassar = new AuditoriaAfipSegunFechaHassar(new HassarCommunicator());
         auditoriaAfipSegunFechaHassar.apply();
 

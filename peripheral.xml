@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Peripherals>
+; Autor Guzman Javier E
+
+; ****** PC-RS232 FUNCIONAL LEON ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+; ****** Scanner ******
+<peripheral logicalName="SymbolScannerCOM1 Linux">>
+	<prop name="Enable" type="String" value="NO" /> 
+	<prop name="Category" type="String" value="Scanner"/> 
+</peripheral>
+
+; ****** POSPrinter ******
+<peripheral logicalName="TM-220AF Linux">
+	<prop name="Enable" type="String" value="NO"/>
+	<prop name="Category" type="String" value="FiscalPrinter"/>        
+</peripheral>
+<peripheral logicalName="ScaleKretz">
+        <prop name="Enable" type="String" value="NO"/>;9600,N,8,1
+        <prop name="Category" type="String" value="ScaleInvel"/>
+  </peripheral>
+
+
+  <peripheral logicalName="Hasar-PT1000">
+          <prop name="Enable" type="String" value="YES"/> ;Yes
+          <prop name="Category" type="String" value="FiscalPrinter"/>
+  </peripheral>
+
+; ****** PC-RS232 UNION AGRIGOLA DE AVELLANEDA ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+; ****** POSPrinter ******
+<peripheral logicalName="POSPrinter">
+	<prop name="Enable" type="String" value="NO"/>
+	<prop name="Category" type="String" value="POSPrinter"/>        
+</peripheral>
+
+<peripheral logicalName="TM-220AF">
+	<prop name="Enable" type="String" value="NO"/>
+	<prop name="Category" type="String" value="FiscalPrinter"/>        
+</peripheral>
+
+; ****** Scanner ******
+<peripheral logicalName="SymbolScanner">>
+	<prop name="Enable" type="String" value="NO" /> 
+	<prop name="Category" type="String" value="Scanner"/> 
+</peripheral>
+
+; ****** PC-RS232 SUPERMERCADOS PLANETA ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+; ****** POSPrinter ******
+<peripheral logicalName="TM-220AF">
+	<prop name="Enable" type="String" value="NO"/>
+	<prop name="Category" type="String" value="FiscalPrinter"/>        
+</peripheral>
+
+; ****** Scanner ******
+<peripheral logicalName="SymbolScanner">>
+	<prop name="Enable" type="String" value="NO" /> 
+	<prop name="Category" type="String" value="Scanner"/> 
+</peripheral>
+
+<peripheral logicalName="SymbolScanner2">>
+	<prop name="Enable" type="String" value="NO" /> 
+	<prop name="Category" type="String" value="Scanner"/> 
+</peripheral>
+
+; ****** PC-RS232 TOMAS DE LEON ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+; ****** Scanner ******
+<peripheral logicalName="SymbolScannerCOM1 Linux">>
+	<prop name="Enable" type="String" value="NO" /> 
+	<prop name="Category" type="String" value="Scanner"/> 
+</peripheral>
+
+; ****** POSPrinter ******
+<peripheral logicalName="TM-220AF Linux">
+	<prop name="Enable" type="String" value="NO"/>
+	<prop name="Category" type="String" value="FiscalPrinter"/>        
+</peripheral>
+
+<peripheral logicalName="Hasar-PR4">
+	<prop name="Enable" type="String" value="NO"/>
+	<prop name="Category" type="String" value="FiscalPrinter"/>        
+</peripheral>
+
+</Peripherals>

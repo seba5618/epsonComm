@@ -22,6 +22,17 @@ public class HassarSerialChannel {
     private byte seq = (byte) 0x81;
     private static final Logger logger = LogManager.getLogger(EpsonSerialChannel.class);
 
+
+    public String getComPort() {
+        return comPort;
+    }
+
+    public void setComPort(String comPort) {
+        this.comPort = comPort;
+    }
+
+    private String comPort ;
+
     public byte[] sendMsg(byte[] dataFrame, byte seq) throws Exception {
         //creo un nuevo byte[] con el start de package, seq le pongo lo que me mandaron y le chanto el end y el checksum
         byte[] outFrame = this.generateFrame(dataFrame, seq);
@@ -69,7 +80,9 @@ public class HassarSerialChannel {
     }
 
     private void writeFrame(byte[] data) {
-        SerialPort comPort = SerialPort.getCommPort("COM31");
+        String CommPortFiscal =   Fiscal.getPortName();
+//        SerialPort comPort = SerialPort.getCommPort("COM31");
+        SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
         comPort.openPort();
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
         comPort.writeBytes(data, data.length);
@@ -77,7 +90,9 @@ public class HassarSerialChannel {
     }
 
     private byte[] readFrame()  {
-        SerialPort comPort = SerialPort.getCommPort("COM31");
+        String CommPortFiscal =   Fiscal.getPortName();
+       // SerialPort comPort = SerialPort.getCommPort("COM31");
+        SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
 
 
         comPort.openPort();

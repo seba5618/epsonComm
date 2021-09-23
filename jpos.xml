@@ -1,0 +1,2248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><!DOCTYPE JposEntries PUBLIC "-//JavaPOS//DTD//EN" "jpos/res/jcl.dtd"><JposEntries>
+<!--Saved by JavaPOS jpos.config/loader (JCL) version 2.2.0 on 5/5/07 5:30 AM-->
+
+
+; ****** IMPRESORAS FISCALES ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="TM-220AF">
+        <creation factoryClass="Epsonjpos.FiscalPrinter" serviceClass="Epsonjpos.FiscalPrinter"/>
+        <vendor name="EPSON Venezuela" url="http://www.epson.com.ve"/>
+        <jpos category="FiscalPrinter" version="1.0.0"/>
+        <product description="EPSON TM-U950 Printer Device Service" name="EPSON Services for JavaPOS(TM) Standard" url="http://www.epson.co.jp"/>
+        <prop name="OutputTimeout" type="String" value="500"/>
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="OutputBufferSize" type="String" value="4096"/>
+        <prop name="ReceiveTimeout" type="String" value="1000"/>
+        <prop name="stopBits" type="String" value="1"/>
+        <prop name="TimeoutTime" type="String" value="5000"/>
+        <prop name="dataBits" type="String" value="8"/>
+        <prop name="PortInterfaceName" type="String" value="Serial"/>
+        <prop name="Parity" type="String" value="0"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="firmwareVersion" type="String" value="Hera"/>
+        <prop name="decimales" type="String" value="2"/>
+        <prop name="fiscalPrinterClass" type="String" value="jpos.fiscal.epson.tm220.FiscalPrinter"/>
+</JposEntry>
+
+<JposEntry logicalName="Hasar-PT1000">
+        <creation factoryClass="" serviceClass=""/>
+        <vendor name="Grupo Hasar" url="http://www.hasar.com/"/>
+        <jpos category="FiscalPrinter" version="1.0.0"/>
+        <product description="Hasar SMH/P-PR4F Driver by Invel" name="" url=""/>
+
+        <prop name="OutputTimeout" type="String" value="500"/>
+        <!--<prop name="portName" type="String" value="/dev/ttyS0"/>-->
+        <prop name="portName" type="String" value="COM31"/>
+        <prop name="OutputBufferSize" type="String" value="4096"/>
+        <prop name="ReceiveTimeout" type="String" value="1000"/>
+        <prop name="stopBits" type="String" value="1"/>
+        <prop name="TimeoutTime" type="String" value="5000"/>
+        <prop name="dataBits" type="String" value="8"/>
+        <prop name="PortInterfaceName" type="String" value="Serial"/>
+        <prop name="Parity" type="String" value="0"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="firmwareVersion" type="String" value="F1.00"/>
+        <prop name="decimales" type="String" value="2"/>
+        <prop name="fiscalPrinterClass" type="String" value="jpos.fiscal.hasar.PT1000.FiscalPrinter"/>
+</JposEntry>
+
+<JposEntry logicalName="TM-220AF Linux">
+        <creation factoryClass="Epsonjpos.FiscalPrinter" serviceClass="Epsonjpos.FiscalPrinter"/>
+        <vendor name="EPSON Venezuela" url="http://www.epson.com.ve"/>
+        <jpos category="FiscalPrinter" version="1.0.0"/>
+        <product description="EPSON TM-U950 Printer Device Service" name="EPSON Services for JavaPOS(TM) Standard" url="http://www.epson.co.jp"/>
+
+        <prop name="OutputTimeout" type="String" value="500"/>
+        <prop name="portName" type="String" value="/dev/ttyS0"/>
+        <prop name="OutputBufferSize" type="String" value="4096"/>
+        <prop name="ReceiveTimeout" type="String" value="1000"/>
+        <prop name="stopBits" type="String" value="1"/>
+        <prop name="TimeoutTime" type="String" value="5000"/>
+        <prop name="dataBits" type="String" value="8"/>
+        <prop name="PortInterfaceName" type="String" value="Serial"/>
+        <prop name="Parity" type="String" value="0"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="firmwareVersion" type="String" value="Hera"/>
+        <prop name="decimales" type="String" value="2"/>
+        <prop name="fiscalPrinterClass" type="String" value="jpos.fiscal.epson.tm220.FiscalPrinter"/>
+</JposEntry>    
+
+
+<JposEntry logicalName="FiscalPrinter RS485 3F/3Fx/3Bx">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Gx3"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS485 Service for IBM 3F/3Fx/3Bx Printer" name="IBM JavaPOS for Linux\Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter3xA"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x38"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="FiscalPrinter RS232 4610 Kx5">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Kx5"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS232 Service for IBM Model 4610 Kx5 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="19200"/>
+        <prop name="flowControl" type="String" value="None"/>
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Kx5"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="FiscalPrinter RS485 4610 Kx5">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Kx5"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS485 Service for IBM Model 4610 Kx5 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Kx5"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x38"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="FiscalPrinter RS232 4610 Kx4">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Kx4"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS232 Service for IBM Model 4610 Kx4 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="19200"/>
+        <prop name="flowControl" type="String" value="None"/>
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Kx4"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="FiscalPrinter RS485 4610 Kx4">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Kx4"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS485 Service for IBM Model 4610 Kx4 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Kx4"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x38"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="FiscalPrinter RS232 4610 Kx3">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Kx3"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS232 Service for IBM Model 4610 Kx3 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="19200"/>
+        <prop name="flowControl" type="String" value="None"/>
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Kx3"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="FiscalPrinter RS485 4610 Kx3">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Kx3"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS485 Service for IBM Model 4610 Kx3 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Kx3"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x38"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="FiscalPrinter RS485 4610 Gx5">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Gx3"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS485 Service for IBM Model 4610 Gx5 Printer" name="IBM JavaPOS for Linux\Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Gx5"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x38"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="FiscalPrinter RS485 4610 Gx3">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Gx3"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter RS485 Service for IBM Model 4610 Gx3 Printer" name="IBM JavaPOS for Linux\Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Gx3"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x38"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="FiscalPrinter USB Kx5">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Kx5"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter USB Service for IBM Kx5 Printer" name="IBM JavaPOS for Linux\Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3800"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Kx5"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="FiscalPrinter USB Gx5">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Gx5"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter USB Service for IBM Gx5 Printer" name="IBM JavaPOS for Linux\Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3800"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Gx5"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="FiscalPrinter USB Gx3">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMFiscalPrinter4610Gx3"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="FiscalPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) FiscalPrinter USB Service for IBM Gx3 Printer" name="IBM JavaPOS for Linux\Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3800"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMFiscalPrinter4610Gx3"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.FiscalPrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** IMPRESORAS ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="POSPrinter">
+        <creation factoryClass="jp.co.epson.uposcommon.util.EpsonJposServiceInstanceFactory" serviceClass="jp.co.epson.upos.pntr.U950Service"/>
+        <vendor name="SEIKO EPSON" url="http://www.epson.co.jp"/>
+        <jpos category="POSPrinter" version="1.9.2"/>
+        <product description="EPSON TM-U950 Printer Device Service" name="EPSON Services for JavaPOS(TM) Standard" url="http://www.epson.co.jp"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="Halftone" type="String" value="0"/>
+        <prop name="FlowType" type="String" value="1"/>
+        <prop name="PhysicalPrinterName" type="String" value="TM-U950"/>
+        <prop name="NVRAMControlLevel" type="String" value="1"/>
+        <prop name="Stamp" type="String" value="1"/>
+        <prop name="OutputCompleteType" type="String" value="2"/>
+        <prop name="StatusThreadInterval" type="String" value="100"/>
+        <prop name="OutputTimeout" type="String" value="500"/>
+        <prop name="PortType" type="String" value="0"/>
+        <prop name="OutputBufferSize" type="String" value="4096"/>
+        <prop name="UsedNVRAM" type="String" value="0"/>
+        <prop name="FirmRecordLog" type="String" value="1"/>
+        <prop name="ReceiveTimeout" type="String" value="1000"/>
+        <prop name="SlpLineChars" type="String" value="88"/>
+        <prop name="SlpLineHeight" type="String" value="5"/>
+        <prop name="SlpReverseEject" type="String" value="1"/>
+        <prop name="PortName" type="String" value="COM1"/>
+        <prop name="OfflineRetryIntervalTime" type="String" value="25"/>
+        <prop name="DefaultSlpClampTime" type="String" value="100"/>
+        <prop name="epson.trace.file" type="String" value="trace.log"/>
+        <prop name="StopBits" type="String" value="0"/>
+        <prop name="AsyncProcessingSize" type="String" value="1"/>
+        <prop name="KanjiTwoWaysPrint" type="String" value="0"/>
+        <prop name="PortInterfaceName" type="String" value="Serial"/>
+        <prop name="U375Compatible" type="String" value="0"/>
+        <prop name="BitLength" type="String" value="8"/>
+        <prop name="Parity" type="String" value="0"/>
+        <prop name="epson.tracing" type="String" value="false"/>
+        <prop name="epson.trace.max.size" type="String" value="1000"/>
+        <prop name="RecPaperSize" type="String" value="70"/>
+        <prop name="DeviceDesc" type="String" value="EPSON TM-U950 POSPrinter"/>
+        <prop name="PageModeExt" type="String" value="0"/>
+        <prop name="SupportStatistics" type="String" value="1"/>
+        <prop name="OutputErrorOption" type="String" value="0"/>
+        <prop name="FirmProgressRange" type="String" value="10"/>
+        <prop name="SupportFirmware" type="String" value="0"/>
+        <prop name="InputTimeout" type="String" value="100"/>
+        <prop name="AutoPowerOff" type="String" value="0"/>
+        <prop name="SlpMoreColumns" type="String" value="1"/>
+        <prop name="RecPaperType" type="String" value="0"/>
+        <prop name="MemorySwitch" type="String" value="0"/>
+        <prop name="ReadThreadInterval" type="String" value="-1"/>
+        <prop name="QueuingOfflineTimeout" type="String" value="1000"/>
+        <prop name="TwoColor" type="String" value="0"/>
+        <prop name="InitializeThreadTime" type="String" value="1000"/>
+        <prop name="BaudRate" type="String" value="9600"/>
+        <prop name="TwoByteCharacter" type="String" value="0"/>
+        <prop name="FirmLogFileSize" type="String" value="1000"/>
+        <prop name="Peeler" type="String" value="0"/>
+        <prop name="ConfigurationFile" type="String" value="epson/xml/Setting/TM-U950Setting.xml"/>
+        <prop name="Custom1Color" type="String" value="0"/>
+        <prop name="FirmNotifyAllProgressEvents" type="String" value="0"/>
+        <prop name="ReceiveRetryTime" type="String" value="25"/>
+        <prop name="InitializeResponseTimeout" type="String" value="1000"/>
+        <prop name="UsedInterCharacterSet" type="String" value="0"/>
+        <prop name="RecMoreColumns" type="String" value="0"/>
+        <prop name="PrinterTransmitTimeout" type="String" value="10000"/>
+        <prop name="WriteThreadInterval" type="String" value="-1"/>
+        <prop name="RecNearEndSensor" type="String" value="0"/>
+        <prop name="LogObject" type="String" value=""/>
+        <prop name="Cutter" type="String" value="1"/>
+        <prop name="PhysicalDevice" type="String" value="TM-U950"/>
+        <prop name="UsedPeeler" type="String" value="0"/>
+        <prop name="FirmLogFileName" type="String" value="Firmware.log"/>
+        <prop name="InputBufferSize" type="String" value="84"/>
+        <prop name="TransmitTimeout" type="String" value="5000"/>
+        <prop name="OfflineCount" type="String" value="2"/>
+        <prop name="TransmitRetryTime" type="String" value="100"/>
+        <prop name="DirectIOEventTimeout" type="String" value="5000"/>
+</JposEntry>
+
+<JposEntry logicalName="Model 4 Printer RS485">      
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.POSPrinter4"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSPrinter" version="1.7.3"/>
+        <product description="IBM JavaPOS(TM) POSPrinter Service for IBM Model 4 Printer RS485" name="IBM JavaPOS for Windows Version 1.7.3" url="http://www.ibm.com/solutions/retail/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="posNportNumber" type="String" value="0x011"/>
+        <prop name="posNdeviceNumber" type="String" value="0x034"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.POSPrinter4"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.poss.POSPrinter4Imp"/>
+        <prop name="posNslotNumber" type="String" value="1"/>
+</JposEntry>
+
+<JposEntry logicalName="POSPrinter RS485 4674/4689">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiIBM4689POSPrinter"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSPrinter RS485 Service for 4674/4689 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiIBM4689POSPrinter"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x32"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.IBM4689PrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSPrinter RS232 Sureone">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiIBMSureonePOSPrinter"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSPrinter RS232 Service for Sureone Thermal Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="portName" type="String" value="COM3"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiIBMSureonePOSPrinter"/>
+        <prop name="SureOneVersion" type="String" value="Standard"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.IBMSureonePrinterServiceImp"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSPrinter USB 4610 TI3/4/5/8/9 TM/F 6/7">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiIBM4610EPOSPrinter"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSPrinter USB Service for IBM 4610 TI3/4/5/8/9 TM/F 6/7 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3500"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiIBM4610EPOSPrinter"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.IBM4610PrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSPrinter RS485 4610 TI1/2/3/4/5/8/9 TM/F 6/7">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiIBM4610EPOSPrinter"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSPrinter RS485 Service for IBM 4610 TI2/3/4/5/8/9 TM/F 6/7 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiIBM4610EPOSPrinter"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x35"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.IBM4610PrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSPrinter USB 4689">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiIBM4689POSPrinter"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSPrinter USB Service for IBM 4689 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3700"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiIBM4689POSPrinter"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.IBM4689PrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSPrinter RS485 Model 4">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.POSPrinter4"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSPrinter RS485 Service for IBM Model 4 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="posNportNumber" type="String" value="0x011"/>
+        <prop name="posNdeviceNumber" type="String" value="0x035"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.POSPrinter4"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.poss.POSPrinter4Imp"/>
+        <prop name="posNslotNumber" type="String" value="1"/>
+</JposEntry>
+
+<JposEntry logicalName="POSPrinter RS232 4610 TI1/2/3/4/5/8/9 TM/F 6/7">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiIBM4610EPOSPrinter"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSPrinter" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSPrinter  RS232 Service for IBM 4610 TI1/2/3/4/5/8/9 TM/F 6/7 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiIBM4610EPOSPrinter"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.IBM4610PrinterServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** ESCANNER ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="Metrologic MS7820 RS485">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.Scanner4696"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS485 Service for IBM 4696 Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.Scanner4696"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="true"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x4a"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="MetroRS232ScannerWin">
+        <creation factoryClass="com.metrologic.javapos.so.MetroScannerServiceFactory" serviceClass="com.metrologic.javapos.so.MetroScanRS232v17"/>
+        <vendor name="Metrologic Instruments, Inc" url="http://www.metrologic.com"/>
+        <jpos category="Scanner" version="1.7"/>
+        <product description="Metrologic bar code scanner" name="Focus/1690" url="http://www.metrologic.com/corporate/products.htm"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="portName" type="String" value="COM2"/>
+        <prop name="Interface" type="String" value="RS232"/>
+        <prop name="dataBits" type="String" value="8"/>
+        <prop name="Model" type="String" value="Focus/1690"/>
+        <prop name="HasScale" type="String" value="0"/>
+        <prop name="parity" type="String" value="None"/>
+        <prop name="flowControl" type="String" value="None"/>
+        <prop name="stopBits" type="String" value="1"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="9600"/>
+</JposEntry>
+
+<JposEntry logicalName="MetroPOSUSBScannerWin">
+        <creation factoryClass="com.metrologic.javapos.so.MetroScannerServiceFactory" serviceClass="com.metrologic.javapos.so.MetroScanRS232v17"/>
+        <vendor name="Metrologic Instruments, Inc" url="http://www.metrologic.com"/>
+        <jpos category="Scanner" version="1.7"/>
+        <product description="Metrologic bar code scanner" name="Focus/1690" url="http://www.metrologic.com/corporate/products.htm"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="portName" type="String" value="COM6"/>
+        <prop name="Interface" type="String" value="RS232"/>
+        <prop name="dataBits" type="String" value="8"/>
+        <prop name="Model" type="String" value="Focus/1690"/>
+        <prop name="HasScale" type="String" value="0"/>
+        <prop name="parity" type="String" value="None"/>
+        <prop name="flowControl" type="String" value="None"/>
+        <prop name="stopBits" type="String" value="1"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="9600"/>
+</JposEntry>
+	
+<JposEntry logicalName="MetroIBMOEMUSBScannerWin">
+        <creation factoryClass="com.metrologic.javapos.so.MetroScannerServiceFactory" serviceClass="com.metrologic.javapos.so.MetroScanFUSBv18"/>
+        <vendor name="Metrologic Instruments, Inc" url="http://www.metrologic.com"/>
+        <jpos category="Scanner" version="1.8"/>
+        <product description="Metrologic bar code scanner" name="Focus/1690" url="http://www.metrologic.com/corporate/products.htm"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="hasScale" type="String" value="0"/>
+        <prop name="model" type="String" value="Focus/1690"/>
+        <prop name="interface" type="String" value="Full Speed USB"/>
+        <prop name="productID" type="String" value="0x0009"/>
+</JposEntry>
+
+<JposEntry logicalName="CheckScanner USB 4610 TI8/9">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610CheckScanner"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CheckScanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CheckScanner USB Service for IBM 4610 TI8/9 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3500"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CheckScanner"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CheckScannerServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="CheckScanner RS485 4610 TI8/9">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610CheckScanner"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CheckScanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CheckScanner RS485 Service for IBM 4610 TI8/9 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CheckScanner"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CheckScannerServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x35"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="CheckScanner RS232 4610 TI8/9">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610CheckScanner"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CheckScanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CheckScanner RS232 Service for IBM 4610 TI8/9 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="portName" type="String" value="COM3"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CheckScanner"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CheckScannerServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="Scanner USB OEM Tabletop">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.ScannerUSBOEM"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner USB Service for OEM Table-top Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setEnableCODE39" type="Boolean" value="true"/>
+        <prop name="setEnableCode128" type="Boolean" value="true"/>
+        <prop name="setITFLengthSpecifiedTwo" type="Boolean" value="true"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.ScannerUSBOEM"/>
+        <prop name="setEnableUCC_EAN128" type="Boolean" value="true"/>
+        <prop name="setEnableCodabar" type="Boolean" value="true"/>
+        <prop name="setEnable_5_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="true"/>
+        <prop name="setEnableCode93" type="Boolean" value="true"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="setEnable_2_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="setEnableUPC_A_CheckDigit" type="Boolean" value="true"/>
+        <prop name="setEnableUPC_E_CheckDigit" type="Boolean" value="true"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x4A00"/>
+        <prop name="setITFLength2" type="Byte" value="12"/>
+        <prop name="setITFLength1" type="Byte" value="16"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="Scanner Line RS232 4836/4838 IBM Anyplace Kiosk">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IntegratedLineScanner"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS232 Line Scanner Service for IBM Anyplace Kiosk" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setITFLengths" type="Boolean" value="true"/>
+        <prop name="setEnableRSS14" type="Boolean" value="true"/>
+        <prop name="setEnable_2_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="setSTFLengths" type="Boolean" value="true"/>
+        <prop name="setEnableCode128" type="Boolean" value="true"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="portName" type="String" value="COM3"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableRSS_Expanded" type="Boolean" value="true"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="enableProgrammingViaBarcodes" type="Boolean" value="false"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IntegratedLineScanner"/>
+        <prop name="setEnableStandard2of5" type="Boolean" value="true"/>
+        <prop name="setBeeperDuration" type="Byte" value="0"/>
+        <prop name="baudRate" type="String" value="19200"/>
+        <prop name="setEnableCode39" type="Boolean" value="true"/>
+        <prop name="setSupplementalsSecurityLevel" type="Byte" value="10"/>
+        <prop name="setEnableCode93" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+        <prop name="setEnableGoodReadBeep" type="Boolean" value="true"/>
+        <prop name="setEnable_5_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="setITFLength1" type="Byte" value="8"/>
+        <prop name="setEnableUPC_A_CheckDigit" type="Boolean" value="true"/>
+        <prop name="setSTFLength1" type="Byte" value="8"/>
+        <prop name="com.ibm.posj.bus.rs232.scannerId" type="String" value="LineScanner"/>
+        <prop name="setEnableCodabar" type="Boolean" value="true"/>
+        <prop name="setBeeperFrequency" type="Byte" value="2"/>
+        <prop name="setEnableUPC_E_CheckDigit" type="Boolean" value="true"/>
+</JposEntry>
+
+<JposEntry logicalName="Scanner USB Hand held OEM">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.ScannerUSBOEM"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner USB Service for OEM Hand Held Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setEnableCODE39" type="Boolean" value="true"/>
+        <prop name="setEnableCode128" type="Boolean" value="true"/>
+        <prop name="setITFLengthSpecifiedTwo" type="Boolean" value="true"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.ScannerUSBOEM"/>
+        <prop name="setEnableUCC_EAN128" type="Boolean" value="true"/>
+        <prop name="setEnableCodabar" type="Boolean" value="true"/>
+        <prop name="setEnable_5_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="true"/>
+        <prop name="setEnableCode93" type="Boolean" value="true"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="setEnable_2_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x4B00"/>
+        <prop name="setITFLength2" type="Byte" value="12"/>
+        <prop name="setITFLength1" type="Byte" value="16"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner USB IBM Hand held OEM">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.ScannerUSBOEM"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) USB Scanner Service for IBM Hand held OEM Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setEnableCODE39" type="Boolean" value="true"/>
+        <prop name="setEnableCode39CheckDigit" type="Boolean" value="false"/>
+        <prop name="setEnableCode128" type="Boolean" value="true"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="false"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.ScannerUSBOEM"/>
+        <prop name="setEnableEAN_JAN_TwoLabelDecoding" type="Boolean" value="false"/>
+        <prop name="setEnableUCC_EAN128" type="Boolean" value="true"/>
+        <prop name="setEnableCodabar" type="Boolean" value="false"/>
+        <prop name="setEnable_5_DigitSupplementals" type="Boolean" value="false"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="false"/>
+        <prop name="setEnableCode93" type="Boolean" value="false"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="setEnable_2_DigitSupplementals" type="Boolean" value="false"/>
+        <prop name="setEnableUPC_A_CheckDigit" type="Boolean" value="false"/>
+        <prop name="setEnableITFCheckDigit" type="Boolean" value="false"/>
+        <prop name="setEnableUPC_E_CheckDigit" type="Boolean" value="false"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x4B00"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner RS485 HandHeld-1">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.ScannerHHBCR_1"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS485 Service for IBM Hand-Held Bar Code Reader Model 1" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setEnableCODE39" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.ScannerHHBCR_1"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x4b"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="setITFLength1" type="Byte" value="16"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner RS485 IBMHandHeld-2">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.ScannerHHBCR_2"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS485 Service for IBM Hand-Held Bar Code Reader Model 2" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setEnableCODE39" type="Boolean" value="true"/>
+        <prop name="setEnableCode128" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.ScannerHHBCR_2"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="setEnableCodabar" type="Boolean" value="true"/>
+        <prop name="setEnable_5_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="true"/>
+        <prop name="setEnableCode93" type="Boolean" value="true"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="setEnable_2_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x4b"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="setITFLength1" type="Byte" value="16"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner RS485 IBM4685">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.ScannerHHBCR_2"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS485 Service for IBM 4685 Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setEnableCODE39" type="Boolean" value="true"/>
+        <prop name="setEnableCode128" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.ScannerHHBCR_2"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="setEnableCodabar" type="Boolean" value="true"/>
+        <prop name="setEnable_5_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="true"/>
+        <prop name="setEnableCode93" type="Boolean" value="true"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="setEnable_2_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x4b"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="setITFLength1" type="Byte" value="16"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner Omni RS232 4836/4838 IBM Anyplace Kiosk">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IntegratedOmniScanner"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) RS232 Omni Scanner Service for IBM Anyplace Kiosk" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setITFLengths" type="Boolean" value="true"/>
+        <prop name="setEnableRSS14" type="Boolean" value="true"/>
+        <prop name="setSTFLengths" type="Boolean" value="true"/>
+        <prop name="setEnableCode128" type="Boolean" value="true"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="portName" type="String" value="COM4"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableRSS_Expanded" type="Boolean" value="true"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="enableProgrammingViaBarcodes" type="Boolean" value="false"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IntegratedOmniScanner"/>
+        <prop name="setEnableStandard2of5" type="Boolean" value="true"/>
+        <prop name="setSupplementals" type="Boolean" value="true"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="setEnableCode39" type="Boolean" value="true"/>
+        <prop name="setSupplementalsSecurityLevel" type="Byte" value="10"/>
+        <prop name="setEnableCode93" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+        <prop name="setEnableGoodReadBeep" type="Boolean" value="true"/>
+        <prop name="setITFLength2" type="Byte" value="100"/>
+        <prop name="setITFLength1" type="Byte" value="8"/>
+        <prop name="setSTFLength2" type="Byte" value="100"/>
+        <prop name="setEnableUPC_A_CheckDigit" type="Boolean" value="true"/>
+        <prop name="setSTFLength1" type="Byte" value="8"/>
+        <prop name="com.ibm.posj.bus.rs232.scannerId" type="String" value="OmniScanner"/>
+        <prop name="setEnableCodabar" type="Boolean" value="true"/>
+        <prop name="setBeeperFrequency" type="Byte" value="3"/>
+        <prop name="setEnablePDF417" type="Boolean" value="false"/>
+        <prop name="setEnableUPC_E_CheckDigit" type="Boolean" value="true"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner RS485 IBM1520">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.Scanner1520_A02"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS485 Service for IBM 1520 Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setEnableCODE39" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.Scanner1520_A02"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x4b"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="setITFLength1" type="Byte" value="12"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner RS485 IBM4698">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.Scanner4698"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS485 Service for IBM 4698 Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="setEnableCODE39" type="Boolean" value="true"/>
+        <prop name="setEnableCode128" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="setEnableInterleaved2of5" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.Scanner4698"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="setEnable_5_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="true"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="setEnable_2_DigitSupplementals" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x4a"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="setITFLength1" type="Byte" value="16"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner RS485 IBM4697">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.Scanner4697"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS485 Service for IBM 4697 Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.Scanner4697"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="true"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x4a"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scanner RS485 IBM4696">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.Scanner4696"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scanner" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scanner RS485 Service for IBM 4696 Scanner" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.Scanner4696"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="setEnableUPCD1D5" type="Boolean" value="true"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScannerServiceImp"/>
+        <prop name="setEnableUPCAE_EANJAN813" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x4a"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="SymbolScanner">
+	<creation factoryClass="com.symbol.jpos.SymScannerSvc191Factory" serviceClass="com.symbol.jpos.SymScannerSvc191"/>
+	<vendor name="Symbol Technologies, Inc." url="http://www.symbol.com"/>
+	<jpos category="Scanner" version="1.9"/>
+	<product description="Symbol Serial/USB Scanner" name="Symbol Serial Scanner on COM1" url="http://www.symbol.com"/>
+
+	<!--Other non JavaPOS required properties-->
+	<!--Scanner configuration-->
+	<!--Comm port device name-->
+	<prop name="port" value="COM1"/>
+	<prop name="baud" value="9600"/>
+	<prop name="databits" value="8"/>
+	<prop name="stopbits" value="1"/>
+	<prop name="parity" value="N"/>
+	<prop name="mode" value="B"/>
+	<!--UPC-A Length, default=13, indicates the number of digits generated by the scanner-->
+	<!--for UPC-A labels based on the scanner's preamble and check digit settings.-->
+	<!--The scanner service uses this value to determine when supplementals are present.-->
+	<!--The default value of 13 assumes preamble is set to system character-->
+	<!--and country code and that transmit check digit is enabled-->
+	<prop name="UPCALength" value="13"/>
+	<!--UPC-E Length, default=7, indicates the number of digits generated by the scanner-->
+	<!--for UPC-E labels based on the scanner's preamble and check digit settings.-->
+	<!--The scanner service uses this value to determine when supplementals are present.-->
+	<!--The default value of 7 assumes preamble is set to system character-->
+	<!--only and that transmit check digit is disabled-->
+	<prop name="UPCELength" value="7"/>
+</JposEntry>
+
+<JposEntry logicalName="SymbolScanner2">
+	<creation factoryClass="com.symbol.jpos.SymScannerSvc191Factory" serviceClass="com.symbol.jpos.SymScannerSvc191"/>
+	<vendor name="Symbol Technologies, Inc." url="http://www.symbol.com"/>
+	<jpos category="Scanner" version="1.9"/>
+	<product description="Symbol Serial/USB Scanner" name="Symbol Serial Scanner on COM1" url="http://www.symbol.com"/>
+
+	<!--Other non JavaPOS required properties-->
+	<!--Scanner configuration-->
+	<!--Comm port device name-->
+	<prop name="port" value="COM1"/>
+	<prop name="baud" value="9600"/>
+	<prop name="databits" value="8"/>
+	<prop name="stopbits" value="2"/>
+	<prop name="parity" value="N"/>
+	<prop name="mode" value="B"/>
+	<!--UPC-A Length, default=13, indicates the number of digits generated by the scanner-->
+	<!--for UPC-A labels based on the scanner's preamble and check digit settings.-->
+	<!--The scanner service uses this value to determine when supplementals are present.-->
+	<!--The default value of 13 assumes preamble is set to system character-->
+	<!--and country code and that transmit check digit is enabled-->
+	<prop name="UPCALength" value="13"/>
+	<!--UPC-E Length, default=7, indicates the number of digits generated by the scanner-->
+	<!--for UPC-E labels based on the scanner's preamble and check digit settings.-->
+	<!--The scanner service uses this value to determine when supplementals are present.-->
+	<!--The default value of 7 assumes preamble is set to system character-->
+	<!--only and that transmit check digit is disabled-->
+	<prop name="UPCELength" value="7"/>
+</JposEntry>
+
+
+<JposEntry logicalName="SymbolScannerCOM1 Linux">
+	<creation factoryClass="com.symbol.jpos.SymScannerSvc191Factory" serviceClass="com.symbol.jpos.SymScannerSvc191"/>
+	<vendor name="Symbol Technologies, Inc." url="http://www.symbol.com"/>
+	<jpos category="Scanner" version="1.9"/>
+	<product description="Symbol Serial/USB Scanner" name="Symbol Serial Scanner on COM1" url="http://www.symbol.com"/>
+
+	<!--Other non JavaPOS required properties-->
+	<!--Scanner configuration-->
+	<!--Comm port device name-->
+	<prop name="port" value="/dev/ttyS1"/>
+	<prop name="baud" value="9600"/>
+	<prop name="databits" value="8"/>
+	<prop name="stopbits" value="1"/>
+	<prop name="parity" value="N"/>
+	<prop name="mode" value="B"/>
+	<!--UPC-A Length, default=13, indicates the number of digits generated by the scanner-->
+	<!--for UPC-A labels based on the scanner's preamble and check digit settings.-->
+	<!--The scanner service uses this value to determine when supplementals are present.-->
+	<!--The default value of 13 assumes preamble is set to system character-->
+	<!--and country code and that transmit check digit is enabled-->
+	<prop name="UPCALength" value="13"/>
+	<!--UPC-E Length, default=7, indicates the number of digits generated by the scanner-->
+	<!--for UPC-E labels based on the scanner's preamble and check digit settings.-->
+	<!--The scanner service uses this value to determine when supplementals are present.-->
+	<!--The default value of 7 assumes preamble is set to system character-->
+	<!--only and that transmit check digit is disabled-->
+	<prop name="UPCELength" value="7"/>
+</JposEntry>
+
+; ****** TECLADOS ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="POSKeyboard PS2 4820/ANKPOS/CANPOS/NANPOS">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSKeyboard" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSKeyboard PS2 Service for IBM 4820/ANKPOS/CANPOS/NANPOS Keyboards" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Click" type="Byte" value="0"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicRate" type="Byte" value="20"/>
+        <prop name="com.ibm.posj.bus.poskbd.functionNumber" type="String" value="0"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.FatFingerTimeout" type="Byte" value="3"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Typematic" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicDelay" type="Byte" value="1"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="PosKbd"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.POSKeyboardServiceImp"/>
+        <prop name="com.ibm.posj.bus.poskbd.keyboardNumber" type="String" value="0"/>
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.ExtendedKeyMapping" type="Boolean" value="true"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.KbdScanning" type="Boolean" value="true"/>
+</JposEntry>
+
+<JposEntry logicalName="POSKeyboard RS485 PLU">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSKeyboard" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSKeyboard RS485 Service for IBM PLU Keyboard III with Display" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Click" type="Byte" value="0"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicRate" type="Byte" value="20"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.FatFingerTimeout" type="Byte" value="3"/>
+        <prop name="KeyTranslationFile" type="String" value="NULL"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Typematic" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicDelay" type="Byte" value="1"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.POSKeyboardServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x19"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.KbdScanning" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSKeyboard USB ANKPOS/Keyboard-V/NANPOS/PLU/133-Matrix/4685/4820/50-Key">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSKeyboard" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSKeyboard USB Service for IBM ANKPOS/Keyboard-V/NANPOS/PLU/133-Matrix/4685/4820/50-Key POSKeyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Click" type="Byte" value="0"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicRate" type="Byte" value="20"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.FatFingerTimeout" type="Byte" value="3"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Typematic" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicDelay" type="Byte" value="1"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.POSKeyboardServiceImp"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.KbdScanning" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x1400"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSKeyboard RS485 ANKPOS/Keyboard-V/NANPOS/133-Matrix/4685/4820/50-Key-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSKeyboard" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSKeyboard RS485 Service for IBM ANKPOS/Keyboard-V/NANPOS-B/133-Matrix/4685/4820/50-Key-B POSKeyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Click" type="Byte" value="0"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicRate" type="Byte" value="20"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.FatFingerTimeout" type="Byte" value="3"/>
+        <prop name="KeyTranslationFile" type="String" value="NULL"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Typematic" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicDelay" type="Byte" value="1"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.POSKeyboardServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x1D"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.KbdScanning" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSKeyboard USB ANKPOS/NANPOS System Attached">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSKeyboard" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSKeyboard USB Service for IBM NANPOS System Attached Keyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Click" type="Byte" value="0"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicRate" type="Byte" value="20"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.FatFingerTimeout" type="Byte" value="3"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Typematic" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicDelay" type="Byte" value="1"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.POSKeyboardServiceImp"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.KbdScanning" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x1500"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="POSKeyboard RS485 ANKPOS/Keyboard-V/NANPOS/133-Matrix/4674/4685/4820/50-Key-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="POSKeyboard" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) POSKeyboard RS485 Service for IBM ANKPOS/Keyboard-V/NANPOS-A/133-Matrix/4674/4685/4820/50-Key-A POSKeyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Click" type="Byte" value="0"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicRate" type="Byte" value="20"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.FatFingerTimeout" type="Byte" value="3"/>
+        <prop name="KeyTranslationFile" type="String" value="keys.dat"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.Typematic" type="Boolean" value="true"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMPOSKeyboard"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.TypematicDelay" type="Byte" value="1"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.POSKeyboardServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x1C"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.jpos.sdi.config.POSKeyboard.KbdScanning" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** LLAVE ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="Keylock RS485 ANKPOS/Keyboard-V/NANPOS/133 Matrix/4685/4820/50 Key-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMKeylock"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Keylock" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Keylock RS485 Service for IBM POS Keylock (Default Generic)-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMKeylock"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="deviceNumber" type="String" value="0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.KeylockServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x1D"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="Keylock USB ANKPOS/Keyboard-V/NANPOS/133 Matrix/4685/4820/50-Key">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMKeylock"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Keylock" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Keylock USB Service for IBM ANKPOS/Keyboard-V/NANPOS/133 Matrix/4685/4820/50 Key Keyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x1400"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMKeylock"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.KeylockServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="Keylock PS2 ANKPOS/NANPOS/4820">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMKeylock"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Keylock" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Keylock PS2 Service for IBM ANKPOS/NANPOS/4820 Keyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.posj.bus.poskbd.functionNumber" type="String" value="0"/>
+        <prop name="com.ibm.posj.bus.poskbd.keyboardNumber" type="String" value="0"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="PosKbd"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMKeylock"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.KeylockServiceImp"/>
+</JposEntry>
+
+<JposEntry logicalName="Keylock RS485 4685 6-Position-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM6PositionKeylock"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Keylock" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Keylock RS485 Service for IBM 4685 POSKeyboard-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM6PositionKeylock"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="deviceNumber" type="String" value="0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.KeylockServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x1D"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Keylock RS485 4685 6-Position-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM6PositionKeylock"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Keylock" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Keylock RS485 Service for IBM 4685 POSKeyboard-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM6PositionKeylock"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="deviceNumber" type="String" value="0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.KeylockServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x1C"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="Keylock SureONE">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMKeylock"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Keylock" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Keylock Service for SureONE" name="IBM JavaPOS for Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="Embedded"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMKeylock"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.KeylockServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="Keylock USB ANKPOS/NANPOS System Attached">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMKeylock"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Keylock" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) KeyLock USB Service for IBM ANKPOS/NANPOS System Attached Keyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x1500"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMKeylock"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.KeylockServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="Keylock RS485 ANKPOS/Keyboard-V/NANPOS/133 Matrix/4674/4685/4820/50 Key-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMKeylock"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Keylock" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Keylock RS485 Service for IBM POS Keylock (Default Generic)-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMKeylock"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="deviceNumber" type="String" value="0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.KeylockServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x1C"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** DISPLAY ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="LineDisplay RS485 ShopperDisplay">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayShopper"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM Shopper Display" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="posNportNumber" type="String" value="0x011"/>
+        <prop name="posNdeviceNumber" type="String" value="0x026"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayShopper"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.poss.LineDisplayShopperImp"/>
+        <prop name="posNslotNumber" type="String" value="1"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay USB LCD">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay USB Service for IBM Liquid Crystal Display (LCD)" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x2600"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay RS485 50Key-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM 50Key Keyboard with Liquid Crystal Display (LCD)-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x23"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="LineDisplay RS485 50Key-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM 50Key Keyboard with Liquid Crystal Display (LCD)-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x22"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay RS485 LCD-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM Liquid Crystal Display (LCD)-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x25"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="LineDisplay RS485 LCD-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM Liquid Crystal Display (LCD)-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x24"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay USB APA">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayApa"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay USB Service for IBM All Point Addressable (APA)" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x2A00"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayApa"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="LineDisplay USB 50 Key/Display">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay USB Service for IBM 50-Key Keyboard with Card Reader and Display" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x2200"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay RS485 VFD-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayLCVFD"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM Vaccum Fluorescent Display (VFD)-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayLCVFD"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x25"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="LineDisplay RS485 VFD-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayLCVFD"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM Vaccum Fluorescent Display (VFD)-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayLCVFD"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x24"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay RS485 OperatorDisplay">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM Operator Display" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="posNportNumber" type="String" value="0x011"/>
+        <prop name="posNdeviceNumber" type="String" value="0x022"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayAnop0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.poss.LineDisplayAnop0Imp"/>
+        <prop name="posNslotNumber" type="String" value="1"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay RS232 4840 APA">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4840APA"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS232 Service for IBM 4840 All Point Addressable (APA)" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="portName" type="String" value="COM4"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4840APA"/>
+        <prop name="com.ibm.jpos.services.sdi.config.LineDisplay.CursorState" type="String" value="ON"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayAPAServiceImp"/>
+        <prop name="flowControl" type="String" value="Hardware"/>
+        <prop name="com.ibm.jpos.services.sdi.config.LineDisplay.NumberOfRows" type="String" value="2"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="com.ibm.posj.bus.rs232.lineDisplayId" type="String" value="APA"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay USB VFD-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayLCVFD"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay USB Service for IBM Vaccum Fluorescent Display (VFD)-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x2500"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayLCVFD"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="LineDisplay USB VFD-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayLCVFD"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay USB Service for IBM Vaccum Fluorescent Display (VFD)-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x2400"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayLCVFD"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay RS232 4810/4840/SureONE VFD">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4840VFD"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS232 Service for IBM 4810/4840/SureONE Vaccum Fluorescent Display (VFD)" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs232.lineDisplayId" type="String" value="VFD"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="portName" type="String" value="COM4"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4840VFD"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayVFDServiceImp"/>
+        <prop name="com.ibm.jpos.services.sdi.config.LineDisplay.CursorState" type="String" value="ON"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="LineDisplay RS485 APA-D">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayApa"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM All Point Addressable (APA)-D" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayApa"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x2d"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay RS485 APA-C">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayApa"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM All Point Addressable (APA)-C" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayApa"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x2c"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="LineDisplay RS485 APA-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayApa"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM All Point Addressable (APA)-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayApa"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x2b"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="LineDisplay RS485 APA-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.LineDisplayApa"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="LineDisplay" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) LineDisplay RS485 Service for IBM All Point Addressable (APA)-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.LineDisplayApa"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x2a"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.LineDisplayServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** LECTOR DE TARJETAS ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="MSR PS2 ANKPOS/CANPOS/NANPOS/SureONE">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMMSR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MSR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MSR PS2 Service for IBM SureONE/NANPOS/CANPOS/ANKPOS Keyboards" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.posj.bus.poskbd.functionNumber" type="String" value="0"/>
+        <prop name="com.ibm.posj.bus.poskbd.keyboardNumber" type="String" value="0"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="PosKbd"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMMSR"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MSRServiceImp"/>
+</JposEntry>
+
+<JposEntry logicalName="MSR RS485 ANKPOS/Keyboard V/NANPOS/133 key/4685/4820/50key keyboard-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4820ISOMSR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MSR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MSR RS485 Service for IBM ANKPOS/Keyboard V/NANPOS/133 key/4685/4820/50key POSKeyboard-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMMSR"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MSRServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x49"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+</JposEntry>
+
+<JposEntry logicalName="MSR USB ANKPOS/Keyboard V/NANPOS/133 key/4685/4820/50key Keyboard">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMMSR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MSR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MSR USB Service for IBM ANKPOS/Keyboard V/NANPOS/133 key/4685/4820/50key Keyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x1600"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMMSR"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MSRServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="MSR RS232 4820/4836/4838/4840 ISO">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4820JUCCMSR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MSR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MSR RS232 Service for IBM 4820/4836/4840 ISO Magnetic Strip Readers" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="19200"/>
+        <prop name="com.ibm.posj.bus.rs232.msrId" type="String" value="ISO"/>
+        <prop name="portName" type="String" value="COM3"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMMSR"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MSRServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="MSR RS485 ANKPOS/Keyboard V/NANPOS/133 key/4674/4685/4820/50key keyboard-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4820ISOMSR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MSR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MSR RS485 Service for IBM ANKPOS/Keyboard V/NANPOS/133 key/4674/4685/4820/50key POSKeyboard-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMMSR"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x48"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MSRServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="MSR RS232 4820/4840 JUCC">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4840JUCCMSR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MSR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MSR RS232 Service for IBM 4820/4840 JUCC Magnetic Strip Readers" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="19200"/>
+        <prop name="com.ibm.posj.bus.rs232.msrId" type="String" value="JUCC"/>
+        <prop name="portName" type="String" value="COM3"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMMSR"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MSRServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** CAJOS MONEDERO ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="CashDrawer 300/72x/74x/78x-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMCashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer Service for IBM SurePOS 300/72x/74x/78x-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="Embedded"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMCashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawerServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="CashDrawer USB 4610-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMCashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer USB Service for IBM 4610 POSPrinter-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3500"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawer4610ServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="signalsReversed" type="Boolean" value="false"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="35"/>
+</JposEntry>
+    
+<JposEntry logicalName="CashDrawer USB 4610-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMCashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer USB Service for IBM 4610 POSPrinter-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3500"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawer4610ServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="signalsReversed" type="Boolean" value="false"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="4"/>
+</JposEntry>
+
+<JposEntry logicalName="CashDrawer RS485 4610-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer RS485 Service for IBM 4610 POSPrinter-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="signalsReversed" type="Boolean" value="false"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawer4610ServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x35"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="5"/>
+</JposEntry>
+
+<JposEntry logicalName="CashDrawer RS485 4610-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer RS485 Service for IBM 4610 POSPrinter-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="signalsReversed" type="Boolean" value="false"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawer4610ServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x54"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="CashDrawer 72x/74x/78x-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMCashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer Service for SurePOS 72x/74x/78x-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="Embedded"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMCashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawerServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="1"/>
+</JposEntry>
+
+<JposEntry logicalName="CashDrawer 4694-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMCashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer Service for IBM SurePOS 4694-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMCashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawerServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x35"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="1"/>
+</JposEntry>
+
+<JposEntry logicalName="CashDrawer 4840-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4840CashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer RS232 Service for IBM SurePOS 4840-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="portName" type="String" value="COM4"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4840CashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawerServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="1"/>
+</JposEntry>
+    
+<JposEntry logicalName="CashDrawer 4840-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4840CashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer RS232 Service for IBM SurePOS 4840-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="portName" type="String" value="COM4"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4840CashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawerServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="CashDrawer 730/750-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMCashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer USB Service for SurePOS 730/750-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x5400"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMCashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawerServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="CashDrawer 730/750-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMCashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer USB Service for SurePOS 730/750-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x5400"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMCashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawerServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="1"/>
+</JposEntry>
+    
+<JposEntry logicalName="CashDrawer 4674/4694-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMCashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer Service for IBM SurePOS 4694/4674-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMCashDrawer"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawerServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x54"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="CashDrawer RS232 4610-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer RS232 Service for IBM 4610 POSPrinter-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <prop name="signalsReversed" type="Boolean" value="false"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawer4610ServiceImp"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="4"/>
+</JposEntry>
+    
+<JposEntry logicalName="CashDrawer RS232 4610-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="CashDrawer" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) CashDrawer RS232 Service for IBM 4610 POSPrinter-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610CashDrawer"/>
+        <prop name="signalsReversed" type="Boolean" value="false"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.CashDrawer4610ServiceImp"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="5"/>
+</JposEntry>
+
+; ****** BALANZAS ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="Scale RS485 4698">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiScale4698"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scale" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scale RS485 Service for  Scale 4698" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+	 <prop name="com.ibm.jpos.sdi.config.Scale.fiveDigitWeight" type="Boolean" value="false"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.displayRequired" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.centerOfZero" type="Boolean" value="false"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiScale4698"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.operationMode" type="String" value="US"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.vibrationSensitivity" type="String" value="0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScaleServiceImp"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.weighMode" type="String" value="1"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.enforceZeroReturn" type="Boolean" value="false"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x6e"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scale RS485 4696">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiScale4696"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scale" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scale RS485 Service for  Scale 4696" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.Scale.displayRequired" type="Boolean" value="true"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiScale4696"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.operationMode" type="String" value="US"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.vibrationSensitivity" type="String" value="0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScaleServiceImp"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.weighMode" type="String" value="1"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.enforceZeroReturn" type="Boolean" value="false"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x6E"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="Scale USB OEM">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.SdiOEMScale"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="Scale" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) Scale USB for OEM Scale" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.Scale.displayRequired" type="Boolean" value="false"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.fiveDigitWeight" type="Boolean" value="true"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.centerOfZero" type="Boolean" value="false"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.SdiOEMScale"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.operationMode" type="String" value="US"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.vibrationSensitivity" type="String" value="0"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ScaleServiceImp"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.weighMode" type="String" value="1"/>
+        <prop name="com.ibm.jpos.sdi.config.Scale.enforceZeroReturn" type="Boolean" value="false"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x6E00"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** TONEINDICATOR ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="ToneIndicator USB 4610 TM/TF6/7">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator USB Service for IBM 4610 TM/TF 6/7 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3500"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="ToneIndicator RS485 4610 TM/TF 6/7">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator RS485 Service for IBM 4610 TM/TF 6/7 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x35"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="ToneIndicator USB ANKPOS/NANPOS System Attached">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator USB Service for IBM NANPOS System Attached Keyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x1500"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="ToneIndicator RS485 PLUKeyboard">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator RS485 Service for PLUKeyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x19"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="ToneIndicator USB ANKPOS/Keyboard-V/NANPOS/PLU/133 Matrix/4685/4820/50 Key Keyboard">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator USB Service for IBM ANKPOS/Keyboard-V/NANPOS/PLU/133 Matrix/4685/4820/50 Key Keyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x1400"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="ToneIndicator PS2 4820/ANKPOS/NANPOS">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator PS2 Service for IBM 4820/ANKPOS/NANPOS Keyboard" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.posj.bus.poskbd.functionNumber" type="String" value="0"/>
+        <prop name="com.ibm.posj.bus.poskbd.keyboardNumber" type="String" value="0"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="PosKbd"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+</JposEntry>
+    
+<JposEntry logicalName="ToneIndicator RS485 ANKPOS/Keyboard-V/NANPOS/PLU/133-Matrix/4685/4820/50-Key-B">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator RS485 Service for POSKeyboards and Surepoint-B" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x1d"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="ToneIndicator RS232 4610 TM/TF6/7">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator RS232 Service for IBM 4610 TM/TF 6/7 POSPrinter" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+<JposEntry logicalName="ToneIndicator RS485 ANKPOS/Keyboard-V/NANPOS/PLU/133-Matrix/4674/4685/4820/50-Key-A">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMToneIndicator"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="ToneIndicator" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) ToneIndicator RS485 Service for POSKeyboards and Surepoint-A" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMToneIndicator"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x1c"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.ToneIndicatorServiceImp"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** MICR ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="MICR USB 4610 TI2/4/8/9">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610MICR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MICR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MICR USB Service for IBM 4610 TI2/4/8/9 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable4" type="String" value="B778899001D154R"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610MICR"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable3" type="String" value="B667788990D153R"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable2" type="String" value="P123456780AAAAAXXSSS"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable1" type="String" value="B445566778D151R"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable0" type="String" value="B334455667D150R"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.stripTransitDashes" type="String" value="false"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MICRServiceImp"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.switchTransitDashToSpace" type="String" value="false"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.stripAccountDashes" type="String" value="false"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTableFile" type="String" value="[file-path-goes-here]"/>
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x3500"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="MICR RS485 4610 TI2/4/8/9">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610MICR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MICR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MICR RS485 Service for IBM 4610 TI2/4/8/9 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.rs485.sioSlotNumber" type="String" value="0x01"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable4" type="String" value="B778899001D154R"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610MICR"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable3" type="String" value="B667788990D153R"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable2" type="String" value="P123456780AAAAAXXSSS"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable1" type="String" value="B445566778D151R"/>
+        <prop name="com.ibm.posj.bus.rs485.sioPortNumber" type="String" value="0x11"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable0" type="String" value="B334455667D150R"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.stripTransitDashes" type="String" value="false"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MICRServiceImp"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.switchTransitDashToSpace" type="String" value="false"/>
+        <prop name="com.ibm.posj.bus.rs485.sioDeviceNumber" type="String" value="0x35"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.stripAccountDashes" type="String" value="false"/>
+        <prop name="deviceBus" type="String" value="RS485"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTableFile" type="String" value="[file-path-goes-here]"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="MICR RS232 4610 TI2/4/8/9">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4610MICR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MICR" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MICR RS232 Service for IBM 4610 TI2/4/8/9 Printer" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="portName" type="String" value="COM1"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable4" type="String" value="B778899001D154R"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4610MICR"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable3" type="String" value="B667788990D153R"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable2" type="String" value="P123456780AAAAAXXSSS"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable1" type="String" value="B445566778D151R"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTable0" type="String" value="B334455667D150R"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.stripTransitDashes" type="String" value="false"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MICRServiceImp"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.switchTransitDashToSpace" type="String" value="false"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.stripAccountDashes" type="String" value="false"/>
+        <prop name="deviceBus" type="String" value="RS232"/>
+        <prop name="com.ibm.jpos.sdi.config.MICR.exceptionTableFile" type="String" value="[file-path-goes-here]"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="MICR RS485 Model 3/4">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMMICR"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MICR" version="1.5"/>
+        <product description="JavaPOS(TM) MICR RS485 Service for IBM MICR Model 3/4" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMMICR"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.poss.IBMMICRImp"/>
+        <prop name="exceptionTable4" type="String" value="B778899001D154R"/>
+        <prop name="exceptionTable3" type="String" value="B667788990D153R"/>
+        <prop name="exceptionTable2" type="String" value="P123456780D552R"/>
+        <prop name="exceptionTable1" type="String" value="B445566778D151R"/>
+        <prop name="exceptionTable0" type="String" value="B334455667D150R"/>
+        <prop name="posNportNumber" type="String" value="0x011"/>
+        <prop name="posNdeviceNumber" type="String" value="0x034"/>
+        <prop name="posNslotNumber" type="String" value="1"/>
+</JposEntry>
+    
+; ****** HARDTOTALS ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="HardTotals RS485 System">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMHardTotals"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="HardTotals" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) HardTotals RS485 Service for IBM HardTotals" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="posNportNumber" type="String" value="0x011"/>
+        <prop name="posNdeviceNumber" type="String" value="0x085"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMHardTotals"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.poss.IBMHardTotalsImp"/>
+        <prop name="posNslotNumber" type="String" value="1"/>
+</JposEntry>
+    
+<JposEntry logicalName="HardTotals 730/750">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMHardTotals"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="HardTotals" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) HardTotals Service for SurePOS 730/750" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="com.ibm.posj.bus.hid.usageId" type="String" value="0x5000"/>
+        <prop name="deviceBus" type="String" value="HID"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMHardTotals"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.HardTotalsServiceImp"/>
+        <prop name="com.ibm.posj.bus.hid.usagePage" type="String" value="0xFF45"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+    
+<JposEntry logicalName="HardTotals 4674/4694/72x/74x/78x">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBMHardTotals"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="HardTotals" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) HardTotals Service for IBM SurePOS 4674/4694/72x/74x/78x" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="Embedded"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBMHardTotals"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.HardTotalsServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+
+; ****** MOTIONSENSOR ******
+;////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<JposEntry logicalName="MotionSensor 4835/4840/4836/4838">
+        <creation factoryClass="com.ibm.jpos.services.IBMJposServiceInstanceFactory" serviceClass="com.ibm.jpos.services.IBM4840MotionSensor"/>
+        <vendor name="IBM" url="http://www.ibm.com"/>
+        <jpos category="MotionSensor" version="1.9.0"/>
+        <product description="IBM JavaPOS(TM) MotionSensor Service for IBM SurePOS 4835/4840/4836" name="IBM JavaPOS for Linux/Windows Version 1.9.0" url="http://www.pc.ibm.com/store/"/>
+
+        <!--Other non JavaPOS required property (mostly vendor properties and bus specific properties i.e. RS232 )-->
+        <prop name="deviceBus" type="String" value="Proprietary"/>
+        <prop name="com.ibm.posj.bus.ProprietaryBusSubType" type="String" value="Embedded"/>
+        <prop name="abstractionClass" type="String" value="com.ibm.jpos.services.IBM4840MotionSensor"/>
+        <prop name="impClass" type="String" value="com.ibm.jpos.services.sdi.MotionSensorServiceImp"/>
+        <prop name="com.ibm.posj.bus.deviceNumber" type="String" value="0"/>
+</JposEntry>
+<JposEntry logicalName="ScaleKretz">;9600,N,8,1
+        <creation factoryClass="" serviceClass=""/>
+        <vendor name="kretz" url=""/>
+        <jpos category="ScaleInvel" version="1.0.0"/>
+        <product description="Kretz Scale 2817 Device Service" name="" url=""/>
+        <prop name="OutputTimeout" type="String" value="500"/>
+        <prop name="portName" type="String" value="/dev/ttyUSB0"/>;COM1
+        <prop name="OutputBufferSize" type="String" value="9600"/>
+        <prop name="ReceiveTimeout" type="String" value="1000"/>
+        <prop name="stopBits" type="String" value="1"/>;DICEN 2
+        <prop name="TimeoutTime" type="String" value="5000"/>
+        <prop name="dataBits" type="String" value="8"/>
+        <prop name="PortInterfaceName" type="String" value="Serial"/>
+        <prop name="Parity" type="String" value="0"/>
+        <prop name="flowControl" type="String" value="Xon/Xoff"/>
+        <prop name="baudRate" type="String" value="9600"/>
+        <prop name="firmwareVersion" type="String" value="Hera"/>
+        <prop name="decimales" type="String" value="3"/>
+        <prop name="ScaleClass" type="String" value="jserver.scale.SclKretz.Scale"/>
+</JposEntry>
+
+</JposEntries>
