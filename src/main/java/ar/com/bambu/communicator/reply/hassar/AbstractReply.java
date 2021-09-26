@@ -37,6 +37,9 @@ public abstract class AbstractReply implements Reply {
         logger.debug(" estado impresora " + estadoImpresora);
     }
 
+    public AbstractReply() {
+
+    }
     public int getTipoMensaje() {
         return tipoMensaje;
     }

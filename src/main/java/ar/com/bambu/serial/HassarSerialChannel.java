@@ -79,14 +79,23 @@ public class HassarSerialChannel {
         return result.toByteArray();
     }
 
-    private void writeFrame(byte[] data) {
-        String CommPortFiscal =   Fiscal.getPortName();
+    private void writeFrame(byte[] data) throws Exception {
+        int escritos = 0;
+        String CommPortFiscal = Fiscal.getPortName();
 //        SerialPort comPort = SerialPort.getCommPort("COM31");
         SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
-        comPort.openPort();
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
-        comPort.writeBytes(data, data.length);
-        comPort.closePort();
+        //comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
+        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 20000);
+            if (!comPort.openPort()) {
+                throw new Exception("Cannot open serial port.");
+            }
+
+            escritos = comPort.writeBytes(data, data.length);
+            if (escritos == 0) {
+                comPort.closePort();
+                throw new Exception("Write error.");
+            }
+            comPort.closePort();
     }
 
     private byte[] readFrame()  {
@@ -95,10 +104,14 @@ public class HassarSerialChannel {
         SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
 
 
-        comPort.openPort();
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
+        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 20000);
+
+
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
+            if (!comPort.openPort()) {
+                throw new Exception("Cannot open serial port.");
+            }
 
             byte[] readBuffer = new byte[4];
 

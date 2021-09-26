@@ -36,13 +36,27 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
     @Override
     public void apply() throws Exception{
         Boolean continuarReporte = true;
+        //obtengamos la fecha de la primera Z
+        ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = new ObtenerRangoFechasPorZetas();
+        try {
+            obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(1, 1);
+        }catch ( Exception ex) {
+            logger.error("Chau No conectamos al serial FIN DEL PROGRAMA  ");
+            System.exit(-1);
+      }
+
+        String fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+        Date dateZInicial=simpleDateFormat.parse(fechaZFinal);
+        logger.info("Z = 1 Fecha  " + dateZInicial);
+
         ConsultarCapacidadZetas consultarCapacidadZetas = this.communicator.getConsultarCapacidadZetas();
         ConsultarDatosInicializacion consultarDatosInicializacion = this.communicator.getConsultarDatosInicializacion();
         int ultimaZ = consultarCapacidadZetas.getUltimaZ();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
 
-        ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZ, ultimaZ);
-        String fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
+
+        obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZ, ultimaZ);
+        fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
         Date dateZFinal=simpleDateFormat.parse(fechaZFinal);
 
         Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal,false);
@@ -78,11 +92,14 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                     int ultimaZBajada = consultarUltimoError.getUltimaZBajada();
                     obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZBajada + 1, ultimaZBajada + 1);
                     fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
-                    rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal, false);
+                    rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal, true);
                     logger.info("Primera iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0], rangoFechaAfip[1]);
                     rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
                     reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
-                    reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                   ///que pasa si hay error fiscal? ejemplo es empty range..debo seguir igual hasta el final
+                    if (!reporteElectronico.hayErrorFiscal()) {
+                        reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                    }
                     while(rangoFechaAfip[1].before(new Date())){
                //     while (rangoFechaAfip[1].before(dateZFinal)) {
 
@@ -91,13 +108,23 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                         ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
                         SimpleDateFormat formater = new SimpleDateFormat("yyMMdd");
                         logger.info("Voy a formatear la fecha {}", formater.format(ultimaFechaReporte.toDate()));
-                        rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),false);
+                        rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),true);
                         logger.info("Nueva iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0], rangoFechaAfip[1]);
                         rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
                         reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
-                        reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                        if (!reporteElectronico.hayErrorFiscal()) {
+                            reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                        }
+                        //incrementar rango!!!
+                        ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
+                        ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
+                        formater = new SimpleDateFormat("yyMMdd");
+                        logger.info("Recorro si faltan rangos {}", formater.format(ultimaFechaReporte.toDate()));
+                        rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),true);
+                        rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
 
                     }
+                    continuarReporte = false;
                 }
 
             } else {

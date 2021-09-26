@@ -17,6 +17,9 @@ public class ObtenerRangoFechasPorZetas extends AbstractReply {
         this.fechaZInicial = msg.getString(4);
         this.fechaZFinal = msg.getString(5);
     }
+    public ObtenerRangoFechasPorZetas()  {
+        super();
+    }
 
     public String getFechaZInicial() {
         return fechaZInicial;
