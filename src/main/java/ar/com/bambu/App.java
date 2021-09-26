@@ -24,7 +24,7 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
-        logger.debug("VERSION APP EXTRACCION 1.4");
+        logger.debug("VERSION APP EXTRACCION 1.5");
         Fiscal fiscalPrinter = new Fiscal();
         fiscalPrinter.PuertoSerial();
         /*logger.exit();

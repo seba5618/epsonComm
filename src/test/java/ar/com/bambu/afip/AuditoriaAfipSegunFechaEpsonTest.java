@@ -27,7 +27,7 @@ public class AuditoriaAfipSegunFechaEpsonTest {
 
     @Test
     public void calculoRangoFechaAfip() throws ParseException {
-        Date[] rangoFechaAfip = toTest.getRangoFechaAfip("2019-06-28");
+        Date[] rangoFechaAfip = toTest.getRangoFechaAfip("2019-06-28", true);
     }
 
 

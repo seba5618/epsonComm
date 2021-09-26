@@ -45,14 +45,14 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         String fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
         Date dateZFinal=simpleDateFormat.parse(fechaZFinal);
 
-        Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal);
+        Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal,false);
         String[] rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
 
         if( rangoFechaAfip[1].after(new Date())) {
             logger.warn("Ojo fecha final en el futuro "+rangoFechaAfipString[1] +  " vs Hoy " +  simpleDateFormat.format(new Date()));
             continuarReporte = false;
         }
-        if( continuarReporte == true) {
+        while ( continuarReporte == true) {
 
             ReporteElectronico reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
 
@@ -60,13 +60,25 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                 ConsultarUltimoError consultarUltimoError = this.communicator.getConsultarUltimoError();
                 if (consultarUltimoError.isEmptyRange()) {
                     logger.error("Error no hay Z en el rango solicitado: " + consultarUltimoError);
+                    //ojo puede no haber Z en ese rango pero faltan rangos aun
                     //consultarUltimoError.saveEmptyFile(pos, rango fecha)
+                    DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
+                    ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
+                    SimpleDateFormat formater = new SimpleDateFormat("yyMMdd");
+                    logger.info("Recorro si faltan rangos {}", formater.format(ultimaFechaReporte.toDate()));
+                    rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),true);
+                    rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
+                    if( rangoFechaAfip[1].after(new Date())) {
+                        logger.warn("Ojo otra vez fecha final en el futuro "+rangoFechaAfipString[1] +  " vs Hoy " +  simpleDateFormat.format(new Date()));
+                        continuarReporte = false;
+                    }
+
                 } else if (consultarUltimoError.isReportGapError()) {
                     logger.warn("Gaps de z detectados, buscando la ultima z bajada: " + consultarUltimoError);
                     int ultimaZBajada = consultarUltimoError.getUltimaZBajada();
                     obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZBajada + 1, ultimaZBajada + 1);
                     fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
-                    rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal);
+                    rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal, false);
                     logger.info("Primera iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0], rangoFechaAfip[1]);
                     rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
                     reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
@@ -79,7 +91,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                         ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
                         SimpleDateFormat formater = new SimpleDateFormat("yyMMdd");
                         logger.info("Voy a formatear la fecha {}", formater.format(ultimaFechaReporte.toDate()));
-                        rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()));
+                        rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),false);
                         logger.info("Nueva iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0], rangoFechaAfip[1]);
                         rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
                         reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
@@ -87,17 +99,28 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
 
                     }
                 }
+
             } else {
                 logger.info("Reporte generado ok sin GAPs para Z: " + ultimaZ);
                 reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
+                ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
+                SimpleDateFormat formater = new SimpleDateFormat("yyMMdd");
+                logger.info("Recorro si faltan rangos {}", formater.format(ultimaFechaReporte.toDate()));
+                rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),true);
+                rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
+                if( rangoFechaAfip[1].after(new Date())) {
+                    logger.warn("Ojo otra vez fecha final en el futuro "+rangoFechaAfipString[1] +  " vs Hoy " +  simpleDateFormat.format(new Date()));
+                    continuarReporte = false;
+                }
             }
-        }
+        }//end while
 
     }
     @Override
-    protected Date[] getRangoFechaAfip(String fecha) throws ParseException {
+    protected Date[] getRangoFechaAfip(String fecha, Boolean tipoConsulta) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-
+//el nuevo cambio hace que me de el rango anterior  a la feccha de la Z
         logger.debug("fecha recibida en rango fecha afip: " + fecha);
         Date parse = simpleDateFormat.parse(fecha);
         Date[] result = new Date[2];
@@ -106,20 +129,43 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         start.setTime(parse);
         Calendar end = Calendar.getInstance();
         end.setTime(parse);
-        if (dia <= 7) {
-            start.set(Calendar.DAY_OF_MONTH, 1);
-            end.set(Calendar.DAY_OF_MONTH, 7);
 
-        } else if (dia <= 14) {
-            start.set(Calendar.DAY_OF_MONTH, 8);
-            end.set(Calendar.DAY_OF_MONTH, 14);
-        } else if (dia <= 21) {
-            start.set(Calendar.DAY_OF_MONTH, 15);
-            end.set(Calendar.DAY_OF_MONTH, 21);
+        if( tipoConsulta == false) {
+            if (dia <= 7) {
+                start.add(Calendar.MONTH, -1);
+                end.add(Calendar.MONTH, -1);
+                start.set(Calendar.DAY_OF_MONTH, 22);
+                end.set(Calendar.DAY_OF_MONTH, end.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+            } else if (dia <= 14) {
+                start.set(Calendar.DAY_OF_MONTH, 1);
+                end.set(Calendar.DAY_OF_MONTH, 7);
+
+            } else if (dia <= 21) {
+                start.set(Calendar.DAY_OF_MONTH, 8);
+                end.set(Calendar.DAY_OF_MONTH, 14);
+
+            } else {
+                start.set(Calendar.DAY_OF_MONTH, 15);
+                end.set(Calendar.DAY_OF_MONTH, 21);
+            }
         } else {
-            start.set(Calendar.DAY_OF_MONTH, 22);
-            end.set(Calendar.DAY_OF_MONTH, end.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+            if (dia <= 7) {
+                start.set(Calendar.DAY_OF_MONTH, 1);
+                end.set(Calendar.DAY_OF_MONTH, 7);
+            } else if (dia <= 14) {
+                start.set(Calendar.DAY_OF_MONTH, 8);
+                end.set(Calendar.DAY_OF_MONTH, 14);
+            } else if (dia <= 21) {
+                start.set(Calendar.DAY_OF_MONTH, 15);
+                end.set(Calendar.DAY_OF_MONTH, 21);
+            } else {
+                start.set(Calendar.DAY_OF_MONTH, 22);
+                end.set(Calendar.DAY_OF_MONTH, end.getActualMaximum(Calendar.DAY_OF_MONTH));
+            }
         }
+
         result[0] = start.getTime();
         result[1] = end.getTime();
         return result;

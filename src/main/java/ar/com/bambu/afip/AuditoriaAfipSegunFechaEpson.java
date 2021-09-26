@@ -43,7 +43,7 @@ public class AuditoriaAfipSegunFechaEpson extends AuditoriaAfipSegunFecha implem
             this.getFechaHasta(auditoriaDeJornadasFiscalesPorRangoDeCierreZ);
         //aca no se que hacer si las fechas de los z son distintas, pero suponiendo son iguales obtener el rango de fechas segun esta fecha
             // 1 al 7 del mes, o 8 al 14 del mes, o 15 al 21 del mes o 22 a fin de mes.
-            String[] rangoFechaAfip = this.getRangoFechaAfipString(fechaDesde);
+            String[] rangoFechaAfip = this.getRangoFechaAfipString(fechaDesde, true);
 
             //todo
             //falta llamar 3 veces al metodo de reporte afip y guardar los archivos que nos devuelve.
@@ -63,9 +63,9 @@ public class AuditoriaAfipSegunFechaEpson extends AuditoriaAfipSegunFecha implem
         }
     }
 
-    private String[] getRangoFechaAfipString(String fechaDesde) throws Exception {
+    private String[] getRangoFechaAfipString(String fechaDesde, Boolean tipoConsulta) throws Exception {
         String[] result = new String[2];
-        Date[] dates = this.getRangoFechaAfip(fechaDesde);
+        Date[] dates = this.getRangoFechaAfip(fechaDesde, true);
         SimpleDateFormat salida = new SimpleDateFormat("ddMMyy");
         result[0]=salida.format(dates[0]);
         result[1]=salida.format(dates[1]);

@@ -12,7 +12,7 @@ public class AuditoriaAfipSegunFecha {
 
     private static final Logger logger = LogManager.getLogger(AuditoriaAfipSegunFecha.class);
 
-    protected Date[] getRangoFechaAfip(String fecha) throws ParseException {
+    protected Date[] getRangoFechaAfip(String fecha, Boolean tipoConsulta) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         logger.debug("fecha recibida en rango fecha afip: " + fecha);
