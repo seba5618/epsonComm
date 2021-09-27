@@ -10,11 +10,35 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jpos.iso.ISOUtil;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+
 public class HassarCommunicator {
     private static final Logger logger = LogManager.getLogger(HassarCommunicator.class);
     HassarSerialChannel channel = new HassarSerialChannel();
 
+    public String getfFechaI() {
+        return fFechaI;
+    }
 
+    public void setfFechaI(String fFechaI) {
+        this.fFechaI = fFechaI;
+    }
+
+    public String getfFfechaF() {
+        return fFfechaF;
+    }
+
+    public void setfFfechaF(String fFfechaF) {
+        this.fFfechaF = fFfechaF;
+    }
+
+    String fFechaI;
+    String fFfechaF;
 
 
     // CMD_DATA_NOT_FOUND cuando tiro una z que aun no se hizo Dato no encontrado
@@ -43,7 +67,7 @@ public class HassarCommunicator {
     }
 
 
-    public ConsultarDatosInicializacion getConsultarDatosInicializacion() throws Exception{
+    public ConsultarDatosInicializacion getConsultarDatosInicializacion() throws Exception {
         logger.info("Sending getConsultarDatosInicializacion(Hassar)");
         HassarFrameMsg reply = this.sendGenericMsg(new byte[]{0x73});
         ConsultarDatosInicializacion response = new ConsultarDatosInicializacion(reply);
@@ -100,4 +124,54 @@ public class HassarCommunicator {
         return result;
     }
 
+    public Boolean ControlarFechaFile(String fechaInicial, String fechaFinal, int nroPuntoVta, Date fechaPrimeraZ) {
+        //aca sacamos el rango del archivo para no tenere que recurrir a toda la logica de empty_range o gap
+        File f = new File("fileAfip.properties");
+
+        // Check if the specified file
+        // Exists or not
+        if (!f.exists()) {
+            return false;
+        }
+
+        Properties prop = new Properties();
+        try {
+            // Leer el archivo de propiedades db.properties
+            prop.load(new FileInputStream(new File(f.getName())));
+
+            String ptoventaprop = prop.getProperty("PtoVta");
+            if (Integer.parseInt(ptoventaprop) != nroPuntoVta) {
+                //es un archivo de otro punto de venta
+                return false;
+            }
+            //controlemos fchas locas
+            SimpleDateFormat formatter1 = new SimpleDateFormat("yyMMdd");
+
+
+            fFechaI = prop.getProperty("RANGOI");
+            fFfechaF = prop.getProperty("RANGOF");
+            //Date dateP = formatter1.parse(String.valueOf(fechaPrimeraZ));
+            Date dateP = formatter1.parse(formatter1.format(fechaPrimeraZ));
+
+            Date dateI = formatter1.parse(fFechaI);
+            if (dateI.before(dateP)) {
+                //el rango es anterior a la primera Z no puede ser borremos el archivo para qe no joda
+                f.delete();
+                fFechaI = "";
+                fFfechaF = "";
+                return false;
+            }
+            return true;
+
+        } catch (Exception e) {
+            logger.error("Error con fecha file " + e.getMessage());
+            System.out.println(e);
+        }
+    return  false;
+    }
+
 }
+
+
+
+

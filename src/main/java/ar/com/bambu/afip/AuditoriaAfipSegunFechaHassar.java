@@ -42,6 +42,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
             obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(1, 1);
         }catch ( Exception ex) {
             logger.error("Chau No conectamos al serial FIN DEL PROGRAMA  ");
+            System.out.println("Chau No conectamos al serial FIN DEL PROGRAMA  ");
             System.exit(-1);
       }
 
@@ -59,7 +60,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
         Date dateZFinal=simpleDateFormat.parse(fechaZFinal);
 
-        Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal,false);
+        Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal,true);
         String[] rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
 
         if( rangoFechaAfip[1].after(new Date())) {
@@ -76,6 +77,10 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                     logger.error("Error no hay Z en el rango solicitado: " + consultarUltimoError);
                     //ojo puede no haber Z en ese rango pero faltan rangos aun
                     //consultarUltimoError.saveEmptyFile(pos, rango fecha)
+                    if (this.communicator.ControlarFechaFile(rangoFechaAfipString[0],rangoFechaAfipString[1], consultarDatosInicializacion.getNroPos(),dateZInicial)) {
+                        rangoFechaAfipString[0]=this.communicator.getfFechaI();
+                        rangoFechaAfipString[1]=this.communicator.getfFfechaF();
+                    }
                     DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
                     ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
                     SimpleDateFormat formater = new SimpleDateFormat("yyMMdd");

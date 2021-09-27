@@ -91,7 +91,7 @@ public class HassarSerialChannel {
             }
 
             escritos = comPort.writeBytes(data, data.length);
-            if (escritos == 0) {
+            if (escritos == 0 || escritos == -1) {
                 comPort.closePort();
                 throw new Exception("Write error.");
             }
