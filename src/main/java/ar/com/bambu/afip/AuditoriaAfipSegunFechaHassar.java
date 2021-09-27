@@ -60,7 +60,8 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
         Date dateZFinal=simpleDateFormat.parse(fechaZFinal);
 
-        Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal,true);
+        //este es false porque necesito el rango anterior sino hasta que no pase el rango actual no traigo nada
+        Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal,false);
         String[] rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
 
         if( rangoFechaAfip[1].after(new Date())) {
