@@ -8,13 +8,13 @@
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
       <Policies>
         <TimeBasedTriggeringPolicy />
-        <SizeBasedTriggeringPolicy size="1 KB"/>
+        <SizeBasedTriggeringPolicy size="50 MB"/>
       </Policies>
 
     </RollingFile>
   </Appenders>
   <Loggers>
-    <Logger name="ar.com.bambu" level="debug" additivity="false">
+    <Logger name="ar.com.bambu" level="debug">
       <AppenderRef ref="File1"/>
     </Logger>
     <Root level="debug">
