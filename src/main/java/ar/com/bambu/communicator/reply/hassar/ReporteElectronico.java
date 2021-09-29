@@ -65,7 +65,7 @@ public class ReporteElectronico extends AbstractReply {
         File archivo2= new File(fileBackup2);
         try{
             if (archivo.exists() || archivo2.exists()) {
-                System.out.println("OJO: ¡¡YA  existe ESTE ARCHIVO DE REPORTE");
+                System.out.println("OJO: YA  existe ESTE ARCHIVO DE REPORTE");
                 throw new Exception ("YA  existe ESTE ARCHIVO DE REPORTE");
             }
 

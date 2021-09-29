@@ -4,9 +4,14 @@
     <Console name="LogToConsole" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
-    <File name="File1" fileName="output.log" bufferedIO="true">
+    <RollingFile name="File1" fileName="fiscal.log" bufferedIO="true" filePattern="logs/$${date:yyyy-MM}/fiscal-%d{MM-dd-yyyy}-%i.log.gz">
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-    </File>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="1 KB"/>
+      </Policies>
+
+    </RollingFile>
   </Appenders>
   <Loggers>
     <Logger name="ar.com.bambu" level="debug" additivity="false">
