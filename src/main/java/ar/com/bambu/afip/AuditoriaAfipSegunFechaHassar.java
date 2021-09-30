@@ -6,12 +6,14 @@ import ar.com.bambu.communicator.reply.hassar.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha implements Function{
 
@@ -37,6 +39,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
      */
     @Override
     public void apply() throws Exception{
+
         Boolean continuarReporte = true;
         //obtengamos la fecha de la primera Z
         ObtenerRangoFechasPorZetas obtenerRangoFechasPorZetas = new ObtenerRangoFechasPorZetas();
@@ -81,7 +84,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                     logger.error("Error no hay Z en el rango solicitado: " + consultarUltimoError);
                     //ojo puede no haber Z en ese rango pero faltan rangos aun
                     //consultarUltimoError.saveEmptyFile(pos, rango fecha)
-                    if (this.communicator.ControlarFechaFile(rangoFechaAfipString[0],rangoFechaAfipString[1], consultarDatosInicializacion.getNroPos(),dateZInicial)) {
+                    if ( this.communicator.ControlarFechaFile(rangoFechaAfipString[0],rangoFechaAfipString[1], consultarDatosInicializacion.getNroPos(),dateZInicial)) {
                         rangoFechaAfipString[0]=this.communicator.getfFechaI();
                         rangoFechaAfipString[1]=this.communicator.getfFfechaF();
                     }
@@ -105,7 +108,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                     rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal, true);
                     logger.info("Primera iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0], rangoFechaAfip[1]);
                     rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
-                    reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
+/*                    reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
                    ///que pasa si hay error fiscal? ejemplo es empty range..debo seguir igual hasta el final
                     if (!reporteElectronico.hayErrorFiscal()) {
 
@@ -114,8 +117,6 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                         consultarUltimoError = this.communicator.getConsultarUltimoError();
                     }
                     while(rangoFechaAfip[1].before(new Date())){
-               //     while (rangoFechaAfip[1].before(dateZFinal)) {
-
                         logger.info("Entro al while con {} ", rangoFechaAfip[1]);
                         DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
                         ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
@@ -138,8 +139,8 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                         rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),true);
                         rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
 
-                    }
-                    continuarReporte = false;
+                    }*/
+                  //  continuarReporte = false;
                 }
 
             } else {
@@ -151,10 +152,22 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                 logger.info("Recorro si faltan rangos {}", formater.format(ultimaFechaReporte.toDate()));
                 rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),true);
                 rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
-                if( rangoFechaAfip[1].after(new Date())) {
+                DateTime Hoy = new DateTime( new Date());
+                LocalDate HoyLocal = Hoy.toLocalDate();
+                LocalDate Manana = HoyLocal.plusDays(1);
+                Date HoyD = HoyLocal.toDate();
+                Date MananaD = Manana.toDate();
+
+                if( rangoFechaAfip[1].after( MananaD ) || rangoFechaAfip[1].compareTo(HoyD ) == 0 ) {
                     logger.warn("Ojo otra vez fecha final en el futuro "+rangoFechaAfipString[1] +  " vs Hoy " +  simpleDateFormat.format(new Date()));
+                    ultimaFechaReporte = new DateTime(rangoFechaAfip[0]); //busquemos el rango anterior para grabar
+//                    ultimaFechaReporte = ultimaFechaReporte.minus(1);
+                    rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),false);
+                    rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
+                    reporteElectronico.saveFileAfip(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
                     continuarReporte = false;
                 }
+
             }
         }//end while
 
@@ -247,6 +260,14 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         result[1] = end.getTime();
         return result;
 
+    }
+
+    public static Date addDays(Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days);
+
+        return cal.getTime();
     }
 
 }

@@ -63,10 +63,10 @@ public class ReporteElectronico extends AbstractReply {
 
         String fileBackup2 = carpeta.toString() +  "/" + FILE_NAME + "_" + nroPuntoVta + "_" + rangoI + "_a_" + rangoF + ".zip";
         File archivo2= new File(fileBackup2);
-        try{
+        try {
             if (archivo.exists() || archivo2.exists()) {
                 System.out.println("OJO: YA  existe ESTE ARCHIVO DE REPORTE");
-                throw new Exception ("YA  existe ESTE ARCHIVO DE REPORTE");
+                throw new Exception("YA  existe ESTE ARCHIVO DE REPORTE");
             }
 
             String asci85 = this.data.replace("<~", "");
@@ -75,6 +75,13 @@ public class ReporteElectronico extends AbstractReply {
             os.write(Ascii85.decode(asci85));
             os.close();
             //guardemos el rango en el archivio
+        }catch(Exception e){
+               System.out.println(e);
+        }
+
+    }
+
+    public void saveFileAfip(int nroPuntoVta, String rangoI, String rangoF) throws IOException {
             // Get the file
             File f = new File("fileAfip.properties");
 
@@ -84,12 +91,7 @@ public class ReporteElectronico extends AbstractReply {
                 f.createNewFile();
             }
 
-
-        }
-        catch(Exception e){
-            System.out.println(e);
-        } finally {
-            File f = new File("fileAfip.properties");
+        try {
             Properties prop = new Properties();
             // Leer el archivo de propiedades db.properties
             /// Guarde las propiedades en el archivo new.properties
@@ -100,9 +102,9 @@ public class ReporteElectronico extends AbstractReply {
             prop.store(oFile, "");
             oFile.close();
 
+        }catch(Exception e){
+            System.out.println(e);
         }
-
-
     }
 
     @Override
