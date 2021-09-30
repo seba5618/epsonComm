@@ -92,12 +92,13 @@ public class HassarCommunicator {
     }
 
     public ObtenerRangoFechasPorZetas getObtenerRangoFechasPorZetas(int zInicial, int zFinal) throws Exception {
-        logger.info("Sending getObtenerRangoFechasPorZetas (Hassar)");
+        logger.info("Sending getObtenerRangoFechasPorZetas (Hassar) Inicial {}  Final {}" ,zInicial ,zFinal );
         String start = String.valueOf(zInicial);
         String end = String.valueOf(zFinal);
         HassarFrameMsg reply = this.sendGenericMsg(new byte[]{(byte) 0xBA}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET));
         ObtenerRangoFechasPorZetas result = new ObtenerRangoFechasPorZetas(reply);
         if (result.hayErrorFiscal()) {
+            logger.info("Hubo Error Fiscal veamos cual fue");
             //pidamos el ultimo error de prueba porque aca mucho no sirve salvo para co
             getConsultarUltimoError();
         }
@@ -150,7 +151,6 @@ public class HassarCommunicator {
 
             fFechaI = prop.getProperty("RANGOI");
             fFfechaF = prop.getProperty("RANGOF");
-            //Date dateP = formatter1.parse(String.valueOf(fechaPrimeraZ));
             Date dateP = formatter1.parse(formatter1.format(fechaPrimeraZ));
 
             Date dateI = formatter1.parse(fFechaI);

@@ -89,12 +89,17 @@ public class HassarSerialChannel {
             if (!comPort.openPort()) {
                 throw new Exception("Cannot open serial port.");
             }
-
+        try {
             escritos = comPort.writeBytes(data, data.length);
             if (escritos == 0 || escritos == -1) {
                 comPort.closePort();
-                throw new Exception("Write error.");
+                throw new Exception("Write error. escritos " + escritos);
             }
+        }catch (Exception e)
+        {
+            throw new Exception("Write error. escritos " + escritos);
+
+        }
             comPort.closePort();
     }
 
@@ -104,8 +109,10 @@ public class HassarSerialChannel {
         SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
 
 
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 20000);
+        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 2000, 10000);
 
+        long startTime = System.currentTimeMillis(); //me quiero asegurar que no quede en un bucle infinito por no poder leer
+        //a pesar que le puse el timeout arriba ahora el ciclo de abajo lo cierro a los 30 seg
 
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
@@ -120,7 +127,7 @@ public class HassarSerialChannel {
 
             if (readBuffer[0] != STX) {
                 //nos desincronizamos, leer hasta encontrar un 0x02 que no le siga a un ESC
-                while (readBuffer[0] != STX) {
+                while (readBuffer[0] != STX && (System.currentTimeMillis()-startTime)<30000) {
                     if (readBuffer[0] == ESC) {
                         //no puede terminar en ESC una trama
                         logger.info("ESC read, buscando STX " + ISOUtil.byte2hex(readBuffer));
@@ -133,6 +140,7 @@ public class HassarSerialChannel {
                     } else{
                         logger.debug("Llego un: "+readBuffer[0]+ "esperamos un STX");
                     }
+
                     comPort.readBytes(readBuffer, 1);
                 }
             }
@@ -142,7 +150,8 @@ public class HassarSerialChannel {
             comPort.readBytes(readBuffer, 1);
             //hassar siempre manda un ESC luego del seq
             comPort.readBytes(readBuffer, 1);
-            while (readBuffer[0] != ETX) {
+            startTime = System.currentTimeMillis();
+            while (readBuffer[0] != ETX && (System.currentTimeMillis()-startTime)<60000) {
                 // logger.debug("in the loop: " + ISOUtil.hexString(result.toByteArray()));
                 if (readBuffer[0] == ESC) {
                     //no puede terminar en ESC una trama
@@ -155,15 +164,19 @@ public class HassarSerialChannel {
             logger.debug("out of the loop: " + ISOUtil.hexString(result.toByteArray()));
             //leimos hasta ETX, leo 4 bytes mas de checksum que no hago nada con esto por ahora.
             comPort.readBytes(readBuffer, 4);
+        } catch (Exception e) {
+            logger.error("Error serial reading;", e);
+        }
+        try{
             comPort.writeBytes(new byte[]{0x06}, 1);
 
             //y pongo un delimitador porque deberia de tener segun jpos.
             result.write(DEL);
             logger.debug("final de leer serial: " + ISOUtil.hexString(result.toByteArray()));
-
         } catch (Exception e) {
-            logger.error("Error serial reading;", e);
+            logger.error("Error serial reading/writing;", e);
         }
+
         comPort.closePort();
         return result.toByteArray();
     }

@@ -18,6 +18,8 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
     private HassarCommunicator communicator ;
 
     private static final Logger logger = LogManager.getLogger(AuditoriaAfipSegunFechaHassar.class);
+    public int ultimaZBajada =0;
+    public Date dateZInicial; //menos de esta fecha no podemos bajar
 
     public AuditoriaAfipSegunFechaHassar(HassarCommunicator communicator) {
         this.communicator = communicator;
@@ -41,14 +43,14 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         try {
             obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(1, 1);
         }catch ( Exception ex) {
-            logger.error("Chau No conectamos al serial FIN DEL PROGRAMA  ");
-            System.out.println("Chau No conectamos al serial FIN DEL PROGRAMA  ");
+            logger.error("Chau No conectamos al serial FIN DEL PROGRAMA  " + ex.getMessage());
+            System.out.println("Chau No conectamos al serial FIN DEL PROGRAMA  "+ ex.getMessage());
             System.exit(-1);
       }
 
         String fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
-        Date dateZInicial=simpleDateFormat.parse(fechaZFinal);
+        dateZInicial=simpleDateFormat.parse(fechaZFinal);
         logger.info("Z = 1 Fecha  " + dateZInicial);
 
         ConsultarCapacidadZetas consultarCapacidadZetas = this.communicator.getConsultarCapacidadZetas();
@@ -61,6 +63,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         Date dateZFinal=simpleDateFormat.parse(fechaZFinal);
 
         //este es false porque necesito el rango anterior sino hasta que no pase el rango actual no traigo nada
+        //ojo que si fechaZfinal =1 el rango que me trae debe ser desde a fecha Z=1 hasta fin de rango
         Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal,false);
         String[] rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
 
@@ -95,8 +98,9 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
 
                 } else if (consultarUltimoError.isReportGapError()) {
                     logger.warn("Gaps de z detectados, buscando la ultima z bajada: " + consultarUltimoError);
-                    int ultimaZBajada = consultarUltimoError.getUltimaZBajada();
+                    ultimaZBajada = consultarUltimoError.getUltimaZBajada();
                     obtenerRangoFechasPorZetas = this.communicator.getObtenerRangoFechasPorZetas(ultimaZBajada + 1, ultimaZBajada + 1);
+                    logger.warn("La ultima z bajada: " + ultimaZBajada);
                     fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
                     rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal, true);
                     logger.info("Primera iteracion de reporte afip hassar para fechas {} y {}", rangoFechaAfip[0], rangoFechaAfip[1]);
@@ -104,7 +108,10 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                     reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
                    ///que pasa si hay error fiscal? ejemplo es empty range..debo seguir igual hasta el final
                     if (!reporteElectronico.hayErrorFiscal()) {
+
                         reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                    } else {
+                        consultarUltimoError = this.communicator.getConsultarUltimoError();
                     }
                     while(rangoFechaAfip[1].before(new Date())){
                //     while (rangoFechaAfip[1].before(dateZFinal)) {
@@ -120,6 +127,8 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                         reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
                         if (!reporteElectronico.hayErrorFiscal()) {
                             reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                        } else {
+                            consultarUltimoError = this.communicator.getConsultarUltimoError();
                         }
                         //incrementar rango!!!
                         ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
@@ -154,7 +163,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
     protected Date[] getRangoFechaAfip(String fecha, Boolean tipoConsulta) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
 //el nuevo cambio hace que me de el rango anterior  a la feccha de la Z
-        logger.debug("fecha recibida en rango fecha afip: " + fecha);
+        logger.debug("fecha recibida:  " + fecha+  " BUSCAR RANGO fecha recibida ");
         Date parse = simpleDateFormat.parse(fecha);
         Date[] result = new Date[2];
         Integer dia = Integer.parseInt(fecha.substring(4, 6));
@@ -163,7 +172,17 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         Calendar end = Calendar.getInstance();
         end.setTime(parse);
 
+        if( parse.before(this.dateZInicial)) {
+            //la fecha pedida es anterior a la z =1, caput
+            throw  new ParseException("Fecha pedida es anterior a la fecha de la Z = 1",1);
+        }
+        if( parse.compareTo(this.dateZInicial)== 0)
+        {//es la misma fecha que la Z =1 por ende el rango inferior no puede ser menor
+            tipoConsulta = true;
+        }
+
         if( tipoConsulta == false) {
+            //esta parte da el rango ANTERIOR donde esta la fecha
             if (dia <= 7) {
                 start.add(Calendar.MONTH, -1);
                 end.add(Calendar.MONTH, -1);
@@ -183,7 +202,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                 end.set(Calendar.DAY_OF_MONTH, 21);
             }
         } else {
-
+//esta parte da el rango donde esta la fecha
             if (dia <= 7) {
                 start.set(Calendar.DAY_OF_MONTH, 1);
                 end.set(Calendar.DAY_OF_MONTH, 7);
@@ -198,8 +217,33 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                 end.set(Calendar.DAY_OF_MONTH, end.getActualMaximum(Calendar.DAY_OF_MONTH));
             }
         }
+        //veamos que la fecha inicial no sea anterior a la fecha de la Z =1
+        if( start.getTime().before(dateZInicial)) {
+            result[0] = dateZInicial;
+            if(tipoConsulta == false) { //aca el rango final es menor seguro nO ASUSTARSE
+                if (dia <= 7) {
+                    start.add(Calendar.MONTH, -1);
+                    end.add(Calendar.MONTH, -1);
+                    start.set(Calendar.DAY_OF_MONTH, 22);
+                    end.set(Calendar.DAY_OF_MONTH, end.getActualMaximum(Calendar.DAY_OF_MONTH));
 
-        result[0] = start.getTime();
+                } else if (dia <= 14) {
+                    start.set(Calendar.DAY_OF_MONTH, 1);
+                    end.set(Calendar.DAY_OF_MONTH, 7);
+
+                } else if (dia <= 21) {
+                    start.set(Calendar.DAY_OF_MONTH, 8);
+                    end.set(Calendar.DAY_OF_MONTH, 14);
+
+                } else {
+                    start.set(Calendar.DAY_OF_MONTH, 15);
+                    end.set(Calendar.DAY_OF_MONTH, 21);
+                }
+
+            }
+        } else
+            result[0] = start.getTime();
+
         result[1] = end.getTime();
         return result;
 

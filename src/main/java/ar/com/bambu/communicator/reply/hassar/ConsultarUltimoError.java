@@ -43,6 +43,13 @@ public class ConsultarUltimoError extends AbstractReply {
             String z = this.getContexto().substring(indexBegin+1, indexEnd).trim();
             result = Integer.parseInt(z);
         }
+        if( result == -1) {
+            if (this.getContexto().toUpperCase().contains("PRIMERA BAJADA")) {
+                //no encontro la z, asi que supongo que debe ser la 1era z
+                result =0;
+            }
+
+        }
         return result;
     }
 
