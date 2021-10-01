@@ -18,6 +18,8 @@ public class HassarSerialChannel {
     public static final byte DEL = 0x1C;
     public static final byte ACK = 0x06;
     public static final byte NACK = 0x15;
+    public static final byte DC2 = 0x18;
+    public static final byte DC4 = 0x20;
     public static final byte INTER = (byte) 0x80;
     private byte seq = (byte) 0x81;
     private static final Logger logger = LogManager.getLogger(EpsonSerialChannel.class);
@@ -104,14 +106,17 @@ public class HassarSerialChannel {
     }
 
     private byte[] readFrame()  {
+        long tiempoTimeout =30000;
+        long tiempoExtra =0;
         String CommPortFiscal =   Fiscal.getPortName();
        // SerialPort comPort = SerialPort.getCommPort("COM31");
         SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
 
 
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 2000, 10000);
+        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 10000);
 
-        long startTime = System.currentTimeMillis(); //me quiero asegurar que no quede en un bucle infinito por no poder leer
+
+
         //a pesar que le puse el timeout arriba ahora el ciclo de abajo lo cierro a los 30 seg
 
         ByteArrayOutputStream result = new ByteArrayOutputStream();
@@ -124,10 +129,11 @@ public class HassarSerialChannel {
 
             comPort.readBytes(readBuffer, 1);
 
+            long startTime = System.currentTimeMillis(); //me quiero asegurar que no quede en un bucle infinito por no poder leer
 
             if (readBuffer[0] != STX) {
                 //nos desincronizamos, leer hasta encontrar un 0x02 que no le siga a un ESC
-                while (readBuffer[0] != STX && (System.currentTimeMillis()-startTime)<30000) {
+                while (readBuffer[0] != STX && (System.currentTimeMillis()-startTime)< (tiempoTimeout+ tiempoExtra) ) {
                     if (readBuffer[0] == ESC) {
                         //no puede terminar en ESC una trama
                         logger.info("ESC read, buscando STX " + ISOUtil.byte2hex(readBuffer));
@@ -137,12 +143,19 @@ public class HassarSerialChannel {
                     } else if (readBuffer[0] == NACK) {
                         logger.error("NACK leido de impresora, cortando lectura.");
                         throw new IOException("Nack leido de impresora.");
+                    } else if(readBuffer[0] == DC2 || readBuffer[0] == DC4) {
+                        logger.debug("Llego un DC2/DC4: "+readBuffer[0]+ " SEGUIMOS esperamos un STX");
+                        tiempoExtra += 10000;  //aumentamos la espera 10 segundos porque la fscal esta ocupada
                     } else{
                         logger.debug("Llego un: "+readBuffer[0]+ "esperamos un STX");
                     }
 
                     comPort.readBytes(readBuffer, 1);
                 }
+            }
+            if(readBuffer[0] != STX) {
+                logger.error("No puedo leer el puerto salgo por timeout.");
+                throw new IOException("No puedo leer el puerto salgo por timeout.");
             }
             //leido ya stx,
             comPort.readBytes(readBuffer, 1);
