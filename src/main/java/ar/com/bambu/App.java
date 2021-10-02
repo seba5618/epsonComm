@@ -23,7 +23,7 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
-        logger.debug("VERSION APP EXTRACCION 2.75");
+        logger.debug("VERSION APP EXTRACCION 3.0");
      /*   JFrame frame = new JFrame();
         frame.add(new JLabel("EXTRACCION DE DATOS FISCALES IMPRESORA PARA AFIP...AGUARDE"));
         frame.setVisible(true);

@@ -1,7 +1,10 @@
 package ar.com.bambu.communicator.reply.hassar;
 
+import ar.com.bambu.afip.AuditoriaAfipSegunFechaHassar;
 import ar.com.bambu.jpos.HassarFrameMsg;
 import ar.com.bambu.utils.Ascii85;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.Properties;
@@ -12,6 +15,7 @@ public class ReporteElectronico extends AbstractReply {
     private boolean partialData;
 
     private final static String FILE_NAME = "hassarAfip";
+    private static final Logger logger = LogManager.getLogger(AuditoriaAfipSegunFechaHassar.class);
 
     public ReporteElectronico(HassarFrameMsg msg) {
         super(msg);
@@ -66,6 +70,7 @@ public class ReporteElectronico extends AbstractReply {
         try {
             if (archivo.exists() || archivo2.exists()) {
                 System.out.println("OJO: YA  existe ESTE ARCHIVO DE REPORTE");
+                logger.warn ("OJO: YA  existe ESTE ARCHIVO DE REPORTE " +fileBackup2 );
                 throw new Exception("YA  existe ESTE ARCHIVO DE REPORTE");
             }
 
@@ -74,6 +79,7 @@ public class ReporteElectronico extends AbstractReply {
             OutputStream os = new FileOutputStream(FILE_NAME + "_" + nroPuntoVta + "_" + rangoI + "_a_" + rangoF + ".zip");
             os.write(Ascii85.decode(asci85));
             os.close();
+            logger.info ("SE Genero el siguiente archivo para la afip " +fileBackup2 );
             //guardemos el rango en el archivio
         }catch(Exception e){
                System.out.println(e);

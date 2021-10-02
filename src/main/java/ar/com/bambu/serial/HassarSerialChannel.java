@@ -18,8 +18,8 @@ public class HassarSerialChannel {
     public static final byte DEL = 0x1C;
     public static final byte ACK = 0x06;
     public static final byte NACK = 0x15;
-    public static final byte DC2 = 0x18;
-    public static final byte DC4 = 0x20;
+    public static final byte DC2 = 0x12;
+    public static final byte DC4 = 0x14;
     public static final byte INTER = (byte) 0x80;
     private byte seq = (byte) 0x81;
     private static final Logger logger = LogManager.getLogger(EpsonSerialChannel.class);
@@ -145,7 +145,7 @@ public class HassarSerialChannel {
                         throw new IOException("Nack leido de impresora.");
                     } else if(readBuffer[0] == DC2 || readBuffer[0] == DC4) {
                         logger.debug("Llego un DC2/DC4: "+readBuffer[0]+ " SEGUIMOS esperamos un STX");
-                        tiempoExtra += 10000;  //aumentamos la espera 10 segundos porque la fscal esta ocupada
+                        tiempoExtra += 1000;  //aumentamos la espera 1 segundo porque la fscal esta ocupada, la respuesta son 400 ms
                     } else{
                         logger.debug("Llego un: "+readBuffer[0]+ "esperamos un STX");
                     }
