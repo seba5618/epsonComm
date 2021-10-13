@@ -14,13 +14,32 @@ public class ReporteElectronico extends AbstractReply {
     private String data;
     private boolean partialData;
 
+
+    private boolean fiscalEnEspera = false;
+
     private final static String FILE_NAME = "hassarAfip";
     private static final Logger logger = LogManager.getLogger(AuditoriaAfipSegunFechaHassar.class);
 
     public ReporteElectronico(HassarFrameMsg msg) {
         super(msg);
+        fiscalEnEspera = false;
         this.partialData = msg.getBoolean(4);
         this.data = msg.getString(5);
+        if (partialData == false && (data == null || data.length() < 1)) {
+            fiscalEnEspera = true;
+            logger.warn("ARespuesta procesada; 2 campos ");
+        } else {
+            logger.warn("ARespuesta procesada; 4 campos ");
+        }
+    }
+
+
+    public boolean getFiscalEnEspera() {
+        return fiscalEnEspera;
+    }
+
+    public void setFiscalEnEspera(boolean fiscalEnEspera) {
+        this.fiscalEnEspera = fiscalEnEspera;
     }
 
     public String getData() {
@@ -39,21 +58,60 @@ public class ReporteElectronico extends AbstractReply {
         this.partialData = partialData;
     }
 
-    public void update(HassarFrameMsg msg) {
+    public void update(HassarFrameMsg msg) throws Exception {
+        //String dataAux=null;
+        ConsultarEstadoImpresora(msg);
         this.partialData = msg.getBoolean(4);
-        if (this.data == null) {
-            this.data = msg.getString(5);
+
+        if( fiscalEnEspera == false ) {
+            if (this.data == null) {
+                this.data = msg.getString(5);
+            } else {
+                this.data += msg.getString(5);
+            }
+        }
+
+
+    }
+
+    public void ConsultarEstadoImpresora(HassarFrameMsg msg) throws Exception {
+        Byte tipoMensaje =msg.getByte(1);
+        Integer estadoImpresora =msg.getInteger(2);
+        Integer estadoFiscal =msg.getInteger(3);
+       // fiscalEnEspera = false;
+        this.partialData = msg.getBoolean(4);
+
+        int numberComando = tipoMensaje & 0xff;  // w = 119 el A1=161= ¡ bytes to unsigned byte in an integer.
+        if(numberComando == 161) {
+            logger.warn("Comando de espera de la fiscal ");
+        }
+
+        if (numberComando == 161) {
+            fiscalEnEspera = true;
+            logger.warn("CRespuesta procesada; 2 campos ");
         } else {
-            this.data += msg.getString(5);
+            logger.warn("CRespuesta procesada; 4 campos ");
+            if( this.getFiscalEnEspera()) {
+                logger.warn("Fiscal Salio de espera ");
+                fiscalEnEspera = false;
+            }
+        }
+        logger.debug(" tipo Mensaje.. "+  Integer.toHexString(tipoMensaje ));
+        logger.debug(" tipo Mensaje Unsigned.. "+  numberComando);
+        logger.debug(" estado fiscal.. "+estadoFiscal);
+        logger.debug(" estado impresora.. "+estadoImpresora);
+        //comandos soportados
+        if( numberComando != 119  && numberComando != 161 ) {
+            logger.warn("COMANDO EXTRANIO OJO SE DESINCRONIZO. SALIR "  );
+            throw new Exception("Comando desincronizado salir ");
         }
     }
 
-
     public void saveFile(int nroPuntoVta, String rangoI, String rangoF) throws IOException {
         if (partialData) {
+            logger.warn ("File not ready yet to be saved" );
             throw new IOException("File not ready yet to be saved");
         }
-        File file = new File(FILE_NAME + "_" + nroPuntoVta + "_" + rangoI + "_a_" + rangoF);
         /*file.delete();
         File debug = new File("debug.txt");
         debug.delete();*/
@@ -74,13 +132,22 @@ public class ReporteElectronico extends AbstractReply {
                 throw new Exception("YA  existe ESTE ARCHIVO DE REPORTE");
             }
 
+            logger.info ("VOY a grabar " + this.data.length() +  " bytes" );
             String asci85 = this.data.replace("<~", "");
             asci85 = asci85.replace("~>", "");
+            logger.info ("Asci85 " + asci85.length() +  " bytes" );
+
+            OutputStream os2 = new FileOutputStream("ouput_" + rangoI + "_a_" + rangoF + ".txt");
+            os2.write(this.data.getBytes());
             OutputStream os = new FileOutputStream(FILE_NAME + "_" + nroPuntoVta + "_" + rangoI + "_a_" + rangoF + ".zip");
             os.write(Ascii85.decode(asci85));
             os.close();
             logger.info ("SE Genero el siguiente archivo para la afip " +fileBackup2 );
-            //guardemos el rango en el archivio
+
+          //  File f = new File("ouput_" + rangoI + "_a_" + rangoF + ".txt");
+            //f.delete();
+
+
         }catch(Exception e){
                System.out.println(e);
         }
@@ -112,6 +179,9 @@ public class ReporteElectronico extends AbstractReply {
             System.out.println(e);
         }
     }
+
+
+
 
     @Override
     public String toString() {

@@ -41,11 +41,16 @@ public class HassarCommunicator {
     String fFfechaF;
 
 
+
+    private byte[] typeComando;
+
+
     // CMD_DATA_NOT_FOUND cuando tiro una z que aun no se hizo Dato no encontrado
     //POS_REPORT_GAP  cuando pido un rango de una Z posterior a el rango que debo bajar Jornadas fiscal no consecutiva a la ﷿ltima bajada
 
 
     public HassarFrameMsg sendGenericMsg(byte[] type, byte[]... params) throws Exception {
+        setTypeComando( type);
         HassarFrameMsg m = new HassarFrameMsg();
         m.setPackager(new EpsonPackager());
         int index = 1;
@@ -55,12 +60,13 @@ public class HassarCommunicator {
         }
         logger.debug("Sending Msg Hassar: " + ISOUtil.hexString(m.pack()));
         byte[] reply = channel.sendMsg(m.pack());
-        logger.debug("Got Msg: " + ISOUtil.hexString(reply));
+        //logger.debug("Got Msg: " + ISOUtil.hexString(reply));
         HassarFrameMsg replyMsg = new HassarFrameMsg();
         replyMsg.setPackager(new EpsonPackager());
         replyMsg.unpack(reply);
         return replyMsg;
     }
+
 
     protected void setChannel(HassarSerialChannel channel) {
         this.channel = channel;
@@ -111,16 +117,34 @@ public class HassarCommunicator {
         logger.debug("fechaInicial: " + fechaInicial);
         logger.debug("fechaFinal: " + fechaFinal);
         logger.debug("tipReporte: " + tipoReporte);
+        int contadorRespuestas = 0;
 
         HassarFrameMsg reply = this.sendGenericMsg(new byte[]{0x76}, fechaInicial.getBytes(ISOUtil.CHARSET), fechaFinal.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
 
 
         ReporteElectronico result = new ReporteElectronico(reply);
+//aca deberia ver si no es respuesta parcial manda el comando A1 de consulta en espera
+        while ( result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
+            logger.info("Entramos en modo espera de la fiscal");
+            reply = this.sendGenericMsg(new byte[]{(byte) 0xA1});
+            result.update(reply);
 
-        while (result.isPartialData()) {
+        }
+        while (result.isPartialData() && result.hayErrorFiscal()==false) {
             logger.info("Respuesta parcial de Hassar, llamando comando obtener siguiente bloque");
             reply = this.sendGenericMsg(new byte[]{0x77}, fechaInicial.getBytes(ISOUtil.CHARSET), fechaFinal.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
             result.update(reply);
+            //todo esto medio bombero un while dentro del otro
+            while ( result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
+                logger.info("Entramos en modo espera de la fiscal");
+                reply = this.sendGenericMsg(new byte[]{(byte) 0xA1});
+                result.update(reply);
+            }
+
+            contadorRespuestas++;
+        }
+        if( contadorRespuestas == 0) {
+            logger.warn("No hubo ninguna Respuesta parcial de Hassar, no se pidio el siguiente bLOBUE");
         }
         return result;
     }
@@ -168,6 +192,14 @@ public class HassarCommunicator {
             System.out.println(e);
         }
     return  false;
+    }
+
+    public byte[] getTypeComando() {
+        return typeComando;
+    }
+
+    public void setTypeComando(byte[]  typeComando) {
+        this.typeComando = typeComando;
     }
 
 }

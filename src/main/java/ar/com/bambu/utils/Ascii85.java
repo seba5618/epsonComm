@@ -1,5 +1,9 @@
 package ar.com.bambu.utils;
 
+import ar.com.bambu.afip.AuditoriaAfipSegunFechaHassar;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -9,6 +13,7 @@ import java.util.regex.Pattern;
 public class Ascii85 {
 
     private final static int ASCII_SHIFT = 33;
+    private static final Logger logger = LogManager.getLogger(AuditoriaAfipSegunFechaHassar.class);
 
     private static int[] BASE85_POW = {
             1,
@@ -85,6 +90,7 @@ public class Ascii85 {
      */
     public static byte[] decode(String chars) {
         if (chars == null) {
+            logger.error(" Äscii85 decode null cadena" );
             throw new IllegalArgumentException("You must provide a non-null input");
         }
         // Because we perform compression when encoding four bytes of zeros to a single 'z', we need
@@ -124,6 +130,7 @@ public class Ascii85 {
             //and an all-zero group is encoded as a single character "z" instead of "!!!!!".
             if (currByte == 'z') {
                 if (chunkIndex > 0) {
+                    logger.error(" Äscii85 decode The payload is not base 85 encoded." );
                     throw new IllegalArgumentException("The payload is not base 85 encoded.");
                 }
                 chunk[chunkIndex++] = '!';
@@ -158,6 +165,7 @@ public class Ascii85 {
 
     private static byte[] decodeChunk(byte[] chunk) {
         if (chunk.length != 5) {
+            logger.error("You can only decode chunks of size 5." );
             throw new IllegalArgumentException("You can only decode chunks of size 5.");
         }
         int value = 0;
@@ -172,6 +180,7 @@ public class Ascii85 {
 
     private static int byteToInt(byte[] value) {
         if (value == null || value.length != 4) {
+            logger.error("You cannot create an int without exactly 4 bytes." );
             throw new IllegalArgumentException("You cannot create an int without exactly 4 bytes.");
         }
         return ByteBuffer.wrap(value).getInt();
