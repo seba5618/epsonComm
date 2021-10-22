@@ -59,6 +59,7 @@ public class HassarCommunicator {
             m.set(index++, param);
         }
         logger.debug("Sending Msg Hassar: " + ISOUtil.hexString(m.pack()));
+        channel.setTypeComando(type);
         byte[] reply = channel.sendMsg(m.pack());
         //logger.debug("Got Msg: " + ISOUtil.hexString(reply));
         HassarFrameMsg replyMsg = new HassarFrameMsg();
@@ -127,18 +128,19 @@ public class HassarCommunicator {
         while ( result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
             logger.info("Entramos en modo espera de la fiscal");
             reply = this.sendGenericMsg(new byte[]{(byte) 0xA1});
-            result.update(reply);
+            result.update(reply, true);
 
         }
         while (result.isPartialData() && result.hayErrorFiscal()==false) {
             logger.info("Respuesta parcial de Hassar, llamando comando obtener siguiente bloque");
             reply = this.sendGenericMsg(new byte[]{0x77}, fechaInicial.getBytes(ISOUtil.CHARSET), fechaFinal.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
-            result.update(reply);
+            result.update(reply,false);
             //todo esto medio bombero un while dentro del otro
             while ( result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
                 logger.info("Entramos en modo espera de la fiscal");
                 reply = this.sendGenericMsg(new byte[]{(byte) 0xA1});
-                result.update(reply);
+                result.update(reply,false);
+
             }
 
             contadorRespuestas++;

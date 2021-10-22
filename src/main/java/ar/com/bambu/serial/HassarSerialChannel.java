@@ -34,13 +34,16 @@ public class HassarSerialChannel {
     }
 
     private String comPort ;
+    private byte[] typeComando;
 
     public byte[] sendMsg(byte[] dataFrame, byte seq) throws Exception {
         //creo un nuevo byte[] con el start de package, seq le pongo lo que me mandaron y le chanto el end y el checksum
         byte[] outFrame = this.generateFrame(dataFrame, seq);
         logger.debug("Por enviar frame por puerto serie:  " + ISOUtil.byte2hex(outFrame));
         this.writeFrame(outFrame);
+        Thread.sleep(100); //lo agregue pero no se si funcionara
         return this.readFrame();
+
     }
 
     public byte[] sendMsg(byte[] dataFrame) throws Exception {
@@ -58,6 +61,7 @@ public class HassarSerialChannel {
         } else {
             seq++;
         }
+        logger.debug("MANDAMOS SEQ " + result  );
         return result;
     }
 
@@ -86,6 +90,12 @@ public class HassarSerialChannel {
         String CommPortFiscal = Fiscal.getPortName();
 //        SerialPort comPort = SerialPort.getCommPort("COM31");
         SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
+        comPort.setParity(SerialPort.NO_PARITY);
+        comPort.setNumStopBits(SerialPort.ONE_STOP_BIT);
+        comPort.setNumDataBits(8);
+        comPort.setBaudRate(9600);
+        //serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+
         //comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 20000);
             if (!comPort.openPort()) {
@@ -93,6 +103,7 @@ public class HassarSerialChannel {
             }
         try {
             escritos = comPort.writeBytes(data, data.length);
+
             if (escritos == 0 || escritos == -1) {
                 comPort.closePort();
                 throw new Exception("Write error. escritos " + escritos);
@@ -106,8 +117,7 @@ public class HassarSerialChannel {
     }
 
     private byte[] readFrame()  {
-        long tiempoTimeout =30000;
-        long tiempoExtra =0;
+        boolean desfasado = false;
         String CommPortFiscal =   Fiscal.getPortName();
        // SerialPort comPort = SerialPort.getCommPort("COM31");
         SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
@@ -128,10 +138,30 @@ public class HassarSerialChannel {
             byte[] readBuffer = new byte[4];
 
             comPort.readBytes(readBuffer, 1);
+            //este caso deberia ser un ack  stx, el ack ya se leyo antes aca viene un stx para arrancar
+            logger.warn("COMANDO " + this.getTypeComando()[0] +  " BYTEiNICIAL  " + readBuffer[0] +  " sEQ " + (seq -1)  );
 
-            long startTime = System.currentTimeMillis(); //me quiero asegurar que no quede en un bucle infinito por no poder leer
 
-            if (readBuffer[0] != STX) {
+            if (readBuffer[0] != STX
+                    && (readBuffer[0] != DC2 && readBuffer[0] != DC4 && readBuffer[0] != ACK && readBuffer[0] != NACK && readBuffer[0] != ESC)
+                    && ( this.getTypeComando()[0] == 119 || this.getTypeComando()[0] == 161 || this.getTypeComando()[0] == -95)) {
+                //119 es e comando 0x77 el 161 es el 0xA1 (espera)
+                logger.warn("OJO NO VIENE EL ACK PRIMERO, VINO  " + readBuffer[0] +" pongo como desfasado" );
+                //esto lo pongo porque deberia venir por ejemplo 06 02 C0 1B 77 1C 30 30 30 30
+                //pero se desfasa y viene   C0 1B 77 1C 30 30 30 30    y se comio el ack y el 02.
+                //mi opcion es lo rescontruyo si es 119 o a1 y se vera
+                //veamos si es la secuencia
+                if( readBuffer[0] == (seq - 1) ){
+                    logger.warn("DESFASADO PERO VINO LA SEQUENCIA " + readBuffer[0]  );
+                    logger.warn("SUPONEMOS QUE SE PERDIERON 1 BYTE ASI QUE SIGA "  );
+                    result.write( (seq - 1));
+                    result.write( this.getTypeComando()[0]);
+                    result.write(STX);
+                    desfasado = true;
+                }
+            }
+
+            if (readBuffer[0] != STX && desfasado == false) {
                 //nos desincronizamos, leer hasta encontrar un 0x02 que no le siga a un ESC
                 while (readBuffer[0] != STX /*&& (System.currentTimeMillis()-startTime)< (tiempoTimeout+ tiempoExtra)*/ ) {
                     if (readBuffer[0] == ESC) {
@@ -149,6 +179,7 @@ public class HassarSerialChannel {
                     } else{
                         //ojo aca con lo que llega
                         logger.debug("Llego un: "+readBuffer[0]+ "esperamos un STX");
+
                     }
 
                     comPort.readBytes(readBuffer, 1);
@@ -169,6 +200,7 @@ public class HassarSerialChannel {
                 // logger.debug("in the loop: " + ISOUtil.hexString(result.toByteArray()));
                 if (readBuffer[0] == ESC) {
                     //no puede terminar en ESC una trama
+                    logger.debug("no puede terminar en ESC una trama");
                     result.write(ESC);
                     comPort.readBytes(readBuffer, 1);
                 }
@@ -193,5 +225,12 @@ public class HassarSerialChannel {
 
         comPort.closePort();
         return result.toByteArray();
+    }
+    public byte[] getTypeComando() {
+        return typeComando;
+    }
+
+    public void setTypeComando(byte[]  typeComando) {
+        this.typeComando = typeComando;
     }
 }

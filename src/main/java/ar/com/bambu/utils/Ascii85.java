@@ -119,7 +119,7 @@ public class Ascii85 {
 
         ByteBuffer bytebuff = ByteBuffer.allocate(uncompressedLength.intValue());
         //1. Whitespace characters may occur anywhere to accommodate line length limitations. So lets strip it.
-        chars = REMOVE_WHITESPACE.matcher(chars).replaceAll("");
+ //       chars = REMOVE_WHITESPACE.matcher(chars).replaceAll("");// lo comente por las dudas
         //Since Base85 is an ascii encoder, we don't need to get the bytes as UTF-8.
         byte[] payload = chars.getBytes(Charset.forName("US-ASCII"));
         byte[] chunk = new byte[5];
@@ -128,26 +128,37 @@ public class Ascii85 {
             byte currByte = payload[i];
             //Because all-zero data is quite common, an exception is made for the sake of data compression,
             //and an all-zero group is encoded as a single character "z" instead of "!!!!!".
-            if (currByte == 'z') {
-                if (chunkIndex > 0) {
-                    logger.error(" Äscii85 decode The payload is not base 85 encoded." );
-                    throw new IllegalArgumentException("The payload is not base 85 encoded.");
+            char c = (char)currByte;
+            if( (Character.isWhitespace(c) ==false) ){
+                if (currByte == 'z') {
+                    if (chunkIndex > 0) {
+                        logger.error(" Äscii85 decode The payload is not base 85 encoded.");
+                        //lo comento para que sigua
+                        chunkIndex = 0; //guarda con esto queno va
+                        //  throw new IllegalArgumentException("The payload is not base 85 encoded.");
+                    }
+                    chunk[chunkIndex++] = '!';
+                    chunk[chunkIndex++] = '!';
+                    chunk[chunkIndex++] = '!';
+                    chunk[chunkIndex++] = '!';
+                    chunk[chunkIndex++] = '!';
+                } else {
+                    if (currByte < '!' || currByte > 'u') {
+                        logger.error("invalid character  " +  currByte);
+                        continue;
+                    }
+
+                    chunk[chunkIndex++] = currByte;
                 }
-                chunk[chunkIndex++] = '!';
-                chunk[chunkIndex++] = '!';
-                chunk[chunkIndex++] = '!';
-                chunk[chunkIndex++] = '!';
-                chunk[chunkIndex++] = '!';
-            } else {
-                chunk[chunkIndex++] = currByte;
+
+                if (chunkIndex == 5) {
+                    bytebuff.put(decodeChunk(chunk));
+                    Arrays.fill(chunk, (byte) 0);
+                    chunkIndex = 0;
+                }
             }
 
-            if (chunkIndex == 5) {
-                bytebuff.put(decodeChunk(chunk));
-                Arrays.fill(chunk, (byte) 0);
-                chunkIndex = 0;
-            }
-        }
+        } //end for
 
         //If we didn't end on 0, then we need some padding
         if (chunkIndex > 0) {

@@ -25,12 +25,7 @@ public class ReporteElectronico extends AbstractReply {
         fiscalEnEspera = false;
         this.partialData = msg.getBoolean(4);
         this.data = msg.getString(5);
-        if (partialData == false && (data == null || data.length() < 1)) {
-            fiscalEnEspera = true;
-            logger.warn("ARespuesta procesada; 2 campos ");
-        } else {
-            logger.warn("ARespuesta procesada; 4 campos ");
-        }
+
     }
 
 
@@ -58,19 +53,20 @@ public class ReporteElectronico extends AbstractReply {
         this.partialData = partialData;
     }
 
-    public void update(HassarFrameMsg msg) throws Exception {
+    public void update(HassarFrameMsg msg, boolean inicioReporte) throws Exception {
         //String dataAux=null;
         ConsultarEstadoImpresora(msg);
-        this.partialData = msg.getBoolean(4);
 
-        if( fiscalEnEspera == false ) {
-            if (this.data == null) {
-                this.data = msg.getString(5);
-            } else {
-                this.data += msg.getString(5);
+        if( inicioReporte ==false) {
+            this.partialData = msg.getBoolean(4);
+            if (fiscalEnEspera == false) {
+                if (this.data == null) {
+                    this.data = msg.getString(5);
+                } else {
+                    this.data += msg.getString(5);
+                }
             }
         }
-
 
     }
 
@@ -89,6 +85,7 @@ public class ReporteElectronico extends AbstractReply {
         if (numberComando == 161) {
             fiscalEnEspera = true;
             logger.warn("CRespuesta procesada; 2 campos ");
+
         } else {
             logger.warn("CRespuesta procesada; 4 campos ");
             if( this.getFiscalEnEspera()) {
@@ -137,8 +134,9 @@ public class ReporteElectronico extends AbstractReply {
             asci85 = asci85.replace("~>", "");
             logger.info ("Asci85 " + asci85.length() +  " bytes" );
 
-            OutputStream os2 = new FileOutputStream("ouput_" + rangoI + "_a_" + rangoF + ".txt");
+     /*       OutputStream os2 = new FileOutputStream("ouput_" + rangoI + "_a_" + rangoF + ".txt");
             os2.write(this.data.getBytes());
+            os2.close();*/
             OutputStream os = new FileOutputStream(FILE_NAME + "_" + nroPuntoVta + "_" + rangoI + "_a_" + rangoF + ".zip");
             os.write(Ascii85.decode(asci85));
             os.close();
@@ -180,7 +178,14 @@ public class ReporteElectronico extends AbstractReply {
         }
     }
 
-
+    public void deleteContent()  {
+       this.setData("");
+       this.setFiscalEnEspera(false);
+       this.setPartialData(false);
+       this.setEstadoFiscal(0);
+       this.setEstadoImpresora(0);
+       this.setTipoMensaje(0);
+    }
 
 
     @Override

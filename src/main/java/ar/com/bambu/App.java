@@ -35,22 +35,32 @@ public class App {
         frame.setSize(450,200);
         frame.getContentPane().setBackground(Color.YELLOW);
 */
-      //  saveFileTest();
+/*        saveFileTest();
+        System.exit(0);
+*/
         Fiscal fiscalPrinter = new Fiscal();
         fiscalPrinter.PuertoSerial();
-
-        /*HassarCommunicator communicator = new HassarCommunicator();
+/*
+        logger.warn ("PRIMER RANGO ");
+        HassarCommunicator communicator = new HassarCommunicator();
         ReporteElectronico reporteElectronico = communicator.getObtenerReporteElectronico("210908", "210914", "P");
         reporteElectronico.saveFile(13,"210908","210914");
+        reporteElectronico.deleteContent();
+        logger.warn ("SEGUNDO RANGO ");
 
         reporteElectronico = communicator.getObtenerReporteElectronico("210915", "210921", "P");
         reporteElectronico.saveFile(13,"210915","210921");
+        reporteElectronico.deleteContent();
 
+        logger.warn ("TERCER  RANGO ");
         reporteElectronico = communicator.getObtenerReporteElectronico("210922", "210930", "P");
         reporteElectronico.saveFile(13,"210922","210930");
+        reporteElectronico.deleteContent();
 
+        logger.warn ("4TO RANGO RANGO ");
         reporteElectronico = communicator.getObtenerReporteElectronico("211001", "211007", "P");
         reporteElectronico.saveFile(13,"211001","211007");
+        reporteElectronico.deleteContent();
         System.exit(0);
 */
 

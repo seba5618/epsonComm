@@ -35,6 +35,8 @@ public abstract class AbstractReply implements Reply {
         this.estadoFiscal = msg.getInteger(3);
         logger.debug(" estado fiscal " + estadoFiscal);
         logger.debug(" estado impresora " + estadoImpresora);
+        int numberComando = tipoMensaje & 0xff;
+        logger.debug(" comando " + numberComando);
     }
 
     public AbstractReply() {
