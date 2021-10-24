@@ -88,12 +88,13 @@ public class HassarSerialChannel {
     private void writeFrame(byte[] data) throws Exception {
         int escritos = 0;
         String CommPortFiscal = Fiscal.getPortName();
+        int baudrate = Fiscal.getBaudRate();
 //        SerialPort comPort = SerialPort.getCommPort("COM31");
         SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
         comPort.setParity(SerialPort.NO_PARITY);
         comPort.setNumStopBits(SerialPort.ONE_STOP_BIT);
         comPort.setNumDataBits(8);
-        comPort.setBaudRate(9600);
+        comPort.setBaudRate(baudrate);
         //serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 
         //comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
@@ -154,9 +155,9 @@ public class HassarSerialChannel {
                 if( readBuffer[0] == (seq - 1) ){
                     logger.warn("DESFASADO PERO VINO LA SEQUENCIA " + readBuffer[0]  );
                     logger.warn("SUPONEMOS QUE SE PERDIERON 1 BYTE ASI QUE SIGA "  );
-                    result.write( (seq - 1));
+              //      result.write( (seq - 1));
                     result.write( this.getTypeComando()[0]);
-                    result.write(STX);
+                //    result.write(STX);
                     desfasado = true;
                 }
             }
@@ -185,7 +186,7 @@ public class HassarSerialChannel {
                     comPort.readBytes(readBuffer, 1);
                 }
             }
-            if(readBuffer[0] != STX) {
+            if(readBuffer[0] != STX && desfasado == false) {
                 logger.error("No puedo leer el puerto salgo por timeout.");
                 throw new IOException("No puedo leer el puerto salgo por timeout.");
             }

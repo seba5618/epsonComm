@@ -26,7 +26,7 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
-        logger.debug("VERSION APP EXTRACCION 3.62-beta");
+        logger.debug("VERSION APP EXTRACCION 4.13");
      /*   JFrame frame = new JFrame();
         frame.add(new JLabel("EXTRACCION DE DATOS FISCALES IMPRESORA PARA AFIP...AGUARDE"));
         frame.setVisible(true);

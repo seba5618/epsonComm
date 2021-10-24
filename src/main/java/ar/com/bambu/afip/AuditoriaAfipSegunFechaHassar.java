@@ -69,22 +69,41 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
         //este es false porque necesito el rango anterior sino hasta que no pase el rango actual no traigo nada
         //ojo que si fechaZfinal =1 el rango que me trae debe ser desde a fecha Z=1 hasta fin de rango
         Date[] rangoFechaAfip = this.getRangoFechaAfip(fechaZFinal,false);
-        String[] rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
         String[] rangoFechaAfipStringFile = new String[2];
+
+        //eso lo agrego para no tener que pedir reporte si ya lo tengo
+        if ( continuarReporte == true && this.communicator.ControlarFechaFile(simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1]), consultarDatosInicializacion.getNroPos(),dateZInicial)) {
+            rangoFechaAfipStringFile[0]=this.communicator.getfFechaI();
+            rangoFechaAfipStringFile[1]=this.communicator.getfFfechaF();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+            System.out.println(sdf.parse(rangoFechaAfipStringFile[0]));
+
+            if(sdf.parse(rangoFechaAfipStringFile[0]).before(rangoFechaAfip[0])
+             || (sdf.parse(rangoFechaAfipStringFile[0]).equals(rangoFechaAfip[0]))) {
+                //cambiemos la fecha
+                rangoFechaAfip[0] = sdf.parse(rangoFechaAfipStringFile[0]);
+                rangoFechaAfip[1] = sdf.parse(rangoFechaAfipStringFile[1]);
+                DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
+                ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
+                SimpleDateFormat formater = new SimpleDateFormat("yyMMdd");
+                logger.info("Rango Fecha ultima Z es posterior a fecha archivo properties - Utilizo properties.");
+                rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),true);
+
+            };
+        }
+      /*  boolean areEqual = rangoFechaAfipStringFile[0].equals(rangoFechaAfipString[0]);
+        if( areEqual == true ){
+            logger.warn("EL RANFO "+rangoFechaAfipString[0] +  " AL  " +  rangoFechaAfipString[1] + " ya fue descargado salgo" );
+            continuarReporte= false;
+        }*/
+
+        String[] rangoFechaAfipString = new String[]{simpleDateFormat.format(rangoFechaAfip[0]), simpleDateFormat.format(rangoFechaAfip[1])};
+
         if( rangoFechaAfip[1].after(new Date())) {
             logger.warn("Ojo fecha final en el futuro "+rangoFechaAfipString[1] +  " vs Hoy " +  simpleDateFormat.format(new Date()));
             continuarReporte = false;
         }
-        //eso lo agrego para no tener que pedir reporte si ya lo tengo
-        if ( continuarReporte == true && this.communicator.ControlarFechaFile(rangoFechaAfipString[0],rangoFechaAfipString[1], consultarDatosInicializacion.getNroPos(),dateZInicial)) {
-            rangoFechaAfipStringFile[0]=this.communicator.getfFechaI();
-            rangoFechaAfipStringFile[1]=this.communicator.getfFfechaF();
-        }
-        boolean areEqual = rangoFechaAfipStringFile[0].equals(rangoFechaAfipString[0]);
-        if( areEqual == true ){
-            logger.warn("EL RANFO "+rangoFechaAfipString[0] +  " AL  " +  rangoFechaAfipString[1] + " ya fue descargado salgo" );
-            continuarReporte= false;
-        }
+
         while ( continuarReporte == true && contadorReportes < 4) {
 
             ReporteElectronico reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
@@ -157,6 +176,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
             } else {
                 logger.info("Reporte generado ok sin GAPs para Z: " + ultimaZ);
                 reporteElectronico.saveFile(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
+                reporteElectronico.saveFileAfip(consultarDatosInicializacion.getNroPos(), rangoFechaAfipString[0], rangoFechaAfipString[1]);
                 contadorReportes++;
                 DateTime ultimaFechaReporte = new DateTime(rangoFechaAfip[1]);
                 ultimaFechaReporte = ultimaFechaReporte.plusDays(1);
@@ -189,7 +209,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
     protected Date[] getRangoFechaAfip(String fecha, Boolean tipoConsulta) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
 //el nuevo cambio hace que me de el rango anterior  a la feccha de la Z
-        logger.debug("fecha recibida:  " + fecha+  " BUSCAR RANGO fecha recibida ");
+        logger.debug("fecha recibida:  " + fecha+  " BUSCAR RANGO ");
         Date parse = simpleDateFormat.parse(fecha);
         Date[] result = new Date[2];
         Integer dia = Integer.parseInt(fecha.substring(4, 6));

@@ -29,6 +29,12 @@ public class Fiscal {
 
     public static String portName;
 
+    public static int getBaudRate() {
+        return baudRate;
+    }
+
+
+
     public void PuertoSerial() {
         if (VeamosLaImpresora("T900") == 1) {
             MarcaImpresora = "EPSON";
@@ -71,13 +77,21 @@ public class Fiscal {
 /*        stopBits = Integer.valueOf(parse.getData(5));
         dataBits = Integer.valueOf(parse.getData(7));
         parity = Integer.valueOf(parse.getData(9));
-        flowControl = parse.getData(10);
+        flowControl = parse.getData(10);*/
         baudRate = Integer.valueOf(parse.getData(11));
-        firmwareVersion = parse.getData(12);
+
+/*        firmwareVersion = parse.getData(12);
         decimales = Integer.valueOf(parse.getData(13));*/
         System.out.println("El puerto com es : " +   portName );
         logger.debug("El puerto com es : " +   portName );
+        System.out.println("El Baudio es : " +   baudRate );
+        logger.debug("El baudio  es : " +   baudRate );
     }
+    public static void setBaudRate(int baudRate) {
+        Fiscal.baudRate = baudRate;
+    }
+
+    public static int baudRate;
 
     public static Hashtable openXML(String xml_File, String logicalName) {
         Hashtable result = new Hashtable();
