@@ -26,15 +26,15 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
-        logger.debug("VERSION APP EXTRACCION 4.13");
-     /*   JFrame frame = new JFrame();
+        logger.debug("VERSION APP EXTRACCION 4.47beta");
+        JFrame frame = new JFrame();
         frame.add(new JLabel("EXTRACCION DE DATOS FISCALES IMPRESORA PARA AFIP...AGUARDE"));
         frame.setVisible(true);
         frame.setAlwaysOnTop(true);
-        frame.setLocation(400,300);
+        frame.setLocation(300,300);
         frame.setSize(450,200);
         frame.getContentPane().setBackground(Color.YELLOW);
-*/
+
 /*        saveFileTest();
         System.exit(0);
 */
@@ -67,7 +67,7 @@ public class App {
 
         AuditoriaAfipSegunFechaHassar auditoriaAfipSegunFechaHassar = new AuditoriaAfipSegunFechaHassar(new HassarCommunicator());
         auditoriaAfipSegunFechaHassar.apply();
-  //      frame.dispose();
+        frame.dispose();
     }
 
     public static void saveFileTest() throws IOException {

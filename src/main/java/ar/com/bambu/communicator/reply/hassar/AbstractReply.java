@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 public abstract class AbstractReply implements Reply {
     private int tipoMensaje;
-    private int estadoImpresora;
+    private long estadoImpresora;
     private int estadoFiscal;
 
     private static final Logger logger = LogManager.getLogger(AbstractReply.class);
@@ -31,26 +31,27 @@ public abstract class AbstractReply implements Reply {
 
     public AbstractReply(HassarFrameMsg msg) {
         this.tipoMensaje = msg.getByte(1);
-        this.estadoImpresora = msg.getInteger(2);
+        this.estadoImpresora = msg.getLongHex(2);
         this.estadoFiscal = msg.getInteger(3);
         logger.debug(" estado fiscal " + estadoFiscal);
-        logger.debug(" estado impresora " + estadoImpresora);
+        logger.debug(" estado impresora " + Long.toHexString(estadoImpresora));
         int numberComando = tipoMensaje & 0xff;
         logger.debug(" comando " + numberComando);
-    }
+      }
 
     public AbstractReply() {
 
     }
     public int getTipoMensaje() {
-        return tipoMensaje;
+        int auxTipo = tipoMensaje & 0xff;
+        return auxTipo;
     }
 
     public void setTipoMensaje(int tipoMensaje) {
         this.tipoMensaje = tipoMensaje;
     }
 
-    public int getEstadoImpresora() {
+    public long getEstadoImpresora() {
         return estadoImpresora;
     }
 

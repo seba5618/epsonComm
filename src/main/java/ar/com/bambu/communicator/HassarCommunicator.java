@@ -124,20 +124,33 @@ public class HassarCommunicator {
 
 
         ReporteElectronico result = new ReporteElectronico(reply);
+        result.ConsultarEstadoImpresora(reply);
 //aca deberia ver si no es respuesta parcial manda el comando A1 de consulta en espera
         while ( result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
-            logger.info("Entramos en modo espera de la fiscal");
+            logger.info("Entramos en modo espera de la fiscal 76");
             reply = this.sendGenericMsg(new byte[]{(byte) 0xA1});
             result.update(reply, true);
+            result.ConsultarEstadoImpresora(reply);
+            if(!result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
+                logger.info("mando a grabar encabezado 76");
+                result.SetDataMsj(reply); //seteamos los valores volviendo del A1 y me respondio el 76
+            }
 
         }
+        //esto por culpa de agranel
+        logger.info("Salimos de 76 hay error fiscal ? "+ result.hayErrorFiscal());
+        if( !result.getFiscalEnEspera() && result.hayErrorFiscal()==true) {
+            logger.info("Error fiscal en comando 76!!");
+            //this.getConsultarUltimoError();
+        }
+
         while (result.isPartialData() && result.hayErrorFiscal()==false) {
             logger.info("Respuesta parcial de Hassar, llamando comando obtener siguiente bloque");
             reply = this.sendGenericMsg(new byte[]{0x77}, fechaInicial.getBytes(ISOUtil.CHARSET), fechaFinal.getBytes(ISOUtil.CHARSET), tipoReporte.getBytes(ISOUtil.CHARSET));
             result.update(reply,false);
             //todo esto medio bombero un while dentro del otro
             while ( result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
-                logger.info("Entramos en modo espera de la fiscal");
+                logger.info("Entramos en modo espera de la fiscal 77");
                 reply = this.sendGenericMsg(new byte[]{(byte) 0xA1});
                 result.update(reply,false);
 

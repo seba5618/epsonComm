@@ -23,11 +23,22 @@ public class ReporteElectronico extends AbstractReply {
     public ReporteElectronico(HassarFrameMsg msg) {
         super(msg);
         fiscalEnEspera = false;
-        this.partialData = msg.getBoolean(4);
-        this.data = msg.getString(5);
+        if( this.getTipoMensaje() != 161 ) {
+            this.partialData = msg.getBoolean(4);
+            this.data = msg.getString(5);
+            logger.debug("Inicio lectura de reporte en 76 " );
+        }
 
     }
 
+    public void SetDataMsj(HassarFrameMsg msg) {
+
+        this.partialData = msg.getBoolean(4);
+        this.data = msg.getString(5);
+        logger.info("encabezado 76 es " + this.data );
+        logger.info("partial data 76 es " + this.partialData  );
+
+    }
 
     public boolean getFiscalEnEspera() {
         return fiscalEnEspera;
@@ -61,8 +72,10 @@ public class ReporteElectronico extends AbstractReply {
             this.partialData = msg.getBoolean(4);
             if (fiscalEnEspera == false) {
                 if (this.data == null) {
+                    logger.info("Inicio acuular data");
                     this.data = msg.getString(5);
                 } else {
+                    logger.info("continuo acumular data");
                     this.data += msg.getString(5);
                 }
             }
@@ -72,7 +85,8 @@ public class ReporteElectronico extends AbstractReply {
 
     public void ConsultarEstadoImpresora(HassarFrameMsg msg) throws Exception {
         Byte tipoMensaje =msg.getByte(1);
-        Integer estadoImpresora =msg.getInteger(2);
+        Long estadoImpresora =msg.getLongHex(2);
+
         Integer estadoFiscal =msg.getInteger(3);
        // fiscalEnEspera = false;
         this.partialData = msg.getBoolean(4);
@@ -96,9 +110,12 @@ public class ReporteElectronico extends AbstractReply {
         logger.debug(" tipo Mensaje.. "+  Integer.toHexString(tipoMensaje ));
         logger.debug(" tipo Mensaje Unsigned.. "+  numberComando);
         logger.debug(" estado fiscal.. "+estadoFiscal);
-        logger.debug(" estado impresora.. "+estadoImpresora);
+        logger.debug(" estado impresora " + Long.toHexString(estadoImpresora));
+
+        this.setEstadoFiscal(estadoFiscal) ;
+        this.setEstadoImpresora( estadoImpresora.intValue());
         //comandos soportados
-        if( numberComando != 119  && numberComando != 161 ) {
+        if( numberComando != 119  && numberComando != 161 && numberComando != 118) {
             logger.warn("COMANDO EXTRANIO OJO SE DESINCRONIZO. SALIR "  );
             throw new Exception("Comando desincronizado salir ");
         }

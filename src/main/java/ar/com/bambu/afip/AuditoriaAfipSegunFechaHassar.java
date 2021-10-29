@@ -52,7 +52,14 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
             System.exit(-1);
       }
 
+        logger.error("Fecha de la ultima Z  " +obtenerRangoFechasPorZetas.getFechaZFinal() );
+
         String fechaZFinal = obtenerRangoFechasPorZetas.getFechaZFinal();
+        if( fechaZFinal == null) {
+            logger.error("Chau Me trajo NULL la fecha Z final   ");
+            System.exit(-1);
+        }
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
         dateZInicial=simpleDateFormat.parse(fechaZFinal);
         logger.info("Z = 1 Fecha  " + dateZInicial);
@@ -104,7 +111,7 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
             continuarReporte = false;
         }
 
-        while ( continuarReporte == true && contadorReportes < 4) {
+        while ( continuarReporte == true && contadorReportes < 1) {
 
             ReporteElectronico reporteElectronico = this.communicator.getObtenerReporteElectronico(rangoFechaAfipString[0], rangoFechaAfipString[1], "P");
 

@@ -40,6 +40,10 @@ public class EpsonFrameMsg extends ISOMsg {
         return this.getString(fldno) == null ? 0:Long.parseLong(this.getString(fldno));
     }
 
+    public long getLongHex(int fldno){
+        return this.getString(fldno) == null ? 0:Long.parseLong(this.getString(fldno),16);
+    }
+
     public boolean getBoolean(int fldno){
         return "S".equalsIgnoreCase(this.getString(fldno));
     }
