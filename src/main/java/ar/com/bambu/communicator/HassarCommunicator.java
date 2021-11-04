@@ -182,6 +182,7 @@ public class HassarCommunicator {
             String ptoventaprop = prop.getProperty("PtoVta");
             if (Integer.parseInt(ptoventaprop) != nroPuntoVta) {
                 //es un archivo de otro punto de venta
+                logger.error("Pto de venta erroneo " );
                 return false;
             }
             //controlemos fchas locas
@@ -195,6 +196,7 @@ public class HassarCommunicator {
             Date dateI = formatter1.parse(fFechaI);
             if (dateI.before(dateP)) {
                 //el rango es anterior a la primera Z no puede ser borremos el archivo para qe no joda
+                logger.error("Borramos archivo propeties " );
                 f.delete();
                 fFechaI = "";
                 fFfechaF = "";

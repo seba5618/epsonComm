@@ -11,7 +11,10 @@ import org.apache.logging.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 
 /**
@@ -22,11 +25,17 @@ public class App {
 
 
     private static final Logger logger = LogManager.getLogger(App.class);
+    public static final int SINGLE_INSTANCE_NETWORK_SOCKET = 43439;
+    public static final String SINGLE_INSTANCE_SHARED_KEY = "$$JavaServerHI$$\n";
 
 
     public static void main(String[] args)  throws Exception{
 
-        logger.debug("VERSION APP EXTRACCION 4.47beta");
+        logger.debug("VERSION APP EXTRACCION 4.55");
+        System.out.println("Comenzando el proceso de extraccion - Mato Jserver");
+        KillJavaserver();
+        Thread.sleep(10000);
+
         JFrame frame = new JFrame();
         frame.add(new JLabel("EXTRACCION DE DATOS FISCALES IMPRESORA PARA AFIP...AGUARDE"));
         frame.setVisible(true);
@@ -68,6 +77,7 @@ public class App {
         AuditoriaAfipSegunFechaHassar auditoriaAfipSegunFechaHassar = new AuditoriaAfipSegunFechaHassar(new HassarCommunicator());
         auditoriaAfipSegunFechaHassar.apply();
         frame.dispose();
+        System.exit(0);
     }
 
     public static void saveFileTest() throws IOException {
@@ -107,5 +117,24 @@ public class App {
             System.out.println(e);
         }
 
+    }
+    private static void KillJavaserver() {
+        System.out.println("InstanceMan: El puerto esta ocupado. Notificando a la instancia...");
+        try {
+            Socket clientSocket = new Socket(InetAddress.getLocalHost(), SINGLE_INSTANCE_NETWORK_SOCKET);
+            OutputStream out = clientSocket.getOutputStream();
+            out.write(SINGLE_INSTANCE_SHARED_KEY.getBytes());
+            out.close();
+            clientSocket.close();
+            //return false;
+        } catch (UnknownHostException e1) {
+            //INVELLog.NewLog(true, false,"InstanceMan:"+e.getMessage() );
+            //   return returnValueOnError;
+        } catch (IOException e1) {
+            //INVELLog.NewLog(true, false,"InstanceMan: Error conectando al puerto local");
+            //INVELLog.NewLog(true, false,"InstanceMan:"+e1.getMessage());
+            //    return returnValueOnError;
+
+        }
     }
 }

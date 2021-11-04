@@ -85,6 +85,8 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
             SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
             System.out.println(sdf.parse(rangoFechaAfipStringFile[0]));
 
+            logger.info("Comparo Fiscal = " + rangoFechaAfip[0] + " vs archivo " + sdf.parse(rangoFechaAfipStringFile[0]));
+
             if(sdf.parse(rangoFechaAfipStringFile[0]).before(rangoFechaAfip[0])
              || (sdf.parse(rangoFechaAfipStringFile[0]).equals(rangoFechaAfip[0]))) {
                 //cambiemos la fecha
@@ -96,6 +98,8 @@ public class AuditoriaAfipSegunFechaHassar  extends AuditoriaAfipSegunFecha impl
                 logger.info("Rango Fecha ultima Z es posterior a fecha archivo properties - Utilizo properties.");
                 rangoFechaAfip = this.getRangoFechaAfip(formater.format(ultimaFechaReporte.toDate()),true);
 
+            } else {
+                continuarReporte = false;
             };
         }
       /*  boolean areEqual = rangoFechaAfipStringFile[0].equals(rangoFechaAfipString[0]);
