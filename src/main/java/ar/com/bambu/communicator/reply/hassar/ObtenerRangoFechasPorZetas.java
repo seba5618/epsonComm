@@ -1,7 +1,10 @@
 package ar.com.bambu.communicator.reply.hassar;
 
+import ar.com.bambu.communicator.HassarCommunicator;
 import ar.com.bambu.jpos.EpsonFrameMsg;
 import ar.com.bambu.jpos.HassarFrameMsg;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
 import java.text.ParseException;
@@ -11,6 +14,8 @@ import java.util.Date;
 public class ObtenerRangoFechasPorZetas extends AbstractReply {
     private String fechaZInicial;
     private String fechaZFinal;
+    private static final Logger logger = LogManager.getLogger(HassarCommunicator.class);
+    private boolean fiscalEnEspera = false;
 
     public ObtenerRangoFechasPorZetas(HassarFrameMsg msg)  {
         super(msg);
@@ -47,6 +52,50 @@ public class ObtenerRangoFechasPorZetas extends AbstractReply {
         }
         return true;
     }
+
+    public void ConsultarEstadoImpresoraFecha(HassarFrameMsg msg) throws Exception {
+        Byte tipoMensaje =msg.getByte(1);
+        Long estadoImpresora =msg.getLongHex(2);
+
+        Integer estadoFiscal =msg.getInteger(3);
+        // fiscalEnEspera = false;
+         int numberComando = tipoMensaje & 0xff;  // w = 119 el A1=161= ¡ bytes to unsigned byte in an integer.
+        if(numberComando == 161) {
+            logger.warn("Comando de espera de la fiscal ");
+        }
+
+        if (numberComando == 161) {
+            fiscalEnEspera = true;
+            logger.warn("CRespuesta procesada; 2 campos ");
+
+        } else {
+            logger.warn("CRespuesta procesada; 4 campos ");
+            if( this.getFiscalEnEspera()) {
+                logger.warn("Fiscal Salio de espera ");
+                fiscalEnEspera = false;
+            }
+        }
+        logger.debug(" tipo Mensaje.. "+  Integer.toHexString(tipoMensaje ));
+        logger.debug(" tipo Mensaje Unsigned.. "+  numberComando);
+        logger.debug(" estado fiscal.. "+estadoFiscal);
+        logger.debug(" estado impresora " + Long.toHexString(estadoImpresora));
+
+        this.setEstadoFiscal(estadoFiscal) ;
+        this.setEstadoImpresora( estadoImpresora.intValue());
+
+    }
+
+    public boolean getFiscalEnEspera() {
+        return fiscalEnEspera;
+    }
+
+    public void SetDataMsj(HassarFrameMsg msg) {
+
+        this.fechaZInicial = msg.getString(4);
+        this.fechaZFinal = msg.getString(5);
+        logger.info("Volvio respuesta Fecha por Z " + this.fechaZInicial + " - " +  this.fechaZFinal );
+    }
+
 
     @Override
     public String toString() {

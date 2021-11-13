@@ -31,7 +31,7 @@ public class App {
 
     public static void main(String[] args)  throws Exception{
 
-        logger.debug("VERSION APP EXTRACCION 4.55");
+        logger.debug("VERSION APP EXTRACCION 4.75");
         System.out.println("Comenzando el proceso de extraccion - Mato Jserver");
         KillJavaserver();
         Thread.sleep(10000);

@@ -104,6 +104,20 @@ public class HassarCommunicator {
         String end = String.valueOf(zFinal);
         HassarFrameMsg reply = this.sendGenericMsg(new byte[]{(byte) 0xBA}, start.getBytes(ISOUtil.CHARSET), end.getBytes(ISOUtil.CHARSET));
         ObtenerRangoFechasPorZetas result = new ObtenerRangoFechasPorZetas(reply);
+
+        result.ConsultarEstadoImpresoraFecha(reply);
+//aca deberia ver si no es respuesta parcial manda el comando A1 de consulta en espera
+        while ( result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
+            logger.info("Entramos en modo espera de la fiscal Rango por fecha");
+            reply = this.sendGenericMsg(new byte[]{(byte) 0xA1});
+            result.ConsultarEstadoImpresoraFecha(reply);
+            if(!result.getFiscalEnEspera() && result.hayErrorFiscal()==false) {
+                logger.info("mando a grabar rango fechas por z");
+                result.SetDataMsj(reply); //seteamos los valores volviendo del A1 y me respondio el 76
+            }
+
+        }
+
         if (result.hayErrorFiscal()) {
             logger.info("Hubo Error Fiscal veamos cual fue");
             //pidamos el ultimo error de prueba porque aca mucho no sirve salvo para co
