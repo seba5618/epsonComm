@@ -16,6 +16,8 @@ public class EpsonFrameMsgTest {
         EpsonFrameMsg replyMsg = new EpsonFrameMsg();
         replyMsg.setPackager(new EpsonPackager());
         replyMsg.unpack(bytes);
+
+
     }
 
 }
