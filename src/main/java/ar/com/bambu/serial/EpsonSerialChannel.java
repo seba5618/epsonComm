@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
+
 public class EpsonSerialChannel {
     public static final byte STX = 0x02;
     public static final byte ETX = 0x03;
@@ -22,6 +23,8 @@ public class EpsonSerialChannel {
     private byte seq = (byte) 0x81;
     private static final Logger logger = LogManager.getLogger(EpsonSerialChannel.class);
     private String portserial;
+    private boolean puertoYaAbierto =  false;
+    private SerialPort comPort;
 
     public void setPortserial(String portserial) {
         this.portserial = portserial;
@@ -69,20 +72,53 @@ public class EpsonSerialChannel {
         return result.toByteArray();
     }
 
-    private void writeFrame(byte[] data) {
-        SerialPort comPort = SerialPort.getCommPort(this.portserial);
-        comPort.openPort();
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
-        comPort.writeBytes(data, data.length);
-        comPort.closePort();
+    private void writeFrame(byte[] data)  throws Exception  {
+        int escritos = 0;
+        if( puertoYaAbierto == false) {
+            String CommPortFiscal = Fiscal.getPortName();
+            int baudrate = Fiscal.getBaudRate();
+            //        SerialPort comPort = SerialPort.getCommPort("COM31");
+            comPort = SerialPort.getCommPort(CommPortFiscal);
+            comPort.setParity(SerialPort.NO_PARITY);
+            comPort.setNumStopBits(SerialPort.ONE_STOP_BIT);
+            comPort.setNumDataBits(8);
+            comPort.setBaudRate(baudrate);
+            //serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+
+            //comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
+            comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 20000);
+        }
+        if (!comPort.openPort()) {
+            throw new Exception("Cannot open serial port.");
+        }
+        try {
+            puertoYaAbierto =true;
+            escritos = comPort.writeBytes(data, data.length);
+
+            if (escritos == 0 || escritos == -1) {
+                comPort.closePort();
+                puertoYaAbierto =false;
+                throw new Exception("Write error. escritos " + escritos);
+            }
+        }catch (Exception e)
+        {
+            throw new Exception("Write error. escritos " + escritos);
+
+        }
+        //  comPort.closePort();
     }
 
     private byte[] readFrame() throws IOException {
-        SerialPort comPort = SerialPort.getCommPort(this.portserial);
+
+        if( puertoYaAbierto == false) {
+            String CommPortFiscal = Fiscal.getPortName();
+            // SerialPort comPort = SerialPort.getCommPort("COM31");
+            SerialPort comPort = SerialPort.getCommPort(CommPortFiscal);
 
 
-        comPort.openPort();
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
+            comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING | SerialPort.TIMEOUT_WRITE_BLOCKING, 20000, 0);
+        }
+
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
 

@@ -20,10 +20,10 @@ public class EpsonCommunicator {
     public EpsonCommunicator(Properties p) {
         this.p = p;
 
-        logger.debug("Puerto configurado: "+  p.getProperty("printer.port", " "));
+     /*   logger.debug("Puerto configurado: "+  p.getProperty("printer.port", " "));
         port=  p.getProperty("printer.port", " ");
         channel.setPortserial(port);
-
+*/
 
     }
 
@@ -63,8 +63,8 @@ public class EpsonCommunicator {
         logger.info("Sending Obtener Fecha y Hora");
         EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{0x05,0x02}, new byte[]{0x00,0x00});
         ConfiguracionFechayHora result = new ConfiguracionFechayHora(reply);
-        logger.info("Fecha: "+result.getFecha());
-        logger.info("Hora: "+result.getHora());
+        logger.info("Fecha: "+result.getFecha()); //Ddmmyy (ej: ì300102)
+        logger.info("Hora: "+result.getHora()); //Hhmmss (ej: ì113034î)
         return result;
     }
 
@@ -81,10 +81,10 @@ public class EpsonCommunicator {
         logger.info("Sending Obtener Informacion transaccional equipo");
         EpsonFrameMsg reply = this.sendGenericMsg(new byte[]{0x09,0x15}, new byte[]{0x00,0x00});
         InformacionTransaccional result = new InformacionTransaccional(reply);
-        logger.info("desde  "+result.getCintaTestigoDigitalDesde());
-        logger.info("hasta  "+result.getCintaTestigoDigitalHasta());
-		logger.info("desde  "+result.getDuplicadosADesde());
-        logger.info("hasta  "+result.getDuplicadosAHasta());
+        logger.info("Digitales desde  "+result.getCintaTestigoDigitalDesde());
+        logger.info("Digitales hasta  "+result.getCintaTestigoDigitalHasta());
+		logger.info("Duplicados desde  "+result.getDuplicadosADesde());
+        logger.info("Duplicados hasta  "+result.getDuplicadosAHasta());
         return result;
     }
 
@@ -125,12 +125,12 @@ public class EpsonCommunicator {
      * @param fechaFinal
      * @param extension
      * Bit 0
-     * ‚Äò0‚Äô ‚Äì No marcar descarga.
-     * ‚Äò1‚Äô ‚Äì Marcar descarga.
-     * Bit 1-2 ‚Äò00‚Äô ‚Äì Descarga cinta testigo digital. (CTD)
-     * ‚Äò01‚Äô ‚Äì Descarga duplicados documentos tipo ‚ÄúA‚Äù.
-     * ‚Äò10‚Äô ‚Äì Descarga resumen de totales.
-     * ‚Äò11‚Äô ‚Äì Reservado.
+     * ë0í ñ No marcar descarga.
+     * ë1í ñ Marcar descarga.
+     * Bit 1-2 ë00í ñ Descarga cinta testigo digital. (CTD)
+     * ë01í ñ Descarga duplicados documentos tipo ìAî.
+     * ë10í ñ Descarga resumen de totales.
+     * ë11í ñ Reservado.
      *
      * @todo encapsular extension, tal vez algo como algunas enums en Reporte
      * @return
